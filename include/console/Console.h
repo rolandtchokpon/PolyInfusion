@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace console {
+namespace Console {
 
 // Une instruction console est une donnée issue de la saisie utilisateur.
 // Elle ne constitue pas une implémentation du patron Commande.

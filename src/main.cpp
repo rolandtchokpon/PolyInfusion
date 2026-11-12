@@ -1,4 +1,5 @@
-#include "console/Console.h"
+#include "Console/Console.h"
+#include "../include/fabrique/FabriqueSysteme.h"
 
 #include <iostream>
 #include <string>
@@ -20,51 +21,67 @@ int main(int argc, char* argv[])
         std::cerr << "Utilisation : PolyInfusion <compact|pro>\n";
         return 1;
     }
+    Fabrique::FabriqueSysteme* fab = new Fabrique::FabriqueSysteme();
+
     const std::string modele = argv[1];
+
+    Machine::Systeme* sys = fab->creerSysteme(modele);
 
     // TODO : créer et initialiser les objets de votre conception pour le modèle choisi.
     // Ce gabarit ne fournit aucune logique métier ni implémentation de patron.
-    std::cout << "Machine PolyInfusion démarrée : modèle "
-              << (modele == "compact" ? "Compact" : "Pro") << ".\n";
+
+    std::string selection;
 
     for (std::string ligne; std::cout << "> " << std::flush, std::getline(std::cin, ligne);) {
-        const auto instruction = console::analyser(ligne);
-        switch (instruction.type) {
-        case console::TypeInstruction::Vide:
-            break;
-        case console::TypeInstruction::Aide:
-            console::afficherAide();
-            break;
-        case console::TypeInstruction::Quitter:
-            std::cout << "Arrêt de PolyInfusion.\n";
-            return 0;
-        case console::TypeInstruction::Invalide:
-            std::cout << "Erreur : " << instruction.erreur << '\n';
-            break;
-        case console::TypeInstruction::Selection:
-            // TODO : déléguer la sélection à votre application (instruction.the).
-            std::cout << "À implémenter : sélection du thé.\n";
-            break;
-        case console::TypeInstruction::Infuser:
-            // TODO : déléguer la préparation d’une portion à votre application.
-            std::cout << "À implémenter : préparation du thé.\n";
-            break;
-        case console::TypeInstruction::Reserves:
-            // TODO : déléguer l’affichage des réserves à votre application.
-            std::cout << "À implémenter : affichage des réserves.\n";
-            break;
-        case console::TypeInstruction::RemplirEau:
-            // TODO : déléguer le remplissage (instruction.quantite, en mL).
-            std::cout << "À implémenter : remplissage d’eau.\n";
-            break;
-        case console::TypeInstruction::RemplirThe:
-            // TODO : déléguer le remplissage (instruction.the, instruction.quantite en g).
-            std::cout << "À implémenter : remplissage de thé.\n";
-            break;
-        case console::TypeInstruction::Notifications:
-            // TODO : déléguer l’abonnement ou le désabonnement (instruction.notificationsActives).
-            std::cout << "À implémenter : gestion des notifications à distance.\n";
-            break;
+        try {
+            const auto instruction = Console::analyser(ligne);
+            switch (instruction.type) {
+            case Console::TypeInstruction::Vide:
+                break;
+            case Console::TypeInstruction::Aide:
+                Console::afficherAide();
+                break;
+            case Console::TypeInstruction::Quitter:
+                std::cout << "Arrêt de PolyInfusion.\n";
+                return 0;
+            case Console::TypeInstruction::Invalide:
+                std::cout << "Erreur : " << instruction.erreur << '\n';
+                break;
+            case Console::TypeInstruction::Selection:
+                // TODO : déléguer la sélection à votre application (instruction.the).
+                selection = instruction.the;
+                std::cout << "sélection du thé " << selection << std::endl;
+                break;
+            case Console::TypeInstruction::Infuser:
+                // TODO : déléguer la préparation d’une portion à votre application.
+                sys->infuser(selection);
+                break;
+            case Console::TypeInstruction::Reserves:
+                // TODO : déléguer l’affichage des réserves à votre application.
+                sys->afficherReserves();
+                break;
+            case Console::TypeInstruction::RemplirEau:
+                // TODO : déléguer le remplissage (instruction.quantite, en mL).
+                sys->remplirEau(instruction.quantite);
+                break;
+            case Console::TypeInstruction::RemplirThe:
+                // TODO : déléguer le remplissage (instruction.the, instruction.quantite en g).
+                sys->remplirThe(instruction.the, instruction.quantite);
+                break;
+            case Console::TypeInstruction::Notifications:
+                // TODO : déléguer l’abonnement ou le désabonnement (instruction.notificationsActives).
+                sys->activerNotifications(true);
+                break;
+            }
+        }
+        catch (Machine::EauInsuffisante e) {
+            std::cerr << e.what() << std::endl;
+        }
+        catch(Machine::TheInsuffisant e) {
+            std::cerr << e.what() << std::endl;
+        }
+        catch(std::exception e) {
+            std::cerr << e.what() << std::endl;
         }
     }
     std::cout << "\nArrêt de PolyInfusion.\n";

@@ -13,10 +13,10 @@ bool estUnThe(const std::string& valeur)
     return valeur == "vert" || valeur == "noir" || valeur == "oolong";
 }
 
-console::Instruction invalide(const std::string& message)
+Console::Instruction invalide(const std::string& message)
 {
-    console::Instruction resultat;
-    resultat.type = console::TypeInstruction::Invalide;
+    Console::Instruction resultat;
+    resultat.type = Console::TypeInstruction::Invalide;
     resultat.erreur = message;
     return resultat;
 }
@@ -35,7 +35,7 @@ bool lireQuantite(const std::string& texte, double& quantite)
 
 } // namespace
 
-namespace console {
+namespace Console {
 
 Instruction analyser(const std::string& ligne)
 {
@@ -97,4 +97,4 @@ void afficherAide()
         << "q : quitter l’application.\n";
 }
 
-} // namespace console
+} // namespace Console
