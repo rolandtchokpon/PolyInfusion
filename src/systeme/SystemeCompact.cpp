@@ -3,8 +3,8 @@
 
 namespace Machine {
 
-    SystemeCompact::SystemeCompact(DistributeurEau* distributeurEau, DistributeurThe* distributeurThe, SystemeChauffage* systemeChauffage) :
-        Systeme(distributeurEau, distributeurThe, systemeChauffage)    
+    SystemeCompact::SystemeCompact(Reserve* reserve, DistributeurEau* dEau, DistributeurThe* dThe, SystemeChauffage* sysChauff) :
+        Systeme(reserve, dEau, dThe, sysChauff)    
     {
         std::cout <<  "Machine PolyInfusion démarrée : modèle Compact." << std::endl;
     }

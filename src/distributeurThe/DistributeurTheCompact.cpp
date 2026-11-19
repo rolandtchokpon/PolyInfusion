@@ -8,6 +8,6 @@ namespace Machine {
     DistributeurTheCompact::~DistributeurTheCompact() = default;
 
 
-    DistributeurTheCompact::DistributeurTheCompact() : DistributeurThe(RATIO_SURPLUS_COMPACT) {}
+    DistributeurTheCompact::DistributeurTheCompact(Reserve *reserve) : DistributeurThe(reserve, RATIO_SURPLUS_COMPACT) {}
 
 } // namespace Machine

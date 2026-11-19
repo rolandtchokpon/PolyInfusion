@@ -4,30 +4,30 @@
 #include <iostream>
 #include "../../include/systeme/Systeme.h"
 
-namespace Machine {
+namespace Machine
+{
 
-    Systeme::~Systeme() {
-        delete distributeurEau_;
-        delete distributeurThe_;
-        delete systemeChauffage_;
-        delete infuseur_;
-        delete rinceur_;
-    };
+    Systeme::~Systeme() = default;
 
-    Systeme::Systeme(DistributeurEau* distributeurEau, DistributeurThe* distributeurThe, SystemeChauffage* systemeChauffage) :
-        distributeurEau_(distributeurEau), 
-        distributeurThe_(distributeurThe), 
-        systemeChauffage_(systemeChauffage),
-        infuseur_(new Infuseur(distributeurEau_, distributeurThe_, systemeChauffage_)),
-        rinceur_(new Rinceur(distributeurEau_, distributeurThe_, systemeChauffage_)),
-        quitter_(false)
-    {}
+    Systeme::Systeme(std::unique_ptr<Reserve> &reserve, std::unique_ptr<DistributeurEau> &dEau,
+                     std::unique_ptr<DistributeurThe> &dThe, std::unique_ptr<SystemeChauffage> &sysChauff) : reserve_(std::move(reserve)),
+                                                                                                             distributeurEau_(std::move(dEau)),
+                                                                                                             distributeurThe_(std::move(dThe)),
+                                                                                                             systemeChauffage_(std::move(sysChauff)),
+                                                                                                             infuseur_(std::make_unique<Infuseur>(distributeurEau_.get(), distributeurThe_.get(), systemeChauffage_.get())),
+                                                                                                             rinceur_(std::make_unique<Rinceur>(distributeurEau_.get(), distributeurThe_.get(), systemeChauffage_.get())),
+                                                                                                             ecran_(std::make_unique<Notification::Ecran>(reserve_.get())),
+                                                                                                             app_(std::make_unique<Notification::AppDistant>(reserve_.get())),
+                                                                                                             quitter_(false)
+    {
+    }
 
-    void Systeme::infuser(const std::string& nomThe) {
-        const The& the = distributeurThe_->obtenirThe(nomThe);
+    void Systeme::infuser(const std::string &nomThe)
+    {
+        const The &the = distributeurThe_->obtenirThe(nomThe);
 
-        distributeurEau_->eauSuffisante(the.volumeService + the.volumeRincage);
-        distributeurThe_->theSuffisant(the.nom, the.quantiteService);
+        reserve_->eauSuffisante(the.volumeService + the.volumeRincage, distributeurEau_->obtenirRatio());
+        reserve_->theSuffisant(the.nom, the.quantiteService, distributeurThe_->obtenirRatio());
 
         std::cout << "Préparation d'un thé " << the.nom << "." << std::endl;
 
@@ -38,22 +38,18 @@ namespace Machine {
         std::cout << "Votre thé est prêt." << std::endl;
     }
 
-    void Systeme::remplirEau(double quantite) { distributeurEau_-> remplirEau(quantite); }
+    void Systeme::remplirEau(double quantite) { reserve_->remplirEau(quantite); }
 
-    void Systeme::remplirThe(const std::string& the, double quantite) { distributeurThe_->remplirThe(the, quantite); }
+    void Systeme::remplirThe(const std::string &the, double quantite) { reserve_->remplirThe(the, quantite); }
 
-    void Systeme::afficherReserves() const {
-        distributeurEau_->afficherReserves();
-        distributeurThe_->afficherReserves();
-    }
+    void Systeme::afficherReserves() const { reserve_->afficherReserves(); }
 
-    void Systeme::activerNotifications(bool activer) {
-        distributeurEau_->activerNotifications(activer);
-        distributeurThe_->activerNotifications(activer);
-    }
+    void Systeme::activerNotifications(bool activer) { reserve_->activerNotifications(activer); }
 
-    bool Systeme::quitter(bool oui) {
-        if (oui) {
+    bool Systeme::quitter(bool oui)
+    {
+        if (oui)
+        {
             std::cout << "Arrêt de PolyInfusion" << std::endl;
             quitter_ = oui;
         }
@@ -61,9 +57,31 @@ namespace Machine {
         return quitter_;
     }
 
-    void Systeme::ajouterObservateur(Notification::Observateur* o) {
-        distributeurEau_->ajouterObservateur(o);
-        distributeurThe_->ajouterObservateur(o);
+    void Systeme::ajouterObservateur(Notification::Observateur *o) { reserve_->ajouterObservateur(o); }
+
+    const std::string &Systeme::theSelectionne() const { return theSelectionne_; }
+
+    void afficherAide() const
+    {
+        std::cout
+            << "selection <vert|noir|oolong> : sélectionner le thé à préparer.\n"
+            << "infuser : préparer le nombre de portions du thé sélectionné configuré.\n"
+            << "reserves : afficher les réserves d’eau et de thé.\n"
+            << "remplir eau <quantite> : ajouter de l’eau, en millilitres.\n"
+            << "remplir <vert|noir|oolong> <quantite> : ajouter du thé, en grammes.\n"
+            << "notifications <activer|désactiver> : gérer les notifications à distance.\n"
+            << "portions <nombre> : modifier le nombre de portions\n"
+            << "configuration : afficher la configuration actuelle\n"
+            << "routine <Solo|Duo|Matin> : appliquer la routine indiquée\n"
+            << "apercu <Solo|Duo|Matin> : afficher les changements de réglages de la routine\n"
+            << "undo : annuler la dernière opération réversible\n"
+            << "redo : retablir la dernière opération annulée\n"
+            << "h : afficher cette aide.\n"
+            << "q : quitter l’application.\n";
     }
 
-}  // namespace Machine
+    void Systeme::modifierPortions(unsigned int portions) { portions_ = portions; }
+
+    void Systeme::modifierTheSelectionne(const std::string &the) { theSelectionne_ = the; }
+
+} // namespace Machine

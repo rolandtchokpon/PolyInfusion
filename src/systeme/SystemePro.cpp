@@ -6,8 +6,8 @@
 
 namespace Machine {
 
-    SystemePro::SystemePro(DistributeurEau* distributeurEau, DistributeurThe* distributeurThe, SystemeChauffage* systemeChauffage) :
-        Systeme(distributeurEau, distributeurThe, systemeChauffage)    
+    SystemePro::SystemePro(Reserve* reserve, DistributeurEau* dEau, DistributeurThe* dThe, SystemeChauffage* sysChauff) :
+        Systeme(reserve, dEau, dThe, sysChauff)    
     {
         std::cout <<  "Machine PolyInfusion démarrée : modèle Pro." << std::endl;
     }

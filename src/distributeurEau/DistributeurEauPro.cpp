@@ -8,6 +8,6 @@ namespace Machine {
     DistributeurEauPro::~DistributeurEauPro() = default;
 
 
-    DistributeurEauPro::DistributeurEauPro() : DistributeurEau(RATIO_SURPLUS_PRO) {}
+    DistributeurEauPro::DistributeurEauPro(Reserve *reserve) : DistributeurEau(reserve, RATIO_SURPLUS_PRO) {}
 
 } // namespace Machine

@@ -4,7 +4,8 @@
 namespace Notification {
 
     Notificateur::Notificateur() : 
-        etat_(Etat::CORRECT), 
+        etatEau_(Etat::CORRECT),
+        etatThe_(Etat::CORRECT),
         notificationsActives_(true) 
     {
         observateurs_.clear();
@@ -21,9 +22,13 @@ namespace Notification {
         observateurs_.erase(it);
     }
 
-    Etat Notificateur::obtenirEtat() { return etat_; }
+    Etat Notificateur::obtenirEtatEau() { return etatEau_; }
 
-    void Notificateur::mettreEtat(Etat e) { etat_ = e; }
+    Etat Notificateur::obtenirEtatThe() { return etatThe_; }
+
+    void Notificateur::mettreEtatEau(Etat e) { etatEau_ = e; }
+
+    void Notificateur::mettreEtatThe(Etat e) { etatThe_ = e; }
 
     void Notificateur::notifier(double qte) {
         if (notificationsActives_) {

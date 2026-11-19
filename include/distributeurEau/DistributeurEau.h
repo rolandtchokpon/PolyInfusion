@@ -3,26 +3,24 @@
 #include <iostream>
 #include <map>
 
-#include "../notification/Notificateur.h"
-#include "EauInsuffisante.h"
+#include "../reserve/Reserve.h"
 
-namespace Machine {
+namespace Machine
+{
 
-    class DistributeurEau : public Notification::Notificateur {
-        public:
-            virtual ~DistributeurEau() = 0;
+    class DistributeurEau
+    {
+    public:
+        virtual ~DistributeurEau() = 0;
 
-            void distribuerEau(double quantite);
-            void remplirEau(double quantite);
-            void afficherReserves() const;
-            void activerNotifications(bool activer);
-            void eauSuffisante(double quantite) const;
-        
-        protected:
-            DistributeurEau(double ratioSurplus);
+        void distribuerEau(double quantite);
+        double obtenirRatio() const;
 
-            double ratio_;
-            double quantiteEau_;
+    protected:
+        DistributeurEau(Reserve *reserve, double ratioSurplus);
+
+        Reserve *reserve_;
+        double ratio_;
     };
 
 } // namespace Machine

@@ -10,11 +10,8 @@ namespace Machine {
 
     class SystemeCompact : public Systeme {
         public:
-            SystemeCompact(DistributeurEau* distributeurEau, DistributeurThe* distributeurThe, SystemeChauffage* systemeChauffage);
+            SystemeCompact(std::unique_ptr<Reserve> &reserve, std::unique_ptr<DistributeurEau> &dEau, std::unique_ptr<DistributeurThe> &dThe, std::unique_ptr<SystemeChauffage> &sysChauff);
             virtual ~SystemeCompact();
-
-        protected:
-            virtual void dummy() override {}
     };
 
 } // namespace Machine

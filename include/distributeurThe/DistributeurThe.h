@@ -2,30 +2,26 @@
 #pragma once
 
 #include <iostream>
-#include <map>
 
-#include "../notification/Notificateur.h"
-#include "TheInsuffisant.h"
+#include "../reserve/Reserve.h"
 
-namespace Machine {
-    
-    class DistributeurThe : public Notification::Notificateur {
-        public:
-            virtual ~DistributeurThe() = 0;
+namespace Machine
+{
 
-            void distribuerThe(const std::string& the, double quantite);
-            void remplirThe(const std::string& the, double quantite);
-            void afficherReserves() const;
-            void activerNotifications(bool activer);
-            void ajouterThe(const The& the);
-            void theSuffisant(const std::string& nomThe, double quantite) const;
-            const The& obtenirThe(const std::string& nomThe) const;
-        
-        protected:
-            DistributeurThe(double ratioSurplus);
+    class DistributeurThe
+    {
+    public:
+        virtual ~DistributeurThe() = 0;
 
-            double ratio_;
-            std::map<std::string, The> reserves_;
+        void distribuerThe(const std::string &the, double quantite);
+        const The &obtenirThe(const std::string &the);
+        double obtenirRatio() const;
+
+    protected:
+        DistributeurThe(Reserve *reserve, double ratioSurplus);
+
+        Reserve *reserve_;
+        double ratio_;
     };
 
 } // namespace Machine

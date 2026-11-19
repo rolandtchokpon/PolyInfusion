@@ -7,7 +7,7 @@ namespace Machine {
 
     class DistributeurThePro : public DistributeurThe {
         public:
-            DistributeurThePro();
+            DistributeurThePro(Reserve *reserve);
             virtual ~DistributeurThePro();
     };
 

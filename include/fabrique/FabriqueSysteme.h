@@ -6,21 +6,25 @@
 #include "../notification/AppDistant.h"
 #include "../notification/Ecran.h"
 
-namespace Fabrique {
+namespace Fabrique
+{
 
-    class FabriqueSysteme {
-        public:
-            FabriqueSysteme();
-            ~FabriqueSysteme();
+    class FabriqueSysteme
+    {
+    public:
+        virtual ~FabriqueSysteme();
+        virtual Machine::Systeme *creerSysteme() = 0;
 
-            Machine::Systeme* creerSysteme(const std::string& modele);
-        
-        private:
-            Machine::Systeme* creerSystemeCompact();
-            Machine::Systeme* creerSystemePro();
+    protected:
+        FabriqueSysteme();
 
-            Notification::Observateur* ecran_;
-            Notification::Observateur* app_;
+        std::shared_ptr<Machine::Reserve> reserve_;
+        std::shared_ptr<Notification::Observateur> ecran_;
+        std::shared_ptr<Notification::Observateur> app_;
+        std::shared_ptr<Machine::DistributeurEau> dEau_;
+        std::shared_ptr<Machine::DistributeurThe> dThe_;
+        std::shared_ptr<Machine::SystemeChauffage> dThe_;
+        std::shared_ptr<Machine::Systeme> systeme_;
     };
 
 } // namespace Fabrique

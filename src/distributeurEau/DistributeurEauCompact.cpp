@@ -7,6 +7,6 @@ namespace Machine {
 
     DistributeurEauCompact::~DistributeurEauCompact() = default;
 
-    DistributeurEauCompact::DistributeurEauCompact() : DistributeurEau(RATIO_SURPLUS_COMPACT) {}
+    DistributeurEauCompact::DistributeurEauCompact(Reserve *reserve) : DistributeurEau(reserve, RATIO_SURPLUS_COMPACT) {}
 
 }  // namespace Machine

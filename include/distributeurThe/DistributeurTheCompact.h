@@ -3,12 +3,14 @@
 
 #include "DistributeurThe.h"
 
-namespace Machine {
+namespace Machine
+{
 
-    class DistributeurTheCompact : public DistributeurThe {
-        public:
-            DistributeurTheCompact();
-            virtual ~DistributeurTheCompact();
+    class DistributeurTheCompact : public DistributeurThe
+    {
+    public:
+        DistributeurTheCompact(Reserve *reserve);
+        virtual ~DistributeurTheCompact();
     };
 
 } // namespace Machine

@@ -3,12 +3,14 @@
 
 #include "DistributeurEau.h"
 
-namespace Machine {
+namespace Machine
+{
 
-    class DistributeurEauPro : public DistributeurEau {
-        public:
-            DistributeurEauPro();
-            virtual ~DistributeurEauPro();
+    class DistributeurEauPro : public DistributeurEau
+    {
+    public:
+        DistributeurEauPro(Reserve *reserve);
+        virtual ~DistributeurEauPro();
     };
 
 } // namespace Machine

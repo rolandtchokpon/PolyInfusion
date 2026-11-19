@@ -3,15 +3,14 @@
 
 namespace Notification {
 
-    Ecran::Ecran(Machine::DistributeurEau* dEau, Machine::DistributeurThe* dThe) :
-        dEau_(dEau),
-        dThe_(dThe)
+    Ecran::Ecran(Machine::Reserve* reserve) :
+        reserve_(reserve)
     {}
 
     Ecran::~Ecran() = default;
 
     void Ecran::notifier(double qte) {
-        auto etat = dEau_->obtenirEtat();
+        auto etat = reserve_->obtenirEtatEau();
 
         if (qte < SEUIL_QTE_EAU && etat == Etat::CORRECT) {
             std::cout << "[Ecran] Réserve d'eau faible : " << qte << " mL." << std::endl;
@@ -22,7 +21,7 @@ namespace Notification {
     }
 
     void Ecran::notifier(const std::string& the, double qte) {
-        auto etat = dThe_->obtenirEtat();
+        auto etat = reserve_->obtenirEtatThe();
 
         if (qte < SEUIL_QTE_THE && etat == Etat::CORRECT) {
             std::cout << "[Ecran] Réserve de the " << the << " faible : " << qte << " g." << std::endl;

@@ -10,10 +10,8 @@ namespace Machine {
 
     class SystemePro : public Systeme {
         public:
-            SystemePro(DistributeurEau* distributeurEau, DistributeurThe* distributeurThe, SystemeChauffage* systemeChauffage);
+            SystemePro(std::unique_ptr<Reserve> &reserve, std::unique_ptr<DistributeurEau> &dEau, std::unique_ptr<DistributeurThe> &dThe, std::unique_ptr<SystemeChauffage> &sysChauff);
             virtual ~SystemePro();
-
-            virtual void dummy() override {}
     };
 
 } // namespace Machine

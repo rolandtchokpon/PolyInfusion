@@ -7,11 +7,9 @@ add_executable(PolyInfusion
     src/distributeurEau/DistributeurEau.cpp
     src/distributeurEau/DistributeurEauPro.cpp
     src/distributeurEau/DistributeurEauCompact.cpp
-    src/distributeurEau/EauInsuffisante.cpp
     src/distributeurThe/DistributeurThe.cpp
     src/distributeurThe/DistributeurThePro.cpp
     src/distributeurThe/DistributeurTheCompact.cpp
-    src/distributeurThe/TheInsuffisant.cpp
     src/fabrique/FabriqueSysteme.cpp
     src/notification/AppDistant.cpp
     src/notification/Ecran.cpp
@@ -19,6 +17,9 @@ add_executable(PolyInfusion
     src/notification/Observateur.cpp
     src/preparation/Infuseur.cpp
     src/preparation/Rinceur.cpp
+    src/reserve/EauInsuffisante.cpp
+    src/reserve/Reserve.cpp
+    src/reserve/TheInsuffisant.cpp
     src/systeme/Systeme.cpp
     src/systeme/SystemePro.cpp
     src/systeme/SystemeCompact.cpp

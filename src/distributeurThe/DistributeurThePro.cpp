@@ -7,6 +7,6 @@ namespace Machine {
 
     DistributeurThePro::~DistributeurThePro() = default;
 
-    DistributeurThePro::DistributeurThePro() : DistributeurThe(RATIO_SURPLUS_PRO) {}
+    DistributeurThePro::DistributeurThePro(Reserve *reserve) : DistributeurThe(reserve, RATIO_SURPLUS_PRO) {}
 
 } // namespace Machine
