@@ -1,6 +1,7 @@
 
 #pragma once
-
+#include <memory>
+#include "Routine.h"
 #include "../preparation/Infuseur.h"
 #include "../preparation/Rinceur.h"
 #include "../notification/Ecran.h"
@@ -21,10 +22,13 @@ namespace Machine
         void afficherReserves() const;
         void activerNotifications(bool activer);
         bool quitter(bool oui);
+        bool doitQuitter();
         void ajouterObservateur(Notification::Observateur *o);
         const std::string &theSelectionne() const;
+        unsigned int portions() const;
         void modifierPortions(unsigned int portions);
         void modifierTheSelectionne(const std::string &the);
+        void appliquerRoutine(Routine r);
 
     protected:
         Systeme(std::unique_ptr<Reserve> &reserve, std::unique_ptr<DistributeurEau> &dEau, std::unique_ptr<DistributeurThe> &dThe, std::unique_ptr<SystemeChauffage> &sysChauff);
@@ -39,6 +43,7 @@ namespace Machine
         std::unique_ptr<Notification::Ecran> ecran_;
         std::unique_ptr<Notification::AppDistant> app_;
 
+        Routine routine_;
         unsigned int portions_;
         std::string theSelectionne_;
         bool quitter_;

@@ -3,8 +3,8 @@
 
 #include "../systeme/SystemeCompact.h"
 #include "../systeme/SystemePro.h"
-#include "../notification/AppDistant.h"
-#include "../notification/Ecran.h"
+#include "../executeur/Executeur.h"
+#include "../console/Console.h"
 
 namespace Fabrique
 {
@@ -13,18 +13,13 @@ namespace Fabrique
     {
     public:
         virtual ~FabriqueSysteme();
-        virtual Machine::Systeme *creerSysteme() = 0;
+        
+        virtual std::unique_ptr<Machine::Systeme> &creerSysteme() = 0;
+        std::unique_ptr<Execution::Executeur> &creerExecuteur(Machine::Systeme *sys);
+        std::unique_ptr<Console::InterfaceConsole>& creerInterfaceConsole();
 
     protected:
         FabriqueSysteme();
-
-        std::shared_ptr<Machine::Reserve> reserve_;
-        std::shared_ptr<Notification::Observateur> ecran_;
-        std::shared_ptr<Notification::Observateur> app_;
-        std::shared_ptr<Machine::DistributeurEau> dEau_;
-        std::shared_ptr<Machine::DistributeurThe> dThe_;
-        std::shared_ptr<Machine::SystemeChauffage> dThe_;
-        std::shared_ptr<Machine::Systeme> systeme_;
     };
 
 } // namespace Fabrique

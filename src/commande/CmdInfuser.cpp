@@ -1,0 +1,21 @@
+
+#include "../../include/commande/CmdInfuser.h"
+
+namespace CMD
+{
+
+    CmdInfuser::CmdInfuser() : Commande(false) {}
+
+    CmdInfuser::~CmdInfuser() = default;
+
+    void CmdInfuser::executer(const Console::Instruction &inst, Machine::Systeme *sys)
+    {
+        for (unsigned int i = 0; i < sys->portions(); ++i)
+            sys->infuser(inst.the);
+    }
+
+    void undo(Machine::Systeme *sys)
+    {
+        std::cout << "Ceci n'est pas une commande réversible." << std::endl;
+    }
+}

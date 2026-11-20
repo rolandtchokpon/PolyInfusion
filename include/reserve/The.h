@@ -8,12 +8,12 @@ namespace Machine
 
     struct The
     {
-        std::string nom = "";
-        double quantiteService = 5.0;     // g
-        double volumeRincage = 0.0;       // mL
-        double volumeService = 250.0;     // mL
-        double temperatureInfusion = 0.0; // °C
-        double tempsInfusion = 0.0;       // secondes
+        std::string nom;
+        double quantiteService = 5.0; // g
+        double volumeRincage = 0.0;   // mL
+        double volumeService = 250.0; // mL
+        double temperatureInfusion;   // °C
+        double tempsInfusion;         // secondes
 
         double quantite = 20.0; // g
     };
@@ -49,4 +49,4 @@ namespace Machine
         }
     };
 
-}
+} // namespace Machine

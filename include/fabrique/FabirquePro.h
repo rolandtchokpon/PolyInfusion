@@ -8,8 +8,8 @@ namespace Fabrique
     {
         FabriquePro();
         ~FabriquePro();
-        
-        virtual Machine::Systeme *creerSysteme() override;
+
+        virtual std::unique_ptr<Machine::Systeme> &creerSysteme() override;
     };
 
 } // namespace Fabrique

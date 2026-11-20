@@ -9,7 +9,7 @@ namespace Fabrique
         FabriqueCompact();
         ~FabriqueCompact();
         
-        virtual Machine::Systeme* creerSysteme() override;
+        virtual std::unique_ptr<Machine::Systeme> &creerSysteme() override;
     };
 
 } // namespace Fabrique

@@ -57,31 +57,48 @@ namespace Machine
         return quitter_;
     }
 
+    bool Systeme::doitQuitter() { return quitter_; }
+
     void Systeme::ajouterObservateur(Notification::Observateur *o) { reserve_->ajouterObservateur(o); }
 
     const std::string &Systeme::theSelectionne() const { return theSelectionne_; }
 
-    void afficherAide() const
+    unsigned int Systeme::portions() const { return portions_; }
+
+    void Systeme::modifierPortions(unsigned int portions)
     {
-        std::cout
-            << "selection <vert|noir|oolong> : sélectionner le thé à préparer.\n"
-            << "infuser : préparer le nombre de portions du thé sélectionné configuré.\n"
-            << "reserves : afficher les réserves d’eau et de thé.\n"
-            << "remplir eau <quantite> : ajouter de l’eau, en millilitres.\n"
-            << "remplir <vert|noir|oolong> <quantite> : ajouter du thé, en grammes.\n"
-            << "notifications <activer|désactiver> : gérer les notifications à distance.\n"
-            << "portions <nombre> : modifier le nombre de portions\n"
-            << "configuration : afficher la configuration actuelle\n"
-            << "routine <Solo|Duo|Matin> : appliquer la routine indiquée\n"
-            << "apercu <Solo|Duo|Matin> : afficher les changements de réglages de la routine\n"
-            << "undo : annuler la dernière opération réversible\n"
-            << "redo : retablir la dernière opération annulée\n"
-            << "h : afficher cette aide.\n"
-            << "q : quitter l’application.\n";
+        portions_ = portions;
+        std::cout << "Nombre de portions : " << portions_ << std::endl;
     }
 
-    void Systeme::modifierPortions(unsigned int portions) { portions_ = portions; }
+    void Systeme::modifierTheSelectionne(const std::string &the)
+    {
+        theSelectionne_ = the;
+        std::cout << "Thé sélectionné : " << theSelectionne_ << std::endl;
+    }
 
-    void Systeme::modifierTheSelectionne(const std::string &the) { theSelectionne_ = the; }
+    void Systeme::appliquerRoutine(Routine r)
+    {
+        switch (r.type)
+        {
+        case TypeRoutine::Solo:
+            modifierTheSelectionne(r.the);
+            modifierPortions(r.portions);
+            break;
+
+        case TypeRoutine::Duo:
+            modifierTheSelectionne(r.the);
+            modifierPortions(r.portions);
+            break;
+
+        case TypeRoutine::Matin:
+            appliquerRoutine(Duo());
+            modifierTheSelectionne(r.the);
+            break;
+
+        default:
+            break;
+        }
+    }
 
 } // namespace Machine
