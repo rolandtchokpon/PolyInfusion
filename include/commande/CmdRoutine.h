@@ -14,7 +14,7 @@ namespace CMD
 
     private:
         Machine::Routine lireRoutine(const std::string &r);
-        Routine routine_;
+        Machine::Routine routine_;
     };
 
 } // namespace Commande
