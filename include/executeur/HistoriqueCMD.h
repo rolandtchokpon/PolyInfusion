@@ -1,35 +1,35 @@
 
 #pragma once
-#include "../commande/ApercuCmd.h"
-#include "../commande/ConfigCmd.h"
-#include "../commande/AideCmd.h"
-#include "../commande/InfuserCmd.h"
-#include "../commande/NotifCmd.h"
-#include "../commande/PortionCmd.h"
-#include "../commande/QuitCmd.h"
-#include "../commande/RemplirEauCmd.h"
-#include "../commande/RemplirTheCmd.h"
-#include "../commande/ReserveCmd.h"
-#include "../commande/RoutineCmd.h"
-#include "../commande/SelectionCmd.h"
+#include "../commande/CmdApercu.h"
+#include "../commande/CmdConfig.h"
+#include "../commande/CmdAide.h"
+#include "../commande/CmdInfuser.h"
+#include "../commande/CmdNotif.h"
+#include "../commande/CmdPortion.h"
+#include "../commande/CmdQuit.h"
+#include "../commande/CmdRemplirEau.h"
+#include "../commande/CmdRemplirThe.h"
+#include "../commande/CmdReserve.h"
+#include "../commande/CmdRoutine.h"
+#include "../commande/CmdSelection.h"
 
 namespace Execution
 {
 
-    class HistoriqueCMD
+    class Historique
     {
     public:
-        HistoriqueCMD();
-        ~HistoriqueCMD();
+        Historique();
+        ~Historique();
 
         void undo(Machine::Systeme *sys);
         void redo(Machine::Systeme *sys);
 
-        void ajouterCmd(std::shared_ptr<CMD::Commande> &cmd);
+        void ajouter(std::shared_ptr<::Commande> &);
 
     private:
-        std::shared_ptr<CMD::Commande> dernierUndo_;
-        std::vector<std::shared_ptr<CMD::Commande>> cmdReversibles_;
+        std::shared_ptr<::Commande> dernierUndo_;
+        std::vector<std::shared_ptr<::Commande>> Reversibles_;
     };
 
 } // namespace Execution
