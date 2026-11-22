@@ -1,5 +1,4 @@
 #pragma once
-#include <string>
 #include <unordered_map>
 #include "Mot.h"
 #include "Instruction.h"
@@ -11,7 +10,7 @@ namespace Console
         InterfaceConsole();
         ~InterfaceConsole();
 
-        const Instruction &analyser(const std::string &ligne);
+        const Instruction analyser(const std::string &ligne);
 
     private:
         bool estUnThe(const std::string &valeur);

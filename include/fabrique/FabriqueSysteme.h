@@ -12,11 +12,8 @@ namespace Fabrique
     class FabriqueSysteme
     {
     public:
-        virtual ~FabriqueSysteme();
-        
-        virtual std::unique_ptr<Machine::Systeme> &creerSysteme() = 0;
-        std::unique_ptr<Execution::Executeur> &creerExecuteur(Machine::Systeme *sys);
-        std::unique_ptr<Console::InterfaceConsole>& creerInterfaceConsole();
+        virtual ~FabriqueSysteme() = 0;
+        virtual std::unique_ptr<Machine::Systeme> creerSysteme() = 0;
 
     protected:
         FabriqueSysteme();

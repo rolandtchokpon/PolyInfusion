@@ -20,6 +20,6 @@ namespace CMD
 
     void CmdPortion::undo(Machine::Systeme *sys)
     {
-        sys->modifierPortions(portionsAvant_);
+        sys->modifierPortions(portionsAvant_, afficherModif_);
     }
 }

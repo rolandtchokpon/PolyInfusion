@@ -21,6 +21,8 @@ namespace Execution
             dernierUndo_ = cmdReversibles_.back();
             cmdReversibles_.pop_back();
             dernierUndo_->undo(sys);
+
+            std::cout << "Opération annulée." << std::endl;
             return;
         }
 
@@ -33,6 +35,8 @@ namespace Execution
         {
             dernierUndo_->executer(dernierUndo_->sauvgarde(), sys);
             dernierUndo_ = nullptr;
+
+            std::cout << "Opération rétablie." << std::endl;
             return;
         }
 

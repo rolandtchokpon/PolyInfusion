@@ -18,6 +18,8 @@ namespace Machine
                                                                                                              rinceur_(std::make_unique<Rinceur>(distributeurEau_.get(), distributeurThe_.get(), systemeChauffage_.get())),
                                                                                                              ecran_(std::make_unique<Notification::Ecran>(reserve_.get())),
                                                                                                              app_(std::make_unique<Notification::AppDistant>(reserve_.get())),
+                                                                                                             portions_(1),
+                                                                                                             theSelectionne_(""),
                                                                                                              quitter_(false)
     {
     }

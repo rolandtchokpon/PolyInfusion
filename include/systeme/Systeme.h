@@ -42,7 +42,6 @@ namespace Machine
         std::unique_ptr<Rinceur> rinceur_;
         std::unique_ptr<Notification::Ecran> ecran_;
         std::unique_ptr<Notification::AppDistant> app_;
-        std::unique_ptr<Routine::IRoutine> routine_;
 
         unsigned int portions_;
         std::string theSelectionne_;

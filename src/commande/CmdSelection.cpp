@@ -11,18 +11,15 @@ namespace CMD
     void CmdSelection::executer(const Console::Instruction &inst, Machine::Systeme *sys)
     {
         instruction_ = inst;
-        
-        theAvant_ = sys->theSelectionne();
-        sys->modifierTheSelectionne(inst.the);
 
-        if (afficherModif_)
-            std::cout << "Thé sélectionné : " << sys->theSelectionne() << std::endl;
+        theAvant_ = sys->theSelectionne();
+        sys->modifierTheSelectionne(inst.the, afficherModif_);
 
         afficherModif_ = false;
     }
 
     void CmdSelection::undo(Machine::Systeme *sys)
     {
-        sys->modifierTheSelectionne(theAvant_);
+        sys->modifierTheSelectionne(theAvant_, afficherModif_);
     }
 }

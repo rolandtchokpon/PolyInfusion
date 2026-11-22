@@ -1,6 +1,8 @@
 
 #pragma once
-#include "../systeme/Systeme.h"
+#include <string>
+
+namespace Machine { class Systeme; } 
 
 namespace Routine
 {

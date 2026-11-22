@@ -1,6 +1,7 @@
 
 #pragma once
 #include "TypeInstruction.h"
+#include <string>
 
 namespace Console
 {

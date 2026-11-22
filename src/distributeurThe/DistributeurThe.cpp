@@ -18,7 +18,7 @@ namespace Machine
 
     const The& DistributeurThe::obtenirThe(const std::string &the)
     {
-        reserve_->obtenirThe(the);
+        return reserve_->obtenirThe(the);
     }
 
     double DistributeurThe::obtenirRatio() const { return ratio_; }
