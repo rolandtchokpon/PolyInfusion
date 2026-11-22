@@ -8,11 +8,11 @@ namespace Routine
     class Solo : public IRoutine
     {
     public:
-        ~Solo();
-        virtual void appliquer(Machine::Systeme *sys) const override;
-
-    protected:
+        virtual ~Solo();
         Solo();
+
+        virtual void appliquer(Machine::Systeme *sys, bool afficherModif) const override;
+        virtual void apercu() const override;
     };
 
 }

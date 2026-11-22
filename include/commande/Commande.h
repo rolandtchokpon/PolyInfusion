@@ -25,10 +25,10 @@ namespace CMD
         std::shared_ptr<Routine::IRoutine> lireRoutine(const std::string &r);
 
         bool estReversible_;
-        Console::Instruction instruction_;
-        std::string theAvant_;
+        bool afficherModif_;
         unsigned int portionsAvant_;
-        unsigned int compteur_;
+        std::string theAvant_;
+        Console::Instruction instruction_;
     };
 
 } // namespace Commande

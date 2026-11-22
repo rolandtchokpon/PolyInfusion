@@ -11,7 +11,9 @@ namespace CMD
     void CmdApercu::executer(const Console::Instruction &inst, Machine::Systeme *sys)
     {
         // TODO
-        std::cout << "Implémentation de <<apercu>>  à faire" << std::endl;
+        auto r = lireRoutine(inst.routine);
+
+        r->apercu();
     }
 
     void CmdApercu::undo(Machine::Systeme *sys)

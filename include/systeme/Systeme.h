@@ -26,9 +26,9 @@ namespace Machine
         void ajouterObservateur(Notification::Observateur *o);
         const std::string &theSelectionne() const;
         unsigned int portions() const;
-        void modifierPortions(unsigned int portions);
-        void modifierTheSelectionne(const std::string &the);
-        void appliquerRoutine(std::shared_ptr<Routine::IRoutine>& r);
+        void modifierPortions(unsigned int portions, bool afficherModif);
+        void modifierTheSelectionne(const std::string &the, bool afficherModif);
+        void appliquerRoutine(std::shared_ptr<Routine::IRoutine> &r, bool afficherModif);
 
     protected:
         Systeme(std::unique_ptr<Reserve> &reserve, std::unique_ptr<DistributeurEau> &dEau, std::unique_ptr<DistributeurThe> &dThe, std::unique_ptr<SystemeChauffage> &sysChauff);

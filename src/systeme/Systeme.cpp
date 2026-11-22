@@ -65,38 +65,23 @@ namespace Machine
 
     unsigned int Systeme::portions() const { return portions_; }
 
-    void Systeme::modifierPortions(unsigned int portions)
+    void Systeme::modifierPortions(unsigned int portions, bool afficherModif)
     {
         portions_ = portions;
+        if (afficherModif)
+            std::cout << "Nombre de portions : " << portions_ << std::endl;
     }
 
-    void Systeme::modifierTheSelectionne(const std::string &the)
+    void Systeme::modifierTheSelectionne(const std::string &the, bool afficherModif)
     {
         theSelectionne_ = the;
+        if (afficherModif)
+            std::cout << "Thé sélectionné : " << theSelectionne_ << std::endl;
     }
 
-    void Systeme::appliquerRoutine(Routine r)
+    void Systeme::appliquerRoutine(std::shared_ptr<Routine::IRoutine> &r, bool afficherModif)
     {
-        switch (r.type)
-        {
-        case TypeRoutine::Solo:
-            modifierTheSelectionne(r.the);
-            modifierPortions(r.portions);
-            break;
-
-        case TypeRoutine::Duo:
-            modifierTheSelectionne(r.the);
-            modifierPortions(r.portions);
-            break;
-
-        case TypeRoutine::Matin:
-            appliquerRoutine(Duo());
-            modifierTheSelectionne(r.the);
-            break;
-
-        default:
-            break;
-        }
+        r->appliquer(this, afficherModif);
     }
 
 } // namespace Machine

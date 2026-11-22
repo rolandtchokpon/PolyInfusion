@@ -8,11 +8,11 @@ namespace Routine
     class Matin : public IRoutine
     {
     public:
-        ~Matin();
-        virtual void appliquer(Machine::Systeme *sys) const override;
-
-    protected:
+        virtual ~Matin();
         Matin();
+        
+        virtual void appliquer(Machine::Systeme *sys, bool afficherModif) const override;
+        virtual void apercu() const override;
     };
 
 }
