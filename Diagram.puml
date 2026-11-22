@@ -1,5 +1,5 @@
 @startuml diagramme_classes
-title Diagramme de classes - Machine à thé
+title Diagramme de classes - PolyInfusion
 skinparam classAttributeIconSize 0
 skinparam linetype ortho
 skinparam packageStyle rectangle
@@ -58,7 +58,7 @@ namespace Console {
     class InterfaceConsole {
         + InterfaceConsole()
         + ~InterfaceConsole()
-        + analyser(ligne : const string&) : const Instruction&
+        + analyser(ligne : const string&) : const Instruction
         - estUnThe(valeur : const string&) : bool
         - invalide(message : const string&) : Instruction
         - lireQuantite(texte : const string&, quantite : double&) : bool
@@ -71,9 +71,13 @@ namespace Console {
 ' =====================================================
 namespace CMD {
     abstract class Commande {
-        # instruction_ : Console::Instruction
         # estReversible_ : bool
+        # afficherModif_ : bool
+        # portionsAvant_ : unsigned int
+        # theAvant_ : string
+        # instruction_ : Console::Instruction
         # Commande(estReversible : bool)
+        # lireRoutine(r : const string&) : shared_ptr<Routine::IRoutine>
         + {abstract} ~Commande()
         + {abstract} executer(inst : const Instruction&, sys : Systeme*) : void
         + {abstract} undo(sys : Systeme*) : void
@@ -86,20 +90,13 @@ namespace CMD {
     class CmdConfig
     class CmdInfuser
     class CmdNotif
+    class CmdPortion
     class CmdQuit
     class CmdRemplirEau
     class CmdRemplirThe
     class CmdReserve
+    class CmdRoutine
     class CmdSelection
-
-    class CmdPortion {
-        - portionsAvant_ : int = -1
-    }
-
-    class CmdRoutine {
-        - routine_ : Machine::TypeRoutine
-        - lireRoutine(r : const string&) : Machine::TypeRoutine
-    }
 }
 
 ' =====================================================
@@ -108,18 +105,18 @@ namespace CMD {
 namespace Execution {
     class Executeur {
         - sys_ : Machine::Systeme*
-        - hist_ : unique_ptr<Historique>
+        - hist_ : unique_ptr<HistoriqueCMD>
         + Executeur(sys : Machine::Systeme*)
         + executer(inst : const Console::Instruction&) : void
-        - commande(inst : const Console::Instruction&) : shared_ptr<CMD::Commande>&
+        - commande(inst : const Console::Instruction&) : shared_ptr<CMD::Commande>
     }
 
-    class Historique {
-        - dernierUndo_ : shared_ptr<Commande>
-        - Reversibles_ : vector<shared_ptr<Commande>>
+    class HistoriqueCMD {
+        - pileUndo_ : vector<shared_ptr<CMD::Commande>>
+        - pileRedo_ : vector<shared_ptr<CMD::Commande>>
         + undo(sys : Machine::Systeme*) : void
         + redo(sys : Machine::Systeme*) : void
-        + ajouter(c : shared_ptr<Commande>&) : void
+        + ajouterCmd(cmd : shared_ptr<CMD::Commande>&) : void
     }
 }
 
@@ -129,17 +126,16 @@ namespace Execution {
 namespace Fabrique {
     abstract class FabriqueSysteme {
         # FabriqueSysteme()
-        + {abstract} creerSysteme() : unique_ptr<Machine::Systeme>&
-        + creerExecuteur(sys : Machine::Systeme*) : unique_ptr<Execution::Executeur>&
-        + creerInterfaceConsole() : unique_ptr<Console::InterfaceConsole>&
+        + {abstract} ~FabriqueSysteme()
+        + {abstract} creerSysteme() : unique_ptr<Machine::Systeme>
     }
 
     class FabriqueCompact {
-        + creerSysteme() : unique_ptr<Machine::Systeme>&
+        + creerSysteme() : unique_ptr<Machine::Systeme>
     }
 
     class FabriquePro {
-        + creerSysteme() : unique_ptr<Machine::Systeme>&
+        + creerSysteme() : unique_ptr<Machine::Systeme>
     }
 }
 
@@ -147,36 +143,25 @@ namespace Fabrique {
 '  NOTIFICATION (pattern Observer)
 ' =====================================================
 namespace Notification {
-    enum Etat {
-        M_EAU
-        M_THE
-        CORRECT
-    }
-
     abstract class Observateur {
         {static} SEUIL_QTE_THE : double = 10.0 (g)
         {static} SEUIL_QTE_EAU : double = 500.0 (mL)
+        # notifActive_ : bool
+        # Observateur()
         + {abstract} ~Observateur()
         + {abstract} notifier(qte : double) : void
         + {abstract} notifier(the : const string&, qte : double) : void
+        + activerNotifications(activer : bool) : void
     }
 
     abstract class Notificateur {
         # observateurs_ : vector<Observateur*>
-        # etatEau_ : Etat
-        # etatThe_ : Etat
-        # notificationsActives_ : bool
         # Notificateur()
         # notifier(qte : double) : void
         # notifier(the : const string&, qte : double) : void
         + {abstract} ~Notificateur()
-        + activerNotifications(activer : bool) : void
         + ajouterObservateur(o : Observateur*) : void
         + retirerObservateur(o : Observateur*) : void
-        + obtenirEtatEau() : Etat
-        + obtenirEtatThe() : Etat
-        + mettreEtatEau(e : Etat) : void
-        + mettreEtatThe(e : Etat) : void
     }
 
     class Ecran {
@@ -199,24 +184,30 @@ namespace Notification {
 ' =====================================================
 namespace Routine {
     abstract class IRoutine {
-        # IRoutine()
+        # portions_ : unsigned int
+        # the_ : string
+        # IRoutine(portions : unsigned int, the : string)
         + {abstract} ~IRoutine()
-        + {abstract} appliquer(sys : Machine::Systeme*) : void {query}
+        + {abstract} appliquer(sys : Machine::Systeme*, afficherModif : bool) : void {query}
+        + {abstract} apercu() : void {query}
     }
 
     class Solo {
-        # Solo()
-        + appliquer(sys : Machine::Systeme*) : void {query}
+        + Solo()
+        + appliquer(sys : Machine::Systeme*, afficherModif : bool) : void {query}
+        + apercu() : void {query}
     }
 
     class Duo {
-        # Duo()
-        + appliquer(sys : Machine::Systeme*) : void {query}
+        + Duo()
+        + appliquer(sys : Machine::Systeme*, afficherModif : bool) : void {query}
+        + apercu() : void {query}
     }
 
     class Matin {
-        # Matin()
-        + appliquer(sys : Machine::Systeme*) : void {query}
+        + Matin()
+        + appliquer(sys : Machine::Systeme*, afficherModif : bool) : void {query}
+        + apercu() : void {query}
     }
 }
 
@@ -230,6 +221,12 @@ namespace Machine {
         Matin
     }
 
+    enum Etat {
+        M_EAU
+        M_THE
+        CORRECT
+    }
+
     abstract class Systeme {
         - reserve_ : unique_ptr<Reserve>
         - distributeurEau_ : unique_ptr<DistributeurEau>
@@ -237,15 +234,14 @@ namespace Machine {
         - systemeChauffage_ : unique_ptr<SystemeChauffage>
         - infuseur_ : unique_ptr<Infuseur>
         - rinceur_ : unique_ptr<Rinceur>
-        - ecran_ : unique_ptr<Notification::Ecran>
-        - app_ : unique_ptr<Notification::AppDistant>
-        - routine_ : unique_ptr<Routine::IRoutine>
+        - ecran_ : unique_ptr<Notification::Observateur>
+        - app_ : unique_ptr<Notification::Observateur>
         - portions_ : unsigned int
         - theSelectionne_ : string
         - quitter_ : bool
         # Systeme(reserve, dEau, dThe, sysChauff)
         + {abstract} ~Systeme()
-        + infuser(nomThe : const string&) : void
+        + infuser() : void
         + remplirThe(nom : const string&, quantite : double) : void
         + remplirEau(quantite : double) : void
         + afficherReserves() : void {query}
@@ -255,9 +251,9 @@ namespace Machine {
         + ajouterObservateur(o : Notification::Observateur*) : void
         + theSelectionne() : const string& {query}
         + portions() : unsigned int {query}
-        + modifierPortions(portions : unsigned int) : void
-        + modifierTheSelectionne(the : const string&) : void
-        + appliquerRoutine(r : shared_ptr<Routine::IRoutine>&) : void
+        + modifierPortions(portions : unsigned int, afficherModif : bool) : void
+        + modifierTheSelectionne(the : const string&, afficherModif : bool) : void
+        + appliquerRoutine(r : shared_ptr<Routine::IRoutine>&, afficherModif : bool) : void
     }
 
     class SystemeCompact
@@ -281,10 +277,11 @@ namespace Machine {
     class Reserve {
         - qteEau_ : double
         - thes_ : unordered_map<string, The>
+        - etatEau_ : Etat
+        - etatsThe_ : unordered_map<string, Etat>
         + Reserve()
         + distribuerEau(qte : double, ratio : double) : void
         + distribuerThe(the : const string&, qte : double, ratio : double) : void
-        + activerNotifications(activer : bool) : void
         + remplirThe(the : const string&, qte : double) : void
         + remplirEau(qte : double) : void
         + ajouterThe(the : const The&) : void
@@ -292,6 +289,10 @@ namespace Machine {
         + obtenirThe(nomThe : const string&) : const The& {query}
         + eauSuffisante(quantite : double, ratio : double) : void {query}
         + afficherReserves() : void {query}
+        + obtenirEtatEau() : Etat {query}
+        + obtenirEtatThe(the : const string&) : Etat {query}
+        + mettreEtatEau(e : Etat) : void
+        + mettreEtatThe(the : const string&, e : Etat) : void
     }
 
     class EauInsuffisante {
@@ -377,7 +378,7 @@ namespace Machine {
 '  RELATIONS
 ' =====================================================
 
-' ---- Héritage : commandes ----
+' ---- Commandes ----
 CMD.Commande <|-- CMD.CmdAide
 CMD.Commande <|-- CMD.CmdApercu
 CMD.Commande <|-- CMD.CmdConfig
@@ -391,10 +392,12 @@ CMD.Commande <|-- CMD.CmdReserve
 CMD.Commande <|-- CMD.CmdRoutine
 CMD.Commande <|-- CMD.CmdSelection
 
-' ---- Commande ----
 CMD.Commande *-- Console.Instruction : instruction_
 CMD.Commande ..> Machine.Systeme : agit sur
-CMD.CmdRoutine --> Machine.TypeRoutine
+CMD.Commande ..> Routine.IRoutine : lireRoutine()
+CMD.Commande ..> Routine.Solo : <<create>>
+CMD.Commande ..> Routine.Duo : <<create>>
+CMD.Commande ..> Routine.Matin : <<create>>
 
 ' ---- Console ----
 Console.Instruction --> Console.TypeInstruction : type
@@ -403,18 +406,16 @@ Console.InterfaceConsole ..> Console.Mot : utilise
 
 ' ---- Exécution ----
 Execution.Executeur o--> Machine.Systeme : sys_
-Execution.Executeur *--> Execution.Historique : hist_
+Execution.Executeur *--> Execution.HistoriqueCMD : hist_
 Execution.Executeur ..> CMD.Commande : crée / exécute
 Execution.Executeur ..> Console.Instruction
-Execution.Historique o--> "0..*" CMD.Commande : Reversibles_
-Execution.Historique o--> "0..1" CMD.Commande : dernierUndo_
+Execution.HistoriqueCMD o--> "0..*" CMD.Commande : pileUndo_
+Execution.HistoriqueCMD o--> "0..*" CMD.Commande : pileRedo_
 
 ' ---- Fabrique ----
 Fabrique.FabriqueSysteme <|-- Fabrique.FabriqueCompact
 Fabrique.FabriqueSysteme <|-- Fabrique.FabriquePro
 Fabrique.FabriqueSysteme ..> Machine.Systeme : <<create>>
-Fabrique.FabriqueSysteme ..> Execution.Executeur : <<create>>
-Fabrique.FabriqueSysteme ..> Console.InterfaceConsole : <<create>>
 Fabrique.FabriqueCompact ..> Machine.SystemeCompact : <<create>>
 Fabrique.FabriquePro ..> Machine.SystemePro : <<create>>
 
@@ -427,10 +428,10 @@ Machine.Systeme *-- Machine.DistributeurThe
 Machine.Systeme *-- Machine.SystemeChauffage
 Machine.Systeme *-- Machine.Infuseur
 Machine.Systeme *-- Machine.Rinceur
-Machine.Systeme *-- Notification.Ecran
-Machine.Systeme *-- Notification.AppDistant
-Machine.Systeme *-- "0..1" Routine.IRoutine
-Machine.Systeme ..> Notification.Observateur : ajouterObservateur
+Machine.Systeme *-- "2" Notification.Observateur : ecran_, app_
+Machine.Systeme ..> Notification.Ecran : <<create>>
+Machine.Systeme ..> Notification.AppDistant : <<create>>
+Machine.Systeme ..> Routine.IRoutine : appliquerRoutine()
 
 Machine.SystemeCompact ..> Machine.DistributeurEauCompact
 Machine.SystemeCompact ..> Machine.DistributeurTheCompact
@@ -464,6 +465,7 @@ Machine.The <|-- Machine.TheVert
 Machine.The <|-- Machine.TheNoir
 Machine.The <|-- Machine.TheOolong
 Machine.Reserve *-- "0..*" Machine.The : thes_
+Machine.Reserve --> Machine.Etat : etatEau_, etatsThe_
 Machine.Reserve ..> Machine.EauInsuffisante : <<throws>>
 Machine.Reserve ..> Machine.TheInsuffisant : <<throws>>
 Machine.EauInsuffisante -up-|> std.exception
@@ -472,7 +474,6 @@ Machine.TheInsuffisant -up-|> std.exception
 ' ---- Observer ----
 Notification.Notificateur <|-- Machine.Reserve
 Notification.Notificateur o--> "0..*" Notification.Observateur : observateurs_
-Notification.Notificateur --> Notification.Etat
 Notification.Observateur <|-- Notification.Ecran
 Notification.Observateur <|-- Notification.AppDistant
 Notification.Ecran o--> Machine.Reserve : reserve_
