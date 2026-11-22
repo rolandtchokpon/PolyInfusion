@@ -10,32 +10,18 @@ namespace CMD
 
     void CmdRoutine::executer(const Console::Instruction &inst, Machine::Systeme *sys)
     {
-        Machine::Routine r;
-        r = lireRoutine(inst.routine);
-        sys->appliquerRoutine(r);
+        instruction_ = inst;
+        portionsAvant_ = sys->portions();
+        theAvant_ = sys->theSelectionne();
+
+        auto routine = lireRoutine(inst.routine);
+        sys->appliquerRoutine(routine);
     }
 
-    Machine::Routine CmdRoutine::lireRoutine(const std::string &r)
+    void CmdRoutine::undo(Machine::Systeme *sys)
     {
-        if (r == "solo")
-        {
-            return Machine::Solo();
-        }
-        else if (r == "duo")
-        {
-            return Machine::Duo();
-        }
-        else if (r == "matin")
-        {
-            return Machine::Matin();
-        }
-
-        return Machine::Routine();
-    }
-
-    void undo(Machine::Systeme *sys)
-    {
-        // TODO
+        sys->modifierPortions(portionsAvant_);
+        sys->modifierTheSelectionne(theAvant_);
     }
 
 } // namespace CMD

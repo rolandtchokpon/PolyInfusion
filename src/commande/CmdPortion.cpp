@@ -10,14 +10,17 @@ namespace CMD
 
     void CmdPortion::executer(const Console::Instruction &inst, Machine::Systeme *sys)
     {
-        if (portionsAvant_ < 0)
-            portionsAvant_ = sys->portions();
-
+        instruction_ = inst;
+        portionsAvant_ = sys->portions();
         sys->modifierPortions(inst.portions);
+        compteur_++;
+
+        if (compteur_ == 1)
+            std::cout << "Nombre de portions : " << sys->portions() << std::endl;
     }
 
-    void undo(Machine::Systeme *sys)
+    void CmdPortion::undo(Machine::Systeme *sys)
     {
-        // TODO
+        sys->modifierPortions(portionsAvant_);
     }
 }

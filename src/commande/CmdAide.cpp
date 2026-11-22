@@ -27,7 +27,7 @@ namespace CMD
             << "q : quitter l’application.\n";
     }
 
-    void undo(Machine::Systeme *sys)
+    void CmdAide::undo(Machine::Systeme *sys)
     {
         std::cout << "Ceci n'est pas une commande réversible." << std::endl;
     }

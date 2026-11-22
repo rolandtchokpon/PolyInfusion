@@ -10,11 +10,11 @@ namespace CMD
 
     void CmdConfig::executer(const Console::Instruction &inst, Machine::Systeme *sys)
     {
-        // TODO
-        std::cout << "Implémentation de <<configuration>> à faire" << std::endl;
+        std::cout << "Thé sélectionné : " << sys->theSelectionne() << std::endl;
+        std::cout << "Nombre de portions : " << sys->portions() << std::endl;
     }
 
-    void undo(Machine::Systeme *sys)
+    void CmdConfig::undo(Machine::Systeme *sys)
     {
         std::cout << "Ceci n'est pas une commande réversible." << std::endl;
     }

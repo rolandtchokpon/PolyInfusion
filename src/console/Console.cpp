@@ -161,6 +161,7 @@ namespace Console
                 return invalide("Utilisation : apercu <nom>.");
             }
             resultat.type = TypeInstruction::Apercu;
+            resultat.routine = mots[1]; 
             break;
 
         case Mot::Configuration:

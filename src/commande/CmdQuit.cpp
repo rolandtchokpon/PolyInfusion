@@ -13,7 +13,7 @@ namespace CMD
         sys->quitter(true);
     }
 
-    void undo(Machine::Systeme *sys)
+    void CmdQuit::undo(Machine::Systeme *sys)
     {
         std::cout << "Ceci n'est pas une commande réversible." << std::endl;
     }

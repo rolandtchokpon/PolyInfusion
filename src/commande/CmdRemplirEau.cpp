@@ -13,7 +13,7 @@ namespace CMD
         sys->remplirEau(inst.quantite);
     }
 
-    void undo(Machine::Systeme *sys)
+    void CmdRemplirEau::undo(Machine::Systeme *sys)
     {
         std::cout << "Ceci n'est pas une commande réversible." << std::endl;
     }

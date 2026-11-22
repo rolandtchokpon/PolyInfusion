@@ -16,20 +16,20 @@
 namespace Execution
 {
 
-    class Historique
+    class HistoriqueCMD
     {
     public:
-        Historique();
-        ~Historique();
+        HistoriqueCMD();
+        ~HistoriqueCMD();
 
         void undo(Machine::Systeme *sys);
         void redo(Machine::Systeme *sys);
 
-        void ajouter(std::shared_ptr<::Commande> &);
+        void ajouterCmd(std::shared_ptr<CMD::Commande> &cmd);
 
     private:
-        std::shared_ptr<::Commande> dernierUndo_;
-        std::vector<std::shared_ptr<::Commande>> Reversibles_;
+        std::shared_ptr<CMD::Commande> dernierUndo_;
+        std::vector<std::shared_ptr<CMD::Commande>> cmdReversibles_;
     };
 
 } // namespace Execution

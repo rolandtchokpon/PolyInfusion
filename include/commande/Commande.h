@@ -3,6 +3,9 @@
 #include <iostream>
 #include "../systeme/Systeme.h"
 #include "../console/Console.h"
+#include "../routine/Duo.h"
+#include "../routine/Solo.h"
+#include "../routine/Matin.h"
 
 namespace CMD
 {
@@ -19,9 +22,13 @@ namespace CMD
 
     protected:
         Commande(bool estReversible);
+        std::shared_ptr<Routine::IRoutine> lireRoutine(const std::string &r);
 
-        Console::Instruction instruction_;
         bool estReversible_;
+        Console::Instruction instruction_;
+        std::string theAvant_;
+        unsigned int portionsAvant_;
+        unsigned int compteur_;
     };
 
 } // namespace Commande

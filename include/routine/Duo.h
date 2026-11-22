@@ -10,6 +10,7 @@ namespace Routine
     public:
         ~Duo();
         virtual void appliquer(Machine::Systeme *sys) const override;
+        virtual void apercu() const override;
 
     protected:
         Duo();

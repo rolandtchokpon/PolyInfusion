@@ -14,7 +14,7 @@ namespace CMD
         std::cout << "Implémentation de <<apercu>>  à faire" << std::endl;
     }
 
-    void undo(Machine::Systeme *sys)
+    void CmdApercu::undo(Machine::Systeme *sys)
     {
         std::cout << "Ceci n'est pas une commande réversible." << std::endl;
     }
