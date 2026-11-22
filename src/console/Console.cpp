@@ -134,20 +134,23 @@ namespace Console
             break;
 
         case Mot::Portions:
+        {
             if (mots.size() != 2)
             {
                 return invalide("Utilisation : portions <nombre>.");
             }
 
-            int portions = std::stoi(mots[1]);
-
-            if (portions <= 0)
+            double quantite = 0.0;
+            if (!lireQuantite(mots[1], quantite) ||
+                quantite < 1 || std::floor(quantite) != quantite)
             {
                 return invalide("Le nombre de portions doit être un entier positif.");
             }
+
             resultat.type = TypeInstruction::Portion;
-            resultat.portions = portions;
+            resultat.portions = static_cast<unsigned int>(quantite);
             break;
+        }
 
         case Mot::Routine:
             if (mots.size() != 2)

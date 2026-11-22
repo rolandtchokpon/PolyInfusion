@@ -4,10 +4,10 @@
 namespace Execution
 {
 
-    Executeur::Executeur(Machine::Systeme *sys) : 
-        sys_(sys),
-        hist_(std::make_unique<HistoriqueCMD>())
-    {}
+    Executeur::Executeur(Machine::Systeme *sys) : sys_(sys),
+                                                  hist_(std::make_unique<HistoriqueCMD>())
+    {
+    }
 
     Executeur::~Executeur() = default;
 
@@ -29,9 +29,13 @@ namespace Execution
             return;
         }
 
-        std::shared_ptr<CMD::Commande> cmd = std::move(commande(inst));
+        std::shared_ptr<CMD::Commande> cmd = commande(inst);
 
-        if (cmd->estReversible()) hist_->ajouterCmd(cmd);
+        if (!cmd)
+            return;
+
+        if (cmd->estReversible())
+            hist_->ajouterCmd(cmd);
 
         cmd->executer(inst, sys_);
     }

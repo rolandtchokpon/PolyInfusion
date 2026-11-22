@@ -3,17 +3,13 @@
 
 namespace Notification {
 
-    Notificateur::Notificateur() : 
-        etatEau_(Etat::CORRECT),
-        etatThe_(Etat::CORRECT),
-        notificationsActives_(true) 
+    Notificateur::Notificateur()
     {
         observateurs_.clear();
     }
 
     Notificateur::~Notificateur() = default;
 
-    void Notificateur::activerNotifications(bool activer) { this->notificationsActives_ = activer; }
 
     void Notificateur::ajouterObservateur(Observateur* o) { this->observateurs_.push_back(o); }
 
@@ -22,27 +18,15 @@ namespace Notification {
         observateurs_.erase(it);
     }
 
-    Etat Notificateur::obtenirEtatEau() { return etatEau_; }
-
-    Etat Notificateur::obtenirEtatThe() { return etatThe_; }
-
-    void Notificateur::mettreEtatEau(Etat e) { etatEau_ = e; }
-
-    void Notificateur::mettreEtatThe(Etat e) { etatThe_ = e; }
-
     void Notificateur::notifier(double qte) {
-        if (notificationsActives_) {
-            for (auto o : this->observateurs_) {
-                o->notifier(qte);
-            }
+        for (auto o : this->observateurs_) {
+            o->notifier(qte);
         }
     }
 
     void Notificateur::notifier(const std::string& the, double qte) {
-        if (notificationsActives_) {
-            for (auto o : this->observateurs_) {
-                o->notifier(the, qte);
-            }
+        for (auto o : this->observateurs_) {
+            o->notifier(the, qte);
         }
     }
 

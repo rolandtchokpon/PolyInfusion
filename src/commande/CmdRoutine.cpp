@@ -17,6 +17,10 @@ namespace CMD
 
         auto routine = lireRoutine(inst.routine);
         sys->appliquerRoutine(routine, afficherModif_);
+
+        if (afficherModif_)
+            std::cout << "Routine appliquée : " << inst.routine << std::endl;
+
         afficherModif_ = false;
     }
 

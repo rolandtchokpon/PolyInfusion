@@ -8,7 +8,8 @@ namespace Machine
 
     Reserve::Reserve() : 
         Notification::Notificateur(),
-        qteEau_(QTE_EAU_INITIALE)
+        qteEau_(QTE_EAU_INITIALE),
+        etatEau_(Etat::CORRECT)
     {
         thes_.clear();
         ajouterThe(TheVert());
@@ -55,8 +56,6 @@ namespace Machine
             std::cout << "  - " << "Thé " << the.nom << " : " << the.quantite << " g." << std::endl;
         }
     }
-
-    void Reserve::activerNotifications(bool activer) { Notification::Notificateur::activerNotifications(activer); }
 
     void Reserve::ajouterThe(const The &the) { thes_[the.nom] = the; }
 
@@ -111,5 +110,16 @@ namespace Machine
 
         this->notifier(qteEau_);
     }
+
+    Etat Reserve::obtenirEtatEau() const { return etatEau_; }
+
+    Etat Reserve::obtenirEtatThe(const std::string &the) const { 
+        auto it = etatsThe_.find(the);
+        return it == etatsThe_.end() ? Etat::CORRECT : it->second;
+    }
+
+    void Reserve::mettreEtatEau(Etat e) { etatEau_ = e; }
+
+    void Reserve::mettreEtatThe(const std::string &the, Etat e) { etatsThe_[the] = e; }
 
 } // namespace Machine

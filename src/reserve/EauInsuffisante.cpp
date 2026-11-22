@@ -7,9 +7,12 @@ namespace Machine {
         quantiteRequise_(quantiteRequise), 
         quantiteDisponible_(quantiteDisponible) 
     {
-        message_ = "Erreur : Réserve d'eau insuffisante.\n" 
-                    + std::string("Quantité requise : ") + std::to_string(quantiteRequise_) + " mL\n"
-                    + std::string("Quantité disponible : ") + std::to_string(quantiteDisponible_) + " mL\n";
+       std::ostringstream oss;
+        oss << "Erreur : réserve d'eau insuffisante.\n"
+            << "Quantité requise : " << quantiteRequise_ << " mL.\n"
+            << "Quantité disponible : " << quantiteDisponible_ << " mL.\n"
+            << "Aucune consommation effectuée.";
+        message_ = oss.str();
     }
 
     const char* EauInsuffisante::what() const noexcept {

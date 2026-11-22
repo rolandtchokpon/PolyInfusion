@@ -16,7 +16,7 @@ namespace Machine
     public:
         virtual ~Systeme() = 0;
 
-        void infuser(const std::string &nomThe);
+        void infuser();
         void remplirThe(const std::string &nom, double quantite);
         void remplirEau(double quantite);
         void afficherReserves() const;
@@ -40,8 +40,8 @@ namespace Machine
         std::unique_ptr<SystemeChauffage> systemeChauffage_;
         std::unique_ptr<Infuseur> infuseur_;
         std::unique_ptr<Rinceur> rinceur_;
-        std::unique_ptr<Notification::Ecran> ecran_;
-        std::unique_ptr<Notification::AppDistant> app_;
+        std::unique_ptr<Notification::Observateur> ecran_;
+        std::unique_ptr<Notification::Observateur> app_;
 
         unsigned int portions_;
         std::string theSelectionne_;

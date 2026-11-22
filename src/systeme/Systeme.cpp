@@ -19,22 +19,24 @@ namespace Machine
                                                                                                              ecran_(std::make_unique<Notification::Ecran>(reserve_.get())),
                                                                                                              app_(std::make_unique<Notification::AppDistant>(reserve_.get())),
                                                                                                              portions_(1),
-                                                                                                             theSelectionne_(""),
+                                                                                                             theSelectionne_("Aucun"),
                                                                                                              quitter_(false)
     {
+        reserve_->ajouterObservateur(ecran_.get());
+        reserve_->ajouterObservateur(app_.get());
     }
 
-    void Systeme::infuser(const std::string &nomThe)
+    void Systeme::infuser()
     {
-        const The &the = distributeurThe_->obtenirThe(nomThe);
+        const The &the = reserve_->obtenirThe(theSelectionne_);
 
-        reserve_->eauSuffisante(the.volumeService + the.volumeRincage, distributeurEau_->obtenirRatio());
-        reserve_->theSuffisant(the.nom, the.quantiteService, distributeurThe_->obtenirRatio());
+        reserve_->eauSuffisante(portions_ * (the.volumeService + the.volumeRincage), distributeurEau_->obtenirRatio());
+        reserve_->theSuffisant(the.nom, portions_ * the.quantiteService, distributeurThe_->obtenirRatio());
 
         std::cout << "Préparation d'un thé " << the.nom << "." << std::endl;
 
-        rinceur_->rincer(nomThe);
-        infuseur_->infuser(nomThe);
+        rinceur_->rincer(theSelectionne_);
+        infuseur_->infuser(theSelectionne_);
 
         std::cout << "Service : " << the.volumeService << " mL." << std::endl;
         std::cout << "Votre thé est prêt." << std::endl;
@@ -46,7 +48,19 @@ namespace Machine
 
     void Systeme::afficherReserves() const { reserve_->afficherReserves(); }
 
-    void Systeme::activerNotifications(bool activer) { reserve_->activerNotifications(activer); }
+    void Systeme::activerNotifications(bool activer)
+    {
+        app_->activerNotifications(activer);
+
+        if (activer)
+        {
+            std::cout << "Notifications à distance activées." << std::endl;
+        }
+        else
+        {
+            std::cout << "Notifications à distance désactivées." << std::endl;
+        }
+    }
 
     bool Systeme::quitter(bool oui)
     {

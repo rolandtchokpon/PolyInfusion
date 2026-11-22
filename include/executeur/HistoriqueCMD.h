@@ -28,8 +28,8 @@ namespace Execution
         void ajouterCmd(std::shared_ptr<CMD::Commande> &cmd);
 
     private:
-        std::shared_ptr<CMD::Commande> dernierUndo_;
-        std::vector<std::shared_ptr<CMD::Commande>> cmdReversibles_;
+        std::vector<std::shared_ptr<CMD::Commande>> pileUndo_;
+        std::vector<std::shared_ptr<CMD::Commande>> pileRedo_;
     };
 
 } // namespace Execution
