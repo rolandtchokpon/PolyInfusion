@@ -16,7 +16,7 @@ namespace CMD
         sys->modifierPortions(inst.portions);
     }
 
-    void undo(Machine::Systeme *sys)
+    void CmdPortion::undo(Machine::Systeme *sys)
     {
         // TODO
     }

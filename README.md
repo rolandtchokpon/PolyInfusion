@@ -40,7 +40,7 @@ Depuis le dossier contenant `CMakeLists.txt` :
 ### Windows — générateur Visual Studio
 
 ```powershell
-cmake -S . -B build
+l
 cmake --build build --config Debug
 .\build\Debug\PolyInfusion.exe compact
 ```

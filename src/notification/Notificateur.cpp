@@ -1,5 +1,6 @@
 
 #include "../../include/notification/Notificateur.h"
+#include <algorithm>
 
 namespace Notification {
 

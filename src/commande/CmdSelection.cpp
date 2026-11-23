@@ -13,7 +13,7 @@ namespace CMD
         sys->modifierTheSelectionne(inst.the);
     }
 
-    void undo(Machine::Systeme *sys)
+    void CmdSelection::undo(Machine::Systeme *sys)
     {
         // TOOO
     }

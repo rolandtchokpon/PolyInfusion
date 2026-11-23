@@ -1,17 +1,9 @@
 
 #pragma once
-#include "../commande/ApercuCmd.h"
-#include "../commande/ConfigCmd.h"
-#include "../commande/AideCmd.h"
-#include "../commande/InfuserCmd.h"
-#include "../commande/NotifCmd.h"
-#include "../commande/PortionCmd.h"
-#include "../commande/QuitCmd.h"
-#include "../commande/RemplirEauCmd.h"
-#include "../commande/RemplirTheCmd.h"
-#include "../commande/ReserveCmd.h"
-#include "../commande/RoutineCmd.h"
-#include "../commande/SelectionCmd.h"
+#include <iostream>
+#include <memory>
+#include <vector>
+#include "../commande/Commande.h"
 
 namespace Execution
 {

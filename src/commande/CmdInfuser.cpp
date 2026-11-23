@@ -14,7 +14,7 @@ namespace CMD
             sys->infuser(inst.the);
     }
 
-    void undo(Machine::Systeme *sys)
+    void CmdInfuser::undo(Machine::Systeme *sys)
     {
         std::cout << "Ceci n'est pas une commande réversible." << std::endl;
     }

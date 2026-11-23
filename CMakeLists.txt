@@ -4,6 +4,27 @@ project(PolyInfusion LANGUAGES CXX)
 add_executable(PolyInfusion
     src/main.cpp
     src/console/Console.cpp
+    src/commande/Commande.cpp
+    src/commande/CmdAide.cpp
+    src/commande/CmdApercu.cpp
+    src/commande/CmdConfig.cpp
+    src/commande/CmdInfuser.cpp
+    src/commande/CmdNotif.cpp
+    src/commande/CmdPortion.cpp
+    src/commande/CmdQuit.cpp
+    src/commande/CmdRemplirEau.cpp
+    src/commande/CmdRemplirThe.cpp
+    src/commande/CmdReserve.cpp
+    src/commande/CmdRoutine.cpp
+    src/commande/CmdSelection.cpp
+    src/executeur/Executeur.cpp
+    src/executeur/HistoriqueCMD.cpp
+    src/fabrique/FabriqueCompact.cpp
+    src/fabrique/FabriquePro.cpp
+    src/routine/IRoutine.cpp
+    src/routine/Solo.cpp
+    src/routine/Duo.cpp
+    src/routine/Matin.cpp
     src/distributeurEau/DistributeurEau.cpp
     src/distributeurEau/DistributeurEauPro.cpp
     src/distributeurEau/DistributeurEauCompact.cpp

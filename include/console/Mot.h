@@ -15,7 +15,6 @@ namespace Console
         Apercu,
         Undo,
         Redo,
-        Inconnu,
         Aide,
         Quitter,
         Inconnu

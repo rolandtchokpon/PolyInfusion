@@ -1,5 +1,8 @@
 
+#pragma once
+#include <memory>
 #include "Commande.h"
+#include "../routine/IRoutine.h"
 
 namespace CMD
 {
@@ -13,8 +16,8 @@ namespace CMD
         virtual void undo(Machine::Systeme *sys) override;
 
     private:
-        Machine::Routine lireRoutine(const std::string &r);
-        Machine::Routine routine_;
+        std::shared_ptr<Routine::IRoutine> lireRoutine(const std::string &r);
+        std::shared_ptr<Routine::IRoutine> routine_;
     };
 
-} // namespace Commande
+} // namespace CMD

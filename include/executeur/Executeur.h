@@ -1,5 +1,6 @@
 
 #pragma once
+#include <memory>
 #include "../console/Instruction.h"
 #include "HistoriqueCMD.h"
 namespace Execution
@@ -13,7 +14,7 @@ namespace Execution
         void executer(const Console::Instruction &inst);
 
     private:
-        std::shared_ptr<CMD::Commande> &commande(const Console::Instruction &inst);
+        std::shared_ptr<CMD::Commande> commande(const Console::Instruction &inst);
 
         Machine::Systeme *sys_;
         std::unique_ptr<HistoriqueCMD> hist_;

@@ -18,6 +18,7 @@ namespace Machine
                                                                                                              rinceur_(std::make_unique<Rinceur>(distributeurEau_.get(), distributeurThe_.get(), systemeChauffage_.get())),
                                                                                                              ecran_(std::make_unique<Notification::Ecran>(reserve_.get())),
                                                                                                              app_(std::make_unique<Notification::AppDistant>(reserve_.get())),
+                                                                                                             portions_(1),
                                                                                                              quitter_(false)
     {
     }
@@ -50,7 +51,7 @@ namespace Machine
     {
         if (oui)
         {
-            std::cout << "Arrêt de PolyInfusion" << std::endl;
+            std::cout << "Arrêt de PolyInfusion." << std::endl;
             quitter_ = oui;
         }
 
@@ -77,27 +78,11 @@ namespace Machine
         std::cout << "Thé sélectionné : " << theSelectionne_ << std::endl;
     }
 
-    void Systeme::appliquerRoutine(Routine r)
+    void Systeme::appliquerRoutine(std::shared_ptr<Routine::IRoutine> &r)
     {
-        switch (r.type)
+        if (r)
         {
-        case TypeRoutine::Solo:
-            modifierTheSelectionne(r.the);
-            modifierPortions(r.portions);
-            break;
-
-        case TypeRoutine::Duo:
-            modifierTheSelectionne(r.the);
-            modifierPortions(r.portions);
-            break;
-
-        case TypeRoutine::Matin:
-            appliquerRoutine(Duo());
-            modifierTheSelectionne(r.the);
-            break;
-
-        default:
-            break;
+            r->appliquer(this);
         }
     }
 

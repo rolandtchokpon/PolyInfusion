@@ -60,7 +60,7 @@ namespace Console
         return it == table.end() ? Mot::Inconnu : it->second;
     }
 
-    const Instruction &InterfaceConsole::analyser(const std::string &ligne)
+    Instruction InterfaceConsole::analyser(const std::string &ligne)
     {
         std::istringstream entree(ligne);
         std::vector<std::string> mots;
@@ -144,6 +144,7 @@ namespace Console
                 return invalide("Le nombre de portions doit être un entier positif.");
             }
             resultat.type = TypeInstruction::Portion;
+            resultat.portions = static_cast<unsigned int>(resultat.quantite);
             break;
 
         case Mot::Routine:
@@ -161,6 +162,7 @@ namespace Console
                 return invalide("Utilisation : apercu <nom>.");
             }
             resultat.type = TypeInstruction::Apercu;
+            resultat.routine = mots[1];
             break;
 
         case Mot::Configuration:

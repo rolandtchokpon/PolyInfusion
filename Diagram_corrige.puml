@@ -1,0 +1,253 @@
+@startuml diagramme_classes_corrige
+' PolyInfusion - diagramme de classes corrige (TP2a + TP2b)
+' Patrons : Command + Composite (+ Prototype pour cloner), Strategy, Abstract Factory, Observer
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam nodesep 40
+skinparam ranksep 60
+
+' ---------- Console ----------
+enum TypeInstruction {
+  Selection
+  Infuser
+  Reserves
+  RemplirEau
+  RemplirThe
+  Notifications
+  Portion
+  Config
+  Apercu
+  Routine
+  Undo
+  Redo
+  Aide
+  Quitter
+  Invalide
+}
+class Instruction <<struct>> {
+  +type : TypeInstruction
+  +the : string
+  +quantite : double
+  +portions : unsigned int
+  +routine : string
+  +notificationsActives : bool
+  +erreur : string
+}
+class InterfaceConsole {
+  +lireInstruction() : Instruction
+}
+
+' ---------- Execution ----------
+class Executeur {
+  -sys_ : Systeme*
+  -hist_ : HistoriqueCMD
+  -routines_ : RegistreRoutines*
+  +executer(inst : Instruction) : void
+  -creerCommande(inst : Instruction) : Commande
+}
+class HistoriqueCMD {
+  -pileAnnulation_ : stack<Commande>
+  -pileRetablissement_ : stack<Commande>
+  +executer(cmd : Commande, sys : Systeme*) : void
+  +undo(sys : Systeme*) : bool
+  +redo(sys : Systeme*) : bool
+  +peutAnnuler() : bool
+  +peutRetablir() : bool
+}
+class RegistreRoutines {
+  +enregistrer(nom : string, routine : Commande) : void
+  +creerExecution(nom : string) : Commande
+}
+
+' ---------- Commandes (Command + Composite) ----------
+interface Commande {
+  +{abstract} executer(sys : Systeme*) : void
+  +{abstract} undo(sys : Systeme*) : void
+  +{abstract} apercu(sortie : ostream) : void
+  +{abstract} cloner() : Commande
+}
+class CmdSelection {
+  -ancienThe_ : string
+  -nouveauThe_ : string
+}
+class CmdPortion {
+  -anciennesPortions_ : unsigned int
+  -nouvellesPortions_ : unsigned int
+}
+class CmdRoutine {
+  -nom_ : string
+  -enfants_ : vector<Commande>
+  +ajouter(cmd : Commande) : void
+}
+note right of CmdRoutine
+  executer : enfants dans l'ordre
+  undo : enfants dans l'ordre inverse
+  apercu : parcourt les enfants sans rien modifier
+  cloner : copie profonde (une copie par execution)
+  Solo, Duo, Matin = instances creees par RegistreRoutines
+  (Matin contient Duo)
+end note
+
+' ---------- Systeme ----------
+abstract class FabriqueSysteme {
+  +creerSysteme() : Systeme
+  +{abstract} creerChauffage() : SystemeChauffage
+  +{abstract} creerDistributeurEau() : DistributeurEau
+  +{abstract} creerDistributeurThe() : DistributeurThe
+}
+class FabriqueCompact
+class FabriquePro
+
+class Systeme {
+  -reserve_ : Reserve
+  -distributeurEau_ : DistributeurEau
+  -distributeurThe_ : DistributeurThe
+  -systemeChauffage_ : SystemeChauffage
+  -ecran_ : Ecran
+  -app_ : AppDistant
+  -portions_ : unsigned int
+  -theSelectionne_ : string
+  +infuser() : void
+  +remplirEau(q : double) : void
+  +remplirThe(nom : string, q : double) : void
+  +afficherReserves() : void
+  +afficherConfiguration() : void
+  +activerNotificationsDistantes(actif : bool) : void
+  +theSelectionne() : string
+  +portions() : unsigned int
+  +modifierPortions(n : unsigned int) : void
+  +modifierTheSelectionne(nom : string) : void
+}
+note bottom of Systeme
+  Les setters sont silencieux : l'affichage est fait par les commandes
+  (undo n'affiche que "Operation annulee.").
+  infuser : verifie les reserves pour toutes les portions (pertes incluses)
+  avant toute consommation, puis prepare portions() fois le profil.
+end note
+
+' ---------- Strategy ----------
+class RegistreProfils {
+  +ajouter(profil : ProfilInfusion) : void
+  +trouver(nom : string) : ProfilInfusion
+}
+abstract class ProfilInfusion {
+  +{abstract} nom() : string
+  +{abstract} besoins(ratioThe : double, ratioEau : double) : Besoins
+  +{abstract} preparer(composants) : void
+}
+class ProfilVert
+class ProfilNoir
+class ProfilOolong
+
+' ---------- Composants (Abstract Factory) ----------
+abstract class SystemeChauffage {
+  +chaufferEau(temperature : double) : void
+}
+class SystemeChauffageCompact
+class SystemeChauffagePro
+abstract class DistributeurThe {
+  +distribuerThe(the : string, q : double) : void
+  +obtenirRatio() : double
+}
+class DistributeurTheCompact
+class DistributeurThePro
+abstract class DistributeurEau {
+  +distribuerEau(q : double) : void
+  +obtenirRatio() : double
+}
+class DistributeurEauCompact
+class DistributeurEauPro
+
+' ---------- Observer ----------
+enum Etat {
+  M_EAU
+  M_THE
+  CORRECT
+}
+class Notificateur {
+  -observateurs_ : vector<Observateur>
+  -etatEau_ : Etat
+  -etatThe_ : Etat
+  +ajouterObservateur(o : Observateur) : void
+  +retirerObservateur(o : Observateur) : void
+  #notifier(...) : void
+}
+interface Observateur {
+  +{abstract} notifier(qte : double) : void
+  +{abstract} notifier(the : string, qte : double) : void
+}
+class Ecran
+class AppDistant
+class Reserve {
+  -qteEau_ : double
+  -thes_ : map<string, double>
+  +distribuerEau(q : double, ratio : double) : void
+  +distribuerThe(the : string, q : double, ratio : double) : void
+  +remplirEau(q : double) : void
+  +remplirThe(the : string, q : double) : void
+  +eauSuffisante(q : double, ratio : double) : void
+  +theSuffisant(the : string, q : double, ratio : double) : void
+  +afficherReserves() : void
+}
+
+' ================= Relations =================
+' Console / Execution
+InterfaceConsole ..> Instruction : <<produit>>
+Instruction --> TypeInstruction
+InterfaceConsole --> Executeur
+Executeur *-- HistoriqueCMD
+Executeur --> RegistreRoutines
+Executeur --> Systeme
+Executeur ..> Commande : <<cree / execute>>
+HistoriqueCMD o-- "*" Commande
+
+' Command + Composite
+CmdSelection ..|> Commande
+CmdPortion ..|> Commande
+CmdRoutine ..|> Commande
+CmdRoutine o-- "1..*" Commande : enfants
+RegistreRoutines o-- "*" CmdRoutine
+CmdSelection ..> Systeme : <<modifie>>
+CmdPortion ..> Systeme : <<modifie>>
+
+' Abstract Factory
+FabriqueCompact --|> FabriqueSysteme
+FabriquePro --|> FabriqueSysteme
+FabriqueSysteme ..> SystemeChauffage : <<cree>>
+FabriqueSysteme ..> DistributeurEau : <<cree>>
+FabriqueSysteme ..> DistributeurThe : <<cree>>
+FabriqueSysteme ..> Systeme : <<assemble>>
+SystemeChauffageCompact --|> SystemeChauffage
+SystemeChauffagePro --|> SystemeChauffage
+DistributeurTheCompact --|> DistributeurThe
+DistributeurThePro --|> DistributeurThe
+DistributeurEauCompact --|> DistributeurEau
+DistributeurEauPro --|> DistributeurEau
+
+' Systeme
+Systeme *-- SystemeChauffage
+Systeme *-- DistributeurThe
+Systeme *-- DistributeurEau
+Systeme *-- Reserve
+Systeme *-- Ecran
+Systeme *-- AppDistant
+Systeme --> RegistreProfils : utilise
+DistributeurThe --> Reserve
+DistributeurEau --> Reserve
+
+' Strategy
+RegistreProfils o-- "*" ProfilInfusion
+ProfilVert --|> ProfilInfusion
+ProfilNoir --|> ProfilInfusion
+ProfilOolong --|> ProfilInfusion
+ProfilInfusion ..> SystemeChauffage
+ProfilInfusion ..> DistributeurThe
+ProfilInfusion ..> DistributeurEau
+
+' Observer
+Reserve --|> Notificateur
+Notificateur o-- "*" Observateur
+Notificateur --> Etat
+Ecran ..|> Observateur
+AppDistant ..|> Observateur
+@enduml

@@ -4,15 +4,18 @@
 namespace Fabrique
 {
 
-    const std::string COMPACT = "compact";
-    const std::string PRO = "pro";
+    FabriqueSysteme::FabriqueSysteme() = default;
 
-    FabriqueSysteme::FabriqueSysteme() :
-        reserve_(std::make_shared<Machine::Reserve>()),
-        app_(std::make_shared<Notification::AppDistant>()),
-        ecran_(std::make_shared<Notification::Ecran>())
-    {}
-    
     FabriqueSysteme::~FabriqueSysteme() = default;
+
+    std::unique_ptr<Execution::Executeur> FabriqueSysteme::creerExecuteur(Machine::Systeme *sys)
+    {
+        return std::make_unique<Execution::Executeur>(sys);
+    }
+
+    std::unique_ptr<Console::InterfaceConsole> FabriqueSysteme::creerInterfaceConsole()
+    {
+        return std::make_unique<Console::InterfaceConsole>();
+    }
 
 } // namespace Fabrique

@@ -1,4 +1,4 @@
-
+#pragma once
 #include "Commande.h"
 
 namespace CMD

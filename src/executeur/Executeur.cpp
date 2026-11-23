@@ -1,5 +1,17 @@
 
 #include "../../include/executeur/Executeur.h"
+#include "../../include/commande/CmdAide.h"
+#include "../../include/commande/CmdApercu.h"
+#include "../../include/commande/CmdConfig.h"
+#include "../../include/commande/CmdInfuser.h"
+#include "../../include/commande/CmdNotif.h"
+#include "../../include/commande/CmdPortion.h"
+#include "../../include/commande/CmdQuit.h"
+#include "../../include/commande/CmdRemplirEau.h"
+#include "../../include/commande/CmdRemplirThe.h"
+#include "../../include/commande/CmdReserve.h"
+#include "../../include/commande/CmdRoutine.h"
+#include "../../include/commande/CmdSelection.h"
 
 namespace Execution
 {
@@ -29,69 +41,46 @@ namespace Execution
             return;
         }
 
-        std::shared_ptr<CMD::Commande> cmd = std::move(commande(inst));
+        std::shared_ptr<CMD::Commande> cmd = commande(inst);
+
+        if (!cmd) return;
 
         if (cmd->estReversible()) hist_->ajouterCmd(cmd);
 
         cmd->executer(inst, sys_);
     }
 
-    std::shared_ptr<CMD::Commande> &Executeur::commande(const Console::Instruction &inst)
+    std::shared_ptr<CMD::Commande> Executeur::commande(const Console::Instruction &inst)
     {
-        std::shared_ptr<CMD::Commande> cmd;
-
         switch (inst.type)
         {
         case Console::TypeInstruction::Aide:
-            break;
-
+            return std::make_shared<CMD::CmdAide>();
         case Console::TypeInstruction::Quitter:
-            break;
-
-        case Console::TypeInstruction::Invalide:
-            break;
-
+            return std::make_shared<CMD::CmdQuit>();
         case Console::TypeInstruction::Selection:
-            break;
-
+            return std::make_shared<CMD::CmdSelection>();
         case Console::TypeInstruction::Infuser:
-            break;
-
+            return std::make_shared<CMD::CmdInfuser>();
         case Console::TypeInstruction::Reserves:
-            break;
-
+            return std::make_shared<CMD::CmdReserve>();
         case Console::TypeInstruction::RemplirEau:
-            break;
-
+            return std::make_shared<CMD::CmdRemplirEau>();
         case Console::TypeInstruction::RemplirThe:
-            break;
-
+            return std::make_shared<CMD::CmdRemplirThe>();
         case Console::TypeInstruction::Notifications:
-            break;
-
+            return std::make_shared<CMD::CmdNotif>();
         case Console::TypeInstruction::Apercu:
-            break;
-
+            return std::make_shared<CMD::CmdApercu>();
         case Console::TypeInstruction::Config:
-            break;
-
+            return std::make_shared<CMD::CmdConfig>();
         case Console::TypeInstruction::Portion:
-            break;
-
-        case Console::TypeInstruction::Redo:
-            break;
-
-        case Console::TypeInstruction::Undo:
-            break;
-
+            return std::make_shared<CMD::CmdPortion>();
         case Console::TypeInstruction::Routine:
-            break;
-
+            return std::make_shared<CMD::CmdRoutine>();
         default:
-            break;
+            return nullptr;
         }
-
-        return cmd;
     }
 
-}
+} // namespace Execution
