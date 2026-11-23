@@ -92,12 +92,4 @@ namespace Machine
 
     void Systeme::modifierTheSelectionne(const std::string &the) { theSelectionne_ = the; }
 
-    void Systeme::appliquerRoutine(std::shared_ptr<Routine::IRoutine> &r)
-    {
-        if (r)
-        {
-            r->appliquer(this);
-        }
-    }
-
 } // namespace Machine

@@ -8,12 +8,14 @@ namespace CMD
     class CmdSelection : public Commande
     {
     public:
-        CmdSelection();
+        explicit CmdSelection(const std::string &the);
         ~CmdSelection();
 
         virtual void executer(const Console::Instruction &inst, Machine::Systeme *sys) override;
         virtual void undo(Machine::Systeme *sys) override;
         virtual void redo(Machine::Systeme *sys) override;
+        virtual void apercu(std::vector<std::string> &lignes) const override;
+        virtual std::shared_ptr<Commande> cloner() const override;
 
     private:
         std::string ancienThe_;

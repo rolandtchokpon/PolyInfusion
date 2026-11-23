@@ -141,7 +141,7 @@ namespace Console
             if (!lireQuantite(mots[1], resultat.quantite) ||
                 resultat.quantite < 1 || std::floor(resultat.quantite) != resultat.quantite)
             {
-                return invalide("Le nombre de portions doit être un entier positif.");
+                return invalide("le nombre de portions doit être un entier strictement positif.");
             }
             resultat.type = TypeInstruction::Portion;
             resultat.portions = static_cast<unsigned int>(resultat.quantite);

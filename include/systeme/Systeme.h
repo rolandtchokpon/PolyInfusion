@@ -2,7 +2,6 @@
 #pragma once
 #include <memory>
 #include <string>
-#include "../routine/IRoutine.h"
 #include "../preparation/Infuseur.h"
 #include "../preparation/Rinceur.h"
 #include "../notification/Ecran.h"
@@ -31,7 +30,6 @@ namespace Machine
         unsigned int portions() const;
         void modifierPortions(unsigned int portions);
         void modifierTheSelectionne(const std::string &the);
-        void appliquerRoutine(std::shared_ptr<Routine::IRoutine> &r);
 
     protected:
         Systeme(std::unique_ptr<Reserve> &reserve, std::unique_ptr<DistributeurEau> &dEau, std::unique_ptr<DistributeurThe> &dThe, std::unique_ptr<SystemeChauffage> &sysChauff);

@@ -10,6 +10,10 @@ namespace CMD
 
     void Commande::redo(Machine::Systeme *) {}
 
+    void Commande::apercu(std::vector<std::string> &) const {}
+
+    std::shared_ptr<Commande> Commande::cloner() const { return nullptr; }
+
     bool Commande::estReversible() const { return estReversible_; }
 
 }

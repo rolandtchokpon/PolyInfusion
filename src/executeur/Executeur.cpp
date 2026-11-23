@@ -18,7 +18,8 @@ namespace Execution
 
     Executeur::Executeur(Machine::Systeme *sys) : 
         sys_(sys),
-        hist_(std::make_unique<HistoriqueCMD>())
+        hist_(std::make_unique<HistoriqueCMD>()),
+        routines_(std::make_unique<RegistreRoutines>())
     {}
 
     Executeur::~Executeur() = default;
@@ -60,7 +61,7 @@ namespace Execution
         case Console::TypeInstruction::Quitter:
             return std::make_shared<CMD::CmdQuit>();
         case Console::TypeInstruction::Selection:
-            return std::make_shared<CMD::CmdSelection>();
+            return std::make_shared<CMD::CmdSelection>(inst.the);
         case Console::TypeInstruction::Infuser:
             return std::make_shared<CMD::CmdInfuser>();
         case Console::TypeInstruction::Reserves:
@@ -72,13 +73,29 @@ namespace Execution
         case Console::TypeInstruction::Notifications:
             return std::make_shared<CMD::CmdNotif>();
         case Console::TypeInstruction::Apercu:
-            return std::make_shared<CMD::CmdApercu>();
+        {
+            auto routine = routines_->obtenir(inst.routine);
+            if (!routine)
+            {
+                std::cout << "Erreur : routine inconnue." << std::endl;
+                return nullptr;
+            }
+            return std::make_shared<CMD::CmdApercu>(routine);
+        }
         case Console::TypeInstruction::Config:
             return std::make_shared<CMD::CmdConfig>();
         case Console::TypeInstruction::Portion:
-            return std::make_shared<CMD::CmdPortion>();
+            return std::make_shared<CMD::CmdPortion>(inst.portions);
         case Console::TypeInstruction::Routine:
-            return std::make_shared<CMD::CmdRoutine>();
+        {
+            auto execution = routines_->creerExecution(inst.routine);
+            if (!execution)
+            {
+                std::cout << "Erreur : routine inconnue." << std::endl;
+                return nullptr;
+            }
+            return std::make_shared<CMD::CmdRoutine>(inst.routine, execution);
+        }
         default:
             return nullptr;
         }

@@ -17,14 +17,12 @@ add_executable(PolyInfusion
     src/commande/CmdReserve.cpp
     src/commande/CmdRoutine.cpp
     src/commande/CmdSelection.cpp
+    src/commande/Routine.cpp
     src/executeur/Executeur.cpp
     src/executeur/HistoriqueCMD.cpp
+    src/executeur/RegistreRoutines.cpp
     src/fabrique/FabriqueCompact.cpp
     src/fabrique/FabriquePro.cpp
-    src/routine/IRoutine.cpp
-    src/routine/Solo.cpp
-    src/routine/Duo.cpp
-    src/routine/Matin.cpp
     src/distributeurEau/DistributeurEau.cpp
     src/distributeurEau/DistributeurEauPro.cpp
     src/distributeurEau/DistributeurEauCompact.cpp
