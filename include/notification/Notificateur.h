@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include <iostream>
+#include <map>
 #include <string>
 #include <vector>
 
@@ -10,36 +10,26 @@
 namespace Notification
 {
 
-    enum class Etat
-    {
-        M_EAU,
-        M_THE,
-        CORRECT
-    };
-
+    // Sujet du patron Observer : il détecte les passages sous le seuil (et le retour au seuil)
+    // et avertit tous les observateurs abonnés. Il ne connaît aucun destinataire concret.
     class Notificateur
     {
     public:
         virtual ~Notificateur() = 0;
 
-        void activerNotifications(bool aciver);
         void ajouterObservateur(Observateur *o);
         void retirerObservateur(Observateur *o);
-        Etat obtenirEtatEau();
-        Etat obtenirEtatThe();
-        void mettreEtatEau(Etat e);
-        void mettreEtatThe(Etat e);
 
     protected:
         Notificateur();
 
-        virtual void notifier(double qte);
-        virtual void notifier(const std::string &the, double qte);
+        void verifierEau(double qte);
+        void verifierThe(const std::string &the, double qte);
 
+    private:
         std::vector<Observateur *> observateurs_;
-        Etat etatEau_;
-        Etat etatThe_;
-        bool notificationsActives_;
+        bool eauFaible_;
+        std::map<std::string, bool> theFaible_;
     };
 
 } // namespace Notification

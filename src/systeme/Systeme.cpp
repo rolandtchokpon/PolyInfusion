@@ -1,8 +1,8 @@
 
-
 #include <string>
 #include <iostream>
 #include "../../include/systeme/Systeme.h"
+#include "../../include/util/Format.h"
 
 namespace Machine
 {
@@ -16,27 +16,35 @@ namespace Machine
                                                                                                              systemeChauffage_(std::move(sysChauff)),
                                                                                                              infuseur_(std::make_unique<Infuseur>(distributeurEau_.get(), distributeurThe_.get(), systemeChauffage_.get())),
                                                                                                              rinceur_(std::make_unique<Rinceur>(distributeurEau_.get(), distributeurThe_.get(), systemeChauffage_.get())),
-                                                                                                             ecran_(std::make_unique<Notification::Ecran>(reserve_.get())),
-                                                                                                             app_(std::make_unique<Notification::AppDistant>(reserve_.get())),
+                                                                                                             ecran_(std::make_unique<Notification::Ecran>()),
+                                                                                                             app_(std::make_unique<Notification::AppDistant>()),
                                                                                                              portions_(1),
-                                                                                                             quitter_(false)
+                                                                                                             quitter_(false),
+                                                                                                             appAttache_(true)
     {
+        // Les alertes à l'écran sont toujours actives ; les notifications à distance le sont par défaut.
+        reserve_->ajouterObservateur(ecran_.get());
+        reserve_->ajouterObservateur(app_.get());
     }
 
-    void Systeme::infuser(const std::string &nomThe)
+    void Systeme::infuser(const std::string &nomThe, unsigned int portions)
     {
         const The &the = distributeurThe_->obtenirThe(nomThe);
 
-        reserve_->eauSuffisante(the.volumeService + the.volumeRincage, distributeurEau_->obtenirRatio());
-        reserve_->theSuffisant(the.nom, the.quantiteService, distributeurThe_->obtenirRatio());
+        // Vérification de l'ensemble des portions (pertes incluses) avant toute consommation.
+        reserve_->eauSuffisante(portions * (the.volumeService + the.volumeRincage), distributeurEau_->obtenirRatio());
+        reserve_->theSuffisant(the.nom, portions * the.quantiteService, distributeurThe_->obtenirRatio());
 
-        std::cout << "Préparation d'un thé " << the.nom << "." << std::endl;
+        for (unsigned int i = 0; i < portions; ++i)
+        {
+            std::cout << "Préparation d'un thé " << the.nom << "." << std::endl;
 
-        rinceur_->rincer(nomThe);
-        infuseur_->infuser(nomThe);
+            rinceur_->rincer(nomThe);
+            infuseur_->infuser(nomThe);
 
-        std::cout << "Service : " << the.volumeService << " mL." << std::endl;
-        std::cout << "Votre thé est prêt." << std::endl;
+            std::cout << "Service : " << Util::nombre(the.volumeService) << " mL." << std::endl;
+            std::cout << "Votre thé est prêt." << std::endl;
+        }
     }
 
     void Systeme::remplirEau(double quantite) { reserve_->remplirEau(quantite); }
@@ -45,7 +53,21 @@ namespace Machine
 
     void Systeme::afficherReserves() const { reserve_->afficherReserves(); }
 
-    void Systeme::activerNotifications(bool activer) { reserve_->activerNotifications(activer); }
+    void Systeme::activerNotifications(bool activer)
+    {
+        if (activer && !appAttache_)
+        {
+            reserve_->ajouterObservateur(app_.get());
+            appAttache_ = true;
+        }
+        else if (!activer && appAttache_)
+        {
+            reserve_->retirerObservateur(app_.get());
+            appAttache_ = false;
+        }
+
+        std::cout << "Notifications à distance " << (activer ? "activées." : "désactivées.") << std::endl;
+    }
 
     bool Systeme::quitter(bool oui)
     {
@@ -66,15 +88,9 @@ namespace Machine
 
     unsigned int Systeme::portions() const { return portions_; }
 
-    void Systeme::modifierPortions(unsigned int portions)
-    {
-        portions_ = portions;
-    }
+    void Systeme::modifierPortions(unsigned int portions) { portions_ = portions; }
 
-    void Systeme::modifierTheSelectionne(const std::string &the)
-    {
-        theSelectionne_ = the;
-    }
+    void Systeme::modifierTheSelectionne(const std::string &the) { theSelectionne_ = the; }
 
     void Systeme::appliquerRoutine(std::shared_ptr<Routine::IRoutine> &r)
     {

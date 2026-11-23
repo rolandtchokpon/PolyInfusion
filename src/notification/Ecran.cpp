@@ -1,34 +1,21 @@
 
 #include "../../include/notification/Ecran.h"
 
-namespace Notification {
+namespace Notification
+{
 
-    Ecran::Ecran(Machine::Reserve* reserve) :
-        reserve_(reserve)
-    {}
+    Ecran::Ecran() = default;
 
     Ecran::~Ecran() = default;
 
-    void Ecran::notifier(double qte) {
-        auto etat = reserve_->obtenirEtatEau();
-
-        if (qte < SEUIL_QTE_EAU && etat == Etat::CORRECT) {
-            std::cout << "[Ecran] Réserve d'eau faible : " << qte << " mL." << std::endl;
-        }
-        else if (qte >= SEUIL_QTE_EAU && etat == Etat::M_EAU) {
-            std::cout << "[Ecran] Réserve d'eau de nouveau suffisante : " << qte << " mL." << std::endl;
-        }
+    void Ecran::alerterEau(Evenement evenement, double qte)
+    {
+        std::cout << "[Écran] " << messageEau(evenement, qte) << std::endl;
     }
 
-    void Ecran::notifier(const std::string& the, double qte) {
-        auto etat = reserve_->obtenirEtatThe();
-
-        if (qte < SEUIL_QTE_THE && etat == Etat::CORRECT) {
-            std::cout << "[Ecran] Réserve de the " << the << " faible : " << qte << " g." << std::endl;
-        }
-        else if (qte >= SEUIL_QTE_THE && etat == Etat::M_THE) {
-            std::cout << "[Ecran] Réserve de the " << the << " de nouveau suffisante : " << qte << " g." << std::endl;
-        }
+    void Ecran::alerterThe(Evenement evenement, const std::string &the, double qte)
+    {
+        std::cout << "[Écran] " << messageThe(evenement, the, qte) << std::endl;
     }
 
-}  // namespace Notification
+} // namespace Notification

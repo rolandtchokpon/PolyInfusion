@@ -17,7 +17,9 @@ namespace Machine
     public:
         virtual ~Systeme() = 0;
 
-        void infuser(const std::string &nomThe);
+        // Prépare `portions` portions du thé ; refuse sans rien consommer
+        // si les réserves ne suffisent pas pour l'ensemble des portions.
+        void infuser(const std::string &nomThe, unsigned int portions = 1);
         void remplirThe(const std::string &nom, double quantite);
         void remplirEau(double quantite);
         void afficherReserves() const;
@@ -29,7 +31,7 @@ namespace Machine
         unsigned int portions() const;
         void modifierPortions(unsigned int portions);
         void modifierTheSelectionne(const std::string &the);
-        void appliquerRoutine(std::shared_ptr<Routine::IRoutine>& r);
+        void appliquerRoutine(std::shared_ptr<Routine::IRoutine> &r);
 
     protected:
         Systeme(std::unique_ptr<Reserve> &reserve, std::unique_ptr<DistributeurEau> &dEau, std::unique_ptr<DistributeurThe> &dThe, std::unique_ptr<SystemeChauffage> &sysChauff);
@@ -47,6 +49,7 @@ namespace Machine
         unsigned int portions_;
         std::string theSelectionne_;
         bool quitter_;
+        bool appAttache_;
     };
 
 } // namespace Machine

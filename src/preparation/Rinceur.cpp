@@ -19,8 +19,8 @@ namespace Machine {
             distributeurEau_->distribuerEau(theObj.volumeRincage);
             distributeurThe_->distribuerThe(the, theObj.quantiteService);
 
-            std::cout << "Rincage des feuilles" << std::endl;
-            std::cout << "Évacuation de l'eau de rincage  " << std::endl;
+            std::cout << "Rinçage des feuilles." << std::endl;
+            std::cout << "Évacuation de l'eau de rinçage." << std::endl;
         }
     }
 

@@ -18,8 +18,7 @@ namespace CMD
             return;
         }
 
-        for (unsigned int i = 0; i < sys->portions(); ++i)
-            sys->infuser(the);
+        sys->infuser(the, sys->portions());
     }
 
     void CmdInfuser::undo(Machine::Systeme *sys)

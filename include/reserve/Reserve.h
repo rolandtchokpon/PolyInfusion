@@ -1,13 +1,13 @@
 #pragma once
 
 #include <iostream>
-#include <unordered_map>
 #include <string>
+#include <unordered_map>
+#include <vector>
 
 #include "../../include/notification/Notificateur.h"
 #include "TheInsuffisant.h"
 #include "EauInsuffisante.h"
-#
 
 namespace Machine
 {
@@ -18,7 +18,6 @@ namespace Machine
         Reserve();
         void distribuerEau(double qte, double ratio);
         void distribuerThe(const std::string &the, double qte, double ratio);
-        void activerNotifications(bool activer);
         void remplirThe(const std::string &the, double qte);
         void remplirEau(double qte);
         void ajouterThe(const The &the);
@@ -30,6 +29,7 @@ namespace Machine
     private:
         double qteEau_;
         std::unordered_map<std::string, The> thes_;
+        std::vector<std::string> ordreThes_;
     };
 
 } // namespace Machine
