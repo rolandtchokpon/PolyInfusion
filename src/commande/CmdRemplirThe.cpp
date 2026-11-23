@@ -4,23 +4,17 @@
 namespace CMD
 {
 
-    CmdRemplirThe::CmdRemplirThe(const Console::Instruction &inst) : Commande(true, inst) {}
+    CmdRemplirThe::CmdRemplirThe() : Commande(false) {}
 
     CmdRemplirThe::~CmdRemplirThe() = default;
 
-    void CmdRemplirThe::executer(Machine::Systeme *sys)
+    void CmdRemplirThe::executer(const Console::Instruction &inst, Machine::Systeme *sys)
     {
-        sys->remplirThe(instruction_.the, instruction_.quantite);
+        sys->remplirThe(inst.the, inst.quantite);
     }
 
     void CmdRemplirThe::undo(Machine::Systeme *sys)
     {
         std::cout << "Ceci n'est pas une commande réversible." << std::endl;
     }
-
-    void CmdRemplirThe::apercu(unsigned int numero = 1)
-    {
-        std::cout << "La commande suivante sera la seule exécutée" << std::endl;
-    }
-
 }

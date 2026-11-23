@@ -4,26 +4,23 @@
 namespace CMD
 {
 
-    CmdApercu::CmdApercu(const Console::Instruction &inst) : Commande(true, inst) {}
+    CmdApercu::CmdApercu(const std::shared_ptr<Commande> &routine) : Commande(false), routine_(routine) {}
 
     CmdApercu::~CmdApercu() = default;
 
-    void CmdApercu::executer(Machine::Systeme *sys)
+    void CmdApercu::executer(const Console::Instruction &, Machine::Systeme *)
     {
-        // TODO
-        auto r = lireRoutine(instruction_.routine);
+        // Parcourt les changements élémentaires sans rien exécuter ni modifier.
+        std::vector<std::string> lignes;
+        routine_->apercu(lignes);
 
-        r->apercu();
+        for (std::size_t i = 0; i < lignes.size(); ++i)
+            std::cout << (i + 1) << ". " << lignes[i] << std::endl;
     }
 
-    void CmdApercu::undo(Machine::Systeme *sys)
+    void CmdApercu::undo(Machine::Systeme *)
     {
         std::cout << "Ceci n'est pas une commande réversible." << std::endl;
     }
 
-    void CmdApercu::apercu(unsigned int numero = 1)
-    {
-        // TODO
-    }
-
-}
+} // namespace CMD

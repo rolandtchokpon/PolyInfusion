@@ -14,7 +14,8 @@ namespace Machine
         virtual ~DistributeurThe() = 0;
 
         void distribuerThe(const std::string &the, double quantite);
-        const The &obtenirThe(const std::string &the);
+        // Refuse (exception) si la réserve ne suffit pas, pertes du modèle incluses.
+        void verifierSuffisance(const std::string &the, double quantite) const;
         double obtenirRatio() const;
 
     protected:

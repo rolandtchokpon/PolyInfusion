@@ -1,20 +1,31 @@
 
 #include "../../include/fabrique/FabriqueCompact.h"
+#include "../../include/systemeChauffage/SystemeChauffageCompact.h"
+#include "../../include/distributeurEau/DistributeurEauCompact.h"
+#include "../../include/distributeurThe/DistributeurTheCompact.h"
 
 namespace Fabrique
 {
+
     FabriqueCompact::FabriqueCompact() = default;
 
     FabriqueCompact::~FabriqueCompact() = default;
 
-    std::unique_ptr<Machine::Systeme> FabriqueCompact::creerSysteme()
-    {
-        std::unique_ptr<Machine::Reserve> reserve = std::make_unique<Machine::Reserve>();
-        std::unique_ptr<Machine::DistributeurEau> dEau = std::make_unique<Machine::DistributeurEauCompact>(reserve.get());
-        std::unique_ptr<Machine::DistributeurThe> dThe = std::make_unique<Machine::DistributeurTheCompact>(reserve.get());
-        std::unique_ptr<Machine::SystemeChauffage> sysChauff = std::make_unique<Machine::SystemeChauffageCompact>();
+    std::string FabriqueCompact::nomModele() const { return "Compact"; }
 
-        return std::make_unique<Machine::SystemeCompact>(reserve, dEau, dThe, sysChauff);
+    std::unique_ptr<Machine::SystemeChauffage> FabriqueCompact::creerChauffage() const
+    {
+        return std::make_unique<Machine::SystemeChauffageCompact>();
+    }
+
+    std::unique_ptr<Machine::DistributeurEau> FabriqueCompact::creerDistributeurEau(Machine::Reserve *reserve) const
+    {
+        return std::make_unique<Machine::DistributeurEauCompact>(reserve);
+    }
+
+    std::unique_ptr<Machine::DistributeurThe> FabriqueCompact::creerDistributeurThe(Machine::Reserve *reserve) const
+    {
+        return std::make_unique<Machine::DistributeurTheCompact>(reserve);
     }
 
 } // namespace Fabrique

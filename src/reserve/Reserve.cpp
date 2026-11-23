@@ -1,20 +1,25 @@
 
 #include "../../include/reserve/Reserve.h"
+#include "../../include/util/Format.h"
 
 namespace Machine
 {
 
     const double QTE_EAU_INITIALE = 2000.0; // mL
+    const double QTE_THE_INITIALE = 20.0;   // g
 
-    Reserve::Reserve() : 
-        Notification::Notificateur(),
-        qteEau_(QTE_EAU_INITIALE),
-        etatEau_(Etat::CORRECT)
+    Reserve::Reserve() : Notification::Notificateur(),
+                         qteEau_(QTE_EAU_INITIALE)
     {
-        thes_.clear();
-        ajouterThe(TheVert());
-        ajouterThe(TheNoir());
-        ajouterThe(TheOolong());
+    }
+
+    void Reserve::ajouterThe(const std::string &nom)
+    {
+        if (thes_.find(nom) == thes_.end())
+        {
+            ordreThes_.push_back(nom);
+            thes_[nom] = QTE_THE_INITIALE;
+        }
     }
 
     void Reserve::eauSuffisante(double quantite, double ratio) const
@@ -37,67 +42,50 @@ namespace Machine
             throw TheInsuffisant(the, quantiteRequise, 0.0);
         }
 
-        const The &theObj = it->second;
-
-        if (theObj.quantite < quantiteRequise)
+        if (it->second < quantiteRequise)
         {
-            throw TheInsuffisant(the, quantiteRequise, theObj.quantite);
+            throw TheInsuffisant(the, quantiteRequise, it->second);
         }
     }
 
     void Reserve::afficherReserves() const
     {
-        std::cout << "Eau : " << qteEau_ << " mL" << std::endl;
+        std::cout << "Eau : " << Util::nombre(qteEau_) << " mL" << std::endl;
 
-        std::cout << "Réserves de thés :" << std::endl;
-        for (const auto &pair : thes_)
+        for (const std::string &nom : ordreThes_)
         {
-            const The &the = pair.second;
-            std::cout << "  - " << "Thé " << the.nom << " : " << the.quantite << " g." << std::endl;
+            std::cout << "Thé " << nom << " : " << Util::nombre(thes_.at(nom)) << " g" << std::endl;
         }
-    }
-
-    void Reserve::ajouterThe(const The &the) { thes_[the.nom] = the; }
-
-    const The &Reserve::obtenirThe(const std::string &nomThe) const
-    {
-        auto it = thes_.find(nomThe);
-
-        if (it == thes_.end())
-        {
-            throw TheInsuffisant(nomThe, 0.0, 0.0);
-        }
-
-        return it->second;
     }
 
     void Reserve::remplirThe(const std::string &the, double quantite)
     {
-        thes_[the].quantite += quantite;
+        ajouterThe(the);
+        thes_[the] += quantite;
 
-        std::cout << "Ajout de thé " << the << " : " << quantite << " g." << std::endl;
+        std::cout << "Ajout de thé " << the << " : " << Util::nombre(quantite) << " g." << std::endl;
 
-        notifier(the, thes_[the].quantite);
+        verifierThe(the, thes_[the]);
     }
 
     void Reserve::remplirEau(double quantite)
     {
         qteEau_ += quantite;
 
-        std::cout << "Ajout d'eau : " << quantite << " mL" << std::endl;
+        std::cout << "Ajout d'eau : " << Util::nombre(quantite) << " mL." << std::endl;
 
-        notifier(qteEau_);
+        verifierEau(qteEau_);
     }
 
     void Reserve::distribuerThe(const std::string &the, double quantite, double ratio)
     {
         double quantiteRequise = quantite * (1.0 + ratio);
 
-        thes_[the].quantite -= quantiteRequise;
+        thes_[the] -= quantiteRequise;
 
-        std::cout << "Consommation de thé " << the << " : " << quantiteRequise << " g." << std::endl;
+        std::cout << "Consommation de thé " << the << " : " << Util::nombre(quantiteRequise) << " g." << std::endl;
 
-        notifier(the, thes_[the].quantite);
+        verifierThe(the, thes_[the]);
     }
 
     void Reserve::distribuerEau(double quantite, double ratio)
@@ -106,20 +94,9 @@ namespace Machine
 
         qteEau_ -= quantiteRequise;
 
-        std::cout << "Consommation d'eau : " << quantiteRequise << " mL" << std::endl;
+        std::cout << "Consommation d'eau : " << Util::nombre(quantiteRequise) << " mL." << std::endl;
 
-        this->notifier(qteEau_);
+        verifierEau(qteEau_);
     }
-
-    Etat Reserve::obtenirEtatEau() const { return etatEau_; }
-
-    Etat Reserve::obtenirEtatThe(const std::string &the) const { 
-        auto it = etatsThe_.find(the);
-        return it == etatsThe_.end() ? Etat::CORRECT : it->second;
-    }
-
-    void Reserve::mettreEtatEau(Etat e) { etatEau_ = e; }
-
-    void Reserve::mettreEtatThe(const std::string &the, Etat e) { etatsThe_[the] = e; }
 
 } // namespace Machine

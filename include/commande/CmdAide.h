@@ -1,4 +1,4 @@
-
+#pragma once
 #include "Commande.h"
 
 namespace CMD
@@ -7,12 +7,11 @@ namespace CMD
     class CmdAide : public Commande
     {
     public:
-        CmdAide(const Console::Instruction &inst);
+        CmdAide();
         ~CmdAide();
 
-        virtual void executer(Machine::Systeme *sys) override;
+        virtual void executer(const Console::Instruction &inst, Machine::Systeme *sys) override;
         virtual void undo(Machine::Systeme *sys) override;
-        virtual void apercu(unsigned int numero = 1) override;
     };
 
 } // namespace Commande

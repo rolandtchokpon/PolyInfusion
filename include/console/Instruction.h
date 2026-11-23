@@ -1,7 +1,7 @@
 
 #pragma once
-#include "TypeInstruction.h"
 #include <string>
+#include "TypeInstruction.h"
 
 namespace Console
 {
@@ -10,7 +10,7 @@ namespace Console
         TypeInstruction type = TypeInstruction::Vide;
         std::string the;
         std::string routine;
-        unsigned int portions;
+        unsigned int portions = 1;
         double quantite = 0.0;
         bool notificationsActives = false;
         std::string erreur;

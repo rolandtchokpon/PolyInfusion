@@ -4,28 +4,22 @@
 namespace CMD
 {
 
-    CmdRoutine::CmdRoutine(const Console::Instruction& inst) : Commande(true, inst) {}
+    CmdRoutine::CmdRoutine(const std::string &nom, const std::shared_ptr<Commande> &routine) : Commande(true), nom_(nom), routine_(routine) {}
 
     CmdRoutine::~CmdRoutine() = default;
 
-    void CmdRoutine::executer(Machine::Systeme *sys)
+    void CmdRoutine::executer(const Console::Instruction &inst, Machine::Systeme *sys)
     {
-        portionsAvant_ = sys->portions();
-        theAvant_ = sys->theSelectionne();
-
-        auto routine = lireRoutine(instruction_.routine);
-        sys->appliquerRoutine(routine, afficherModif_);
-
-        if (afficherModif_)
-            std::cout << "Routine appliquée : " << instruction_.routine << std::endl;
-
-        afficherModif_ = false;
+        routine_->executer(inst, sys);
+        std::cout << "Routine appliquée : " << nom_ << "." << std::endl;
     }
 
-    void CmdRoutine::undo(Machine::Systeme *sys)
-    {
-        sys->modifierPortions(portionsAvant_, afficherModif_);
-        sys->modifierTheSelectionne(theAvant_, afficherModif_);
-    }
+    void CmdRoutine::undo(Machine::Systeme *sys) { routine_->undo(sys); }
+
+    void CmdRoutine::redo(Machine::Systeme *sys) { routine_->redo(sys); }
+
+    void CmdRoutine::apercu(std::vector<std::string> &lignes) const { routine_->apercu(lignes); }
+
+    std::shared_ptr<Commande> CmdRoutine::cloner() const { return std::make_shared<CmdRoutine>(nom_, routine_->cloner()); }
 
 } // namespace CMD

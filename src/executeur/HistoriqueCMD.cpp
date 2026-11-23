@@ -4,52 +4,50 @@
 namespace Execution
 {
 
-    HistoriqueCMD::HistoriqueCMD()
-    {
-        pileRedo_.clear();
-        pileUndo_.clear();
-    }
+    HistoriqueCMD::HistoriqueCMD() = default;
 
     HistoriqueCMD::~HistoriqueCMD() = default;
 
-    void HistoriqueCMD::ajouterCmd(std::shared_ptr<CMD::Commande> &cmd)
+    void HistoriqueCMD::ajouterCmd(const std::shared_ptr<CMD::Commande> &cmd)
     {
-        pileUndo_.push_back(cmd);
-        pileRedo_.clear(); // une nouvelle commande invalide les redo
+        pileAnnulation_.push_back(cmd);
+
+        // Une nouvelle opération réversible supprime les possibilités de rétablissement.
+        pileRetablissement_.clear();
     }
 
     void HistoriqueCMD::undo(Machine::Systeme *sys)
     {
-        if (pileUndo_.empty())
+        if (pileAnnulation_.empty())
         {
             std::cout << "Erreur : aucune opération à annuler." << std::endl;
             return;
         }
 
-        std::shared_ptr<CMD::Commande> cmd = pileUndo_.back();
-        pileUndo_.pop_back();
+        std::shared_ptr<CMD::Commande> cmd = pileAnnulation_.back();
+        pileAnnulation_.pop_back();
 
         cmd->undo(sys);
-        pileRedo_.push_back(cmd);
+        pileRetablissement_.push_back(cmd);
 
         std::cout << "Opération annulée." << std::endl;
     }
 
     void HistoriqueCMD::redo(Machine::Systeme *sys)
     {
-        if (pileRedo_.empty())
+        if (pileRetablissement_.empty())
         {
             std::cout << "Erreur : aucune opération à rétablir." << std::endl;
             return;
         }
 
-        std::shared_ptr<CMD::Commande> cmd = pileRedo_.back();
-        pileRedo_.pop_back();
+        std::shared_ptr<CMD::Commande> cmd = pileRetablissement_.back();
+        pileRetablissement_.pop_back();
 
-        cmd->executer(cmd->sauvgarde(), sys);
-        pileUndo_.push_back(cmd); // directement, sans passer par ajouterCmd
+        cmd->redo(sys);
+        pileAnnulation_.push_back(cmd);
 
         std::cout << "Opération rétablie." << std::endl;
     }
 
-}
+} // namespace Execution

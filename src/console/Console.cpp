@@ -60,7 +60,7 @@ namespace Console
         return it == table.end() ? Mot::Inconnu : it->second;
     }
 
-    const Instruction InterfaceConsole::analyser(const std::string &ligne)
+    Instruction InterfaceConsole::analyser(const std::string &ligne)
     {
         std::istringstream entree(ligne);
         std::vector<std::string> mots;
@@ -134,23 +134,18 @@ namespace Console
             break;
 
         case Mot::Portions:
-        {
             if (mots.size() != 2)
             {
                 return invalide("Utilisation : portions <nombre>.");
             }
-
-            double quantite = 0.0;
-            if (!lireQuantite(mots[1], quantite) ||
-                quantite < 1 || std::floor(quantite) != quantite)
+            if (!lireQuantite(mots[1], resultat.quantite) ||
+                resultat.quantite < 1 || std::floor(resultat.quantite) != resultat.quantite)
             {
-                return invalide("Le nombre de portions doit être un entier positif.");
+                return invalide("le nombre de portions doit être un entier strictement positif.");
             }
-
             resultat.type = TypeInstruction::Portion;
-            resultat.portions = static_cast<unsigned int>(quantite);
+            resultat.portions = static_cast<unsigned int>(resultat.quantite);
             break;
-        }
 
         case Mot::Routine:
             if (mots.size() != 2)

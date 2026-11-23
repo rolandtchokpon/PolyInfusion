@@ -1,0 +1,243 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1830" height="1830" viewBox="-65 0 1830 1830" font-family="Helvetica, Arial, sans-serif">
+<defs>
+<marker id="tri" viewBox="0 0 14 12" refX="13" refY="6" markerWidth="14" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L13,6 L0,12 z" fill="#fff" stroke="#000" stroke-width="1.3"/></marker>
+<marker id="dia" viewBox="0 0 16 12" refX="0" refY="6" markerWidth="16" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,6 L8,0 L16,6 L8,12 z" fill="#fff" stroke="#000" stroke-width="1.3"/></marker>
+<marker id="diaf" viewBox="0 0 16 12" refX="0" refY="6" markerWidth="16" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,6 L8,0 L16,6 L8,12 z" fill="#000" stroke="#000" stroke-width="1.3"/></marker>
+<marker id="arr" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M1,1 L11,6 L1,11" fill="none" stroke="#000" stroke-width="1.3"/></marker>
+</defs>
+<rect x="-65" width="1830" height="1830" fill="#fff"/>
+<text text-anchor="middle" x="850" y="34" font-size="24" font-weight="bold">PolyInfusion — Diagramme de classes (TP2a + TP2b)</text>
+<rect x="620" y="70" width="460" height="128" fill="#fff" stroke="#000" stroke-width="1.6"/>
+<text x="850.0" y="86" text-anchor="middle" font-size="12">«interface»</text>
+<text x="850.0" y="104" text-anchor="middle" font-size="15" font-weight="700" font-style="italic" >Commande</text>
+<line x1="620" y1="114" x2="1080" y2="114" stroke="#000"/>
+<text x="628" y="130" font-size="13">+executer()</text>
+<text x="628" y="149" font-size="13">+annuler()</text>
+<text x="628" y="168" font-size="13">+apercu(sortie)</text>
+<text x="628" y="187" font-size="13">+cloner() Commande</text>
+<rect x="100" y="270" width="310" height="158" fill="#fff" stroke="#000" stroke-width="1.6"/>
+<text x="255.0" y="290" text-anchor="middle" font-size="15" font-weight="700" >CommandeSelection</text>
+<line x1="100" y1="298" x2="410" y2="298" stroke="#000"/>
+<text x="108" y="314" font-size="13">-ancienThe</text>
+<text x="108" y="333" font-size="13">-nouveauThe</text>
+<line x1="100" y1="344" x2="410" y2="344" stroke="#000"/>
+<text x="108" y="360" font-size="13">+executer()</text>
+<text x="108" y="379" font-size="13">+annuler()</text>
+<text x="108" y="398" font-size="13">+apercu(sortie)</text>
+<text x="108" y="417" font-size="13">+cloner()</text>
+<rect x="460" y="270" width="310" height="158" fill="#fff" stroke="#000" stroke-width="1.6"/>
+<text x="615.0" y="290" text-anchor="middle" font-size="15" font-weight="700" >CommandePortions</text>
+<line x1="460" y1="298" x2="770" y2="298" stroke="#000"/>
+<text x="468" y="314" font-size="13">-anciennesPortions</text>
+<text x="468" y="333" font-size="13">-nouvellesPortions</text>
+<line x1="460" y1="344" x2="770" y2="344" stroke="#000"/>
+<text x="468" y="360" font-size="13">+executer()</text>
+<text x="468" y="379" font-size="13">+annuler()</text>
+<text x="468" y="398" font-size="13">+apercu(sortie)</text>
+<text x="468" y="417" font-size="13">+cloner()</text>
+<rect x="820" y="270" width="500" height="158" fill="#fff" stroke="#000" stroke-width="1.6"/>
+<text x="1070.0" y="290" text-anchor="middle" font-size="15" font-weight="700" >Routine</text>
+<line x1="820" y1="298" x2="1320" y2="298" stroke="#000"/>
+<text x="828" y="314" font-size="13">-nom</text>
+<text x="828" y="333" font-size="13">-enfants : liste de Commande</text>
+<line x1="820" y1="344" x2="1320" y2="344" stroke="#000"/>
+<text x="828" y="360" font-size="13">+ajouter(commande)</text>
+<text x="828" y="379" font-size="13">+executer()   (dans l'ordre)</text>
+<text x="828" y="398" font-size="13">+annuler()   (ordre inverse)</text>
+<text x="828" y="417" font-size="13">+apercu(sortie)   (ordre d'exécution)</text>
+<rect x="150" y="520" width="550" height="158" fill="#fff" stroke="#000" stroke-width="1.6"/>
+<text x="425.0" y="540" text-anchor="middle" font-size="15" font-weight="700" >Reglages</text>
+<line x1="150" y1="548" x2="700" y2="548" stroke="#000"/>
+<text x="158" y="564" font-size="13">-theSelectionne</text>
+<text x="158" y="583" font-size="13">-portions</text>
+<line x1="150" y1="594" x2="700" y2="594" stroke="#000"/>
+<text x="158" y="610" font-size="13">+theSelectionne()</text>
+<text x="158" y="629" font-size="13">+definirThe(nom)</text>
+<text x="158" y="648" font-size="13">+portions()</text>
+<text x="158" y="667" font-size="13">+definirPortions(n)</text>
+<rect x="900" y="520" width="340" height="74" fill="#fff" stroke="#000" stroke-width="1.6"/>
+<text x="1070.0" y="540" text-anchor="middle" font-size="15" font-weight="700" >RegistreRoutines</text>
+<line x1="900" y1="548" x2="1240" y2="548" stroke="#000"/>
+<text x="908" y="564" font-size="13">+enregistrer(routine)</text>
+<text x="908" y="583" font-size="13">+creerExecution(nom) Commande</text>
+<rect x="1380" y="520" width="320" height="139" fill="#fff" stroke="#000" stroke-width="1.6"/>
+<text x="1540.0" y="540" text-anchor="middle" font-size="15" font-weight="700" >HistoriqueCommandes</text>
+<line x1="1380" y1="548" x2="1700" y2="548" stroke="#000"/>
+<text x="1388" y="564" font-size="13">-pileAnnulation</text>
+<text x="1388" y="583" font-size="13">-pileRetablissement</text>
+<line x1="1380" y1="594" x2="1700" y2="594" stroke="#000"/>
+<text x="1388" y="610" font-size="13">+executer(commande)</text>
+<text x="1388" y="629" font-size="13">+annuler()</text>
+<text x="1388" y="648" font-size="13">+retablir()</text>
+<text x="620" y="60" font-size="14" font-weight="bold" fill="#444">Patron Command</text>
+<text x="820" y="448" font-size="14" font-weight="bold" fill="#444">Patron Composite</text>
+<text x="975" y="616" font-size="14" font-weight="bold" fill="#444">Prédéfinies au lancement</text>
+<path d="M255,270 L255,235 L700,235 L700,198" fill="none" stroke="#000" stroke-width="1.3" marker-end="url(#tri)"/>
+<path d="M615,270 L615,235" fill="none" stroke="#000" stroke-width="1.3"/>
+<path d="M900,270 L900,235 L700,235" fill="none" stroke="#000" stroke-width="1.3"/>
+<path d="M1250,270 L1250,170 L1080,170" fill="none" stroke="#000" stroke-width="1.3" marker-start="url(#dia)"/>
+<text x="1100" y="162" font-size="12" font-style="italic">enfants  1..*</text>
+<path d="M1540,520 L1540,134 L1080,134" fill="none" stroke="#000" stroke-width="1.3" marker-end="url(#arr)"/>
+<text x="1100" y="126" font-size="12" font-style="italic">pile de *</text>
+<path d="M1070,520 L1070,428" fill="none" stroke="#000" stroke-width="1.3" marker-start="url(#dia)"/>
+<text x="1080" y="480" font-size="12" font-style="italic">Solo, Duo, Matin</text>
+<path d="M255,428 L255,520" fill="none" stroke="#000" stroke-width="1.3" stroke-dasharray="7,5" marker-end="url(#arr)"/>
+<text x="262" y="480" font-size="12" font-style="italic">modifient</text>
+<path d="M615,428 L615,520" fill="none" stroke="#000" stroke-width="1.3" stroke-dasharray="7,5" marker-end="url(#arr)"/>
+<rect x="60" y="70" width="520" height="140" fill="none" stroke="#000" stroke-dasharray="6,4"/>
+<text x="76" y="96" font-size="13" font-weight="bold">Routines prédéfinies (créées au lancement, rien exécuté) :</text>
+<text x="76" y="122" font-size="13">Solo = [ Sélection(vert), Portions(1) ]</text>
+<text x="76" y="148" font-size="13">Duo = [ Sélection(noir), Portions(2) ]</text>
+<text x="76" y="174" font-size="13">Matin = [ Duo, Sélection(oolong) ]  (sous-routine Duo)</text>
+<text x="76" y="200" font-size="13">« routine &lt;nom&gt; » exécute une copie (cloner).</text>
+<rect x="640" y="760" width="400" height="264" fill="#fff" stroke="#000" stroke-width="1.6"/>
+<text x="840.0" y="780" text-anchor="middle" font-size="15" font-weight="700" >Machine</text>
+<line x1="640" y1="788" x2="1040" y2="788" stroke="#000"/>
+<text x="648" y="804" font-size="13">+selectionner(nom)</text>
+<text x="648" y="823" font-size="13">+infuser()</text>
+<text x="648" y="842" font-size="13">+afficherReserves()</text>
+<text x="648" y="861" font-size="13">+remplirEau(q)</text>
+<text x="648" y="880" font-size="13">+remplirThe(nom, q)</text>
+<text x="648" y="899" font-size="13">+activerNotificationsDistantes(actif)</text>
+<text x="648" y="918" font-size="13">+definirPortions(n)</text>
+<text x="648" y="937" font-size="13">+afficherConfiguration()</text>
+<text x="648" y="956" font-size="13">+appliquerRoutine(nom)</text>
+<text x="648" y="975" font-size="13">+apercuRoutine(nom)</text>
+<text x="648" y="994" font-size="13">+annuler()</text>
+<text x="648" y="1013" font-size="13">+retablir()</text>
+<rect x="60" y="780" width="300" height="74" fill="#fff" stroke="#000" stroke-width="1.6"/>
+<text x="210.0" y="800" text-anchor="middle" font-size="15" font-weight="700" >RegistreProfils</text>
+<line x1="60" y1="808" x2="360" y2="808" stroke="#000"/>
+<text x="68" y="824" font-size="13">+ajouter(profil)</text>
+<text x="68" y="843" font-size="13">+trouver(nom)</text>
+<rect x="60" y="920" width="300" height="90" fill="#fff" stroke="#000" stroke-width="1.6"/>
+<text x="210.0" y="936" text-anchor="middle" font-size="12">«abstract»</text>
+<text x="210.0" y="954" text-anchor="middle" font-size="15" font-weight="700" font-style="italic" >ProfilInfusion</text>
+<line x1="60" y1="964" x2="360" y2="964" stroke="#000"/>
+<text x="68" y="980" font-size="13">+besoins(composants)</text>
+<text x="68" y="999" font-size="13">+preparer(composants, reserves)</text>
+<rect x="20" y="1090" width="130" height="30" fill="#fff" stroke="#000" stroke-width="1.6"/>
+<text x="85.0" y="1110" text-anchor="middle" font-size="13" font-weight="400" >ProfilVert</text>
+<rect x="165" y="1090" width="130" height="30" fill="#fff" stroke="#000" stroke-width="1.6"/>
+<text x="230.0" y="1110" text-anchor="middle" font-size="13" font-weight="400" >ProfilNoir</text>
+<rect x="310" y="1090" width="130" height="30" fill="#fff" stroke="#000" stroke-width="1.6"/>
+<text x="375.0" y="1110" text-anchor="middle" font-size="13" font-weight="400" >ProfilOolong</text>
+<rect x="1290" y="760" width="340" height="177" fill="#fff" stroke="#000" stroke-width="1.6"/>
+<text x="1460.0" y="780" text-anchor="middle" font-size="15" font-weight="700" >Reserve</text>
+<line x1="1290" y1="788" x2="1630" y2="788" stroke="#000"/>
+<text x="1298" y="804" font-size="13">-nom</text>
+<text x="1298" y="823" font-size="13">-niveau</text>
+<text x="1298" y="842" font-size="13">-seuil</text>
+<line x1="1290" y1="853" x2="1630" y2="853" stroke="#000"/>
+<text x="1298" y="869" font-size="13">+retirer(q)</text>
+<text x="1298" y="888" font-size="13">+ajouter(q)</text>
+<text x="1298" y="907" font-size="13">+attacher(observateur)</text>
+<text x="1298" y="926" font-size="13">+detacher(observateur)</text>
+<rect x="1290" y="1000" width="340" height="90" fill="#fff" stroke="#000" stroke-width="1.6"/>
+<text x="1460.0" y="1016" text-anchor="middle" font-size="12">«interface»</text>
+<text x="1460.0" y="1034" text-anchor="middle" font-size="15" font-weight="700" font-style="italic" >ObservateurReserve</text>
+<line x1="1290" y1="1044" x2="1630" y2="1044" stroke="#000"/>
+<text x="1298" y="1060" font-size="13">+reserveFaible(reserve)</text>
+<text x="1298" y="1079" font-size="13">+reserveSuffisante(reserve)</text>
+<rect x="1290" y="1150" width="160" height="30" fill="#fff" stroke="#000" stroke-width="1.6"/>
+<text x="1370.0" y="1170" text-anchor="middle" font-size="13" font-weight="400" >NotifieurEcran</text>
+<rect x="1470" y="1150" width="160" height="30" fill="#fff" stroke="#000" stroke-width="1.6"/>
+<text x="1550.0" y="1170" text-anchor="middle" font-size="13" font-weight="400" >NotifieurDistant</text>
+<text x="60" y="760" font-size="14" font-weight="bold" fill="#444">Patron Strategy</text>
+<text x="1290" y="745" font-size="14" font-weight="bold" fill="#444">Patron Observer</text>
+<path d="M640,810 L360,810" fill="none" stroke="#000" stroke-width="1.3" marker-end="url(#arr)"/>
+<text x="480" y="802" font-size="12" font-style="italic">utilise</text>
+<path d="M640,850 L500,850 L500,965 L360,965" fill="none" stroke="#000" stroke-width="1.3" marker-end="url(#arr)"/>
+<text x="508" y="880" font-size="12" font-style="italic">profil sélectionné</text>
+<path d="M1040,830 L1290,830" fill="none" stroke="#000" stroke-width="1.3" marker-start="url(#diaf)"/>
+<text x="1120" y="822" font-size="12" font-style="italic">4 réserves</text>
+<path d="M1040,885 L1250,885 L1250,1200 L1550,1200 L1550,1190" fill="none" stroke="#000" stroke-width="1.3" stroke-dasharray="7,5" marker-end="url(#arr)"/>
+<path d="M1250,1165 L1290,1165" fill="none" stroke="#000" stroke-width="1.3" stroke-dasharray="7,5" marker-end="url(#arr)"/>
+<text x="1180" y="1180" font-size="12" font-style="italic">attache</text>
+<path d="M210,854 L210,920" fill="none" stroke="#000" stroke-width="1.3" marker-start="url(#dia)"/>
+<text x="218" y="892" font-size="12" font-style="italic">*</text>
+<path d="M85,1090 L85,1055 L150,1055 L150,1010" fill="none" stroke="#000" stroke-width="1.3" marker-end="url(#tri)"/>
+<path d="M230,1090 L230,1010" fill="none" stroke="#000" stroke-width="1.3" marker-end="url(#tri)"/>
+<path d="M375,1090 L375,1055 L300,1055 L300,1010" fill="none" stroke="#000" stroke-width="1.3" marker-end="url(#tri)"/>
+<path d="M1460,937 L1460,1000" fill="none" stroke="#000" stroke-width="1.3" marker-start="url(#dia)"/>
+<text x="1468" y="976" font-size="12" font-style="italic">*</text>
+<path d="M1370,1150 L1370,1090" fill="none" stroke="#000" stroke-width="1.3" stroke-dasharray="7,5" marker-end="url(#tri)"/>
+<path d="M1550,1150 L1550,1090" fill="none" stroke="#000" stroke-width="1.3" stroke-dasharray="7,5" marker-end="url(#tri)"/>
+<path d="M680,760 L680,719 L425,719 L425,678" fill="none" stroke="#000" stroke-width="1.3" marker-end="url(#arr)"/>
+<text x="440" y="711" font-size="12" font-style="italic">règle</text>
+<path d="M960,760 L960,594" fill="none" stroke="#000" stroke-width="1.3" marker-end="url(#arr)"/>
+<text x="968" y="660" font-size="12" font-style="italic">routine &lt;nom&gt;</text>
+<path d="M1020,760 L1020,719 L1540,719 L1540,659" fill="none" stroke="#000" stroke-width="1.3" marker-end="url(#arr)"/>
+<text x="1100" y="711" font-size="12" font-style="italic">délègue undo / redo</text>
+<path d="M840,1024 L840,1084" fill="none" stroke="#000" stroke-width="1.3" marker-end="url(#arr)"/>
+<text x="848" y="1058" font-size="12" font-style="italic">crée</text>
+<rect x="640" y="1084" width="400" height="109" fill="#fff" stroke="#000" stroke-width="1.6"/>
+<text x="840.0" y="1100" text-anchor="middle" font-size="12">«abstract»</text>
+<text x="840.0" y="1118" text-anchor="middle" font-size="15" font-weight="700" font-style="italic" >FabriqueComposants</text>
+<line x1="640" y1="1128" x2="1040" y2="1128" stroke="#000"/>
+<text x="648" y="1144" font-size="13">+creerChauffage()</text>
+<text x="648" y="1163" font-size="13">+creerDistributeurThe()</text>
+<text x="648" y="1182" font-size="13">+creerDistributeurEau()</text>
+<rect x="640" y="1234" width="185" height="30" fill="#fff" stroke="#000" stroke-width="1.6"/>
+<text x="732.5" y="1254" text-anchor="middle" font-size="13" font-weight="400" >FabriqueCompact</text>
+<rect x="855" y="1234" width="185" height="30" fill="#fff" stroke="#000" stroke-width="1.6"/>
+<text x="947.5" y="1254" text-anchor="middle" font-size="13" font-weight="400" >FabriquePro</text>
+<rect x="340" y="1394" width="280" height="71" fill="#fff" stroke="#000" stroke-width="1.6"/>
+<text x="480.0" y="1410" text-anchor="middle" font-size="12">«abstract»</text>
+<text x="480.0" y="1428" text-anchor="middle" font-size="15" font-weight="700" font-style="italic" >SystemeChauffage</text>
+<line x1="340" y1="1438" x2="620" y2="1438" stroke="#000"/>
+<text x="348" y="1454" font-size="13">+chauffer(temperatureCible)</text>
+<rect x="700" y="1394" width="280" height="90" fill="#fff" stroke="#000" stroke-width="1.6"/>
+<text x="840.0" y="1410" text-anchor="middle" font-size="12">«abstract»</text>
+<text x="840.0" y="1428" text-anchor="middle" font-size="15" font-weight="700" font-style="italic" >DistributeurThe</text>
+<line x1="700" y1="1438" x2="980" y2="1438" stroke="#000"/>
+<text x="708" y="1454" font-size="13">+quantiteReelle(nominale)</text>
+<text x="708" y="1473" font-size="13">+distribuer(reserve, nominale)</text>
+<rect x="1060" y="1394" width="280" height="90" fill="#fff" stroke="#000" stroke-width="1.6"/>
+<text x="1200.0" y="1410" text-anchor="middle" font-size="12">«abstract»</text>
+<text x="1200.0" y="1428" text-anchor="middle" font-size="15" font-weight="700" font-style="italic" >DistributeurEau</text>
+<line x1="1060" y1="1438" x2="1340" y2="1438" stroke="#000"/>
+<text x="1068" y="1454" font-size="13">+quantiteReelle(nominale)</text>
+<text x="1068" y="1473" font-size="13">+distribuer(reserve, nominale)</text>
+<rect x="305" y="1584" width="170" height="30" fill="#fff" stroke="#000" stroke-width="1.6"/>
+<text x="390.0" y="1604" text-anchor="middle" font-size="13" font-weight="400" >ChauffageCompact</text>
+<rect x="485" y="1584" width="170" height="30" fill="#fff" stroke="#000" stroke-width="1.6"/>
+<text x="570.0" y="1604" text-anchor="middle" font-size="13" font-weight="400" >ChauffagePro</text>
+<rect x="665" y="1584" width="170" height="30" fill="#fff" stroke="#000" stroke-width="1.6"/>
+<text x="750.0" y="1604" text-anchor="middle" font-size="13" font-weight="400" >DistributeurTheCompact</text>
+<rect x="845" y="1584" width="170" height="30" fill="#fff" stroke="#000" stroke-width="1.6"/>
+<text x="930.0" y="1604" text-anchor="middle" font-size="13" font-weight="400" >DistributeurThePro</text>
+<rect x="1025" y="1584" width="170" height="30" fill="#fff" stroke="#000" stroke-width="1.6"/>
+<text x="1110.0" y="1604" text-anchor="middle" font-size="13" font-weight="400" >DistributeurEauCompact</text>
+<rect x="1205" y="1584" width="170" height="30" fill="#fff" stroke="#000" stroke-width="1.6"/>
+<text x="1290.0" y="1604" text-anchor="middle" font-size="13" font-weight="400" >DistributeurEauPro</text>
+<text x="640" y="1072" font-size="14" font-weight="bold" fill="#444">Patron Abstract Factory</text>
+<path d="M737,1234 L737,1193" fill="none" stroke="#000" stroke-width="1.3" marker-end="url(#tri)"/>
+<path d="M947,1234 L947,1193" fill="none" stroke="#000" stroke-width="1.3" marker-end="url(#tri)"/>
+<path d="M832,1193 L832,1334 L480,1334 L480,1394" fill="none" stroke="#000" stroke-width="1.3" stroke-dasharray="7,5" marker-end="url(#arr)"/>
+<path d="M832,1334 L832,1394" fill="none" stroke="#000" stroke-width="1.3" stroke-dasharray="7,5" marker-end="url(#arr)"/>
+<path d="M832,1334 L1200,1334 L1200,1394" fill="none" stroke="#000" stroke-width="1.3" stroke-dasharray="7,5" marker-end="url(#arr)"/>
+<text font-style="italic" x="900" y="1327" font-size="12">crée</text>
+<path d="M390,1584 L390,1465" fill="none" stroke="#000" stroke-width="1.3" marker-end="url(#tri)"/>
+<path d="M570,1584 L570,1465" fill="none" stroke="#000" stroke-width="1.3" marker-end="url(#tri)"/>
+<path d="M750,1584 L750,1484" fill="none" stroke="#000" stroke-width="1.3" marker-end="url(#tri)"/>
+<path d="M930,1584 L930,1484" fill="none" stroke="#000" stroke-width="1.3" marker-end="url(#tri)"/>
+<path d="M1110,1584 L1110,1484" fill="none" stroke="#000" stroke-width="1.3" marker-end="url(#tri)"/>
+<path d="M1290,1584 L1290,1484" fill="none" stroke="#000" stroke-width="1.3" marker-end="url(#tri)"/>
+<rect x="60" y="1660" width="1580" height="150" fill="none" stroke="#000" stroke-width="1"/>
+<text x="80" y="1686" font-size="15" font-weight="bold">Légende</text>
+<path d="M80,1715 L140,1715" fill="none" stroke="#000" stroke-width="1.3" marker-end="url(#tri)"/>
+<text x="155" y="1720" font-size="13">Héritage / réalisation</text>
+<path d="M80,1745 L140,1745" fill="none" stroke="#000" stroke-width="1.3" marker-end="url(#arr)"/>
+<text x="155" y="1750" font-size="13">Association (utilise)</text>
+<path d="M80,1775 L140,1775" fill="none" stroke="#000" stroke-width="1.3" stroke-dasharray="7,5" marker-end="url(#arr)"/>
+<text x="155" y="1780" font-size="13">Dépendance (crée / attache / modifie)</text>
+<path d="M430,1715 L490,1715" fill="none" stroke="#000" stroke-width="1.3" marker-start="url(#diaf)"/>
+<text x="505" y="1720" font-size="13">Composition</text>
+<path d="M430,1745 L490,1745" fill="none" stroke="#000" stroke-width="1.3" marker-start="url(#dia)"/>
+<text x="505" y="1750" font-size="13">Agrégation</text>
+<text x="780" y="1700" font-size="13">Valeurs : ChauffageCompact 5 °C/s, ChauffagePro 10 °C/s (départ à 20 °C).</text>
+<text x="780" y="1726" font-size="13">DistributeurTheCompact ×1,10 ; DistributeurEauCompact ×1,20 ; versions Pro ×1,00.</text>
+<text x="780" y="1752" font-size="13">Réserves au départ : eau 2000 mL (seuil 500 mL), thés 20 g (seuil 10 g).</text>
+<text x="780" y="1778" font-size="13">infuser() prépare portions() fois le profil, après vérification globale des réserves.</text>
+</svg>

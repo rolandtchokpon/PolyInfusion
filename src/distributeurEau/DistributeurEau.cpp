@@ -16,6 +16,11 @@ namespace Machine
         reserve_->distribuerEau(quantite, ratio_);
     }
 
+    void DistributeurEau::verifierSuffisance(double quantite) const
+    {
+        reserve_->eauSuffisante(quantite, ratio_);
+    }
+
     double DistributeurEau::obtenirRatio() const { return ratio_; }
 
 } // namespace Machine

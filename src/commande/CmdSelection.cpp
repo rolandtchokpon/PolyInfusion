@@ -4,26 +4,27 @@
 namespace CMD
 {
 
-    CmdSelection::CmdSelection(const Console::Instruction &inst) : Commande(true, inst) {}
+    CmdSelection::CmdSelection(const std::string &the) : Commande(true), nouveauThe_(the) {}
 
     CmdSelection::~CmdSelection() = default;
 
-    void CmdSelection::executer(Machine::Systeme *sys)
+    void CmdSelection::executer(const Console::Instruction &, Machine::Systeme *sys)
     {
-        theAvant_ = sys->theSelectionne();
-        sys->modifierTheSelectionne(instruction_.the, afficherModif_);
+        ancienThe_ = sys->theSelectionne();
 
-        afficherModif_ = false;
+        sys->modifierTheSelectionne(nouveauThe_);
+        std::cout << "Thé sélectionné : " << nouveauThe_ << "." << std::endl;
     }
 
-    void CmdSelection::undo(Machine::Systeme *sys)
+    void CmdSelection::undo(Machine::Systeme *sys) { sys->modifierTheSelectionne(ancienThe_); }
+
+    void CmdSelection::redo(Machine::Systeme *sys) { sys->modifierTheSelectionne(nouveauThe_); }
+
+    void CmdSelection::apercu(std::vector<std::string> &lignes) const
     {
-        sys->modifierTheSelectionne(theAvant_, afficherModif_);
+        lignes.push_back("Sélectionner le thé " + nouveauThe_ + ".");
     }
 
-    void CmdSelection::apercu(unsigned int numero = 1)
-    {
-        std::cout << "La commande suivante sera la seule exécutée" << std::endl;
-    }
+    std::shared_ptr<Commande> CmdSelection::cloner() const { return std::make_shared<CmdSelection>(nouveauThe_); }
 
-}
+} // namespace CMD

@@ -1,13 +1,26 @@
 
 #include "../../include/executeur/Executeur.h"
+#include "../../include/commande/CmdAide.h"
+#include "../../include/commande/CmdApercu.h"
+#include "../../include/commande/CmdConfig.h"
+#include "../../include/commande/CmdInfuser.h"
+#include "../../include/commande/CmdNotif.h"
+#include "../../include/commande/CmdPortion.h"
+#include "../../include/commande/CmdQuit.h"
+#include "../../include/commande/CmdRemplirEau.h"
+#include "../../include/commande/CmdRemplirThe.h"
+#include "../../include/commande/CmdReserve.h"
+#include "../../include/commande/CmdRoutine.h"
+#include "../../include/commande/CmdSelection.h"
 
 namespace Execution
 {
 
-    Executeur::Executeur(Machine::Systeme *sys) : sys_(sys),
-                                                  hist_(std::make_unique<HistoriqueCMD>())
-    {
-    }
+    Executeur::Executeur(Machine::Systeme *sys) : 
+        sys_(sys),
+        hist_(std::make_unique<HistoriqueCMD>()),
+        routines_(std::make_unique<RegistreRoutines>())
+    {}
 
     Executeur::~Executeur() = default;
 
@@ -31,80 +44,61 @@ namespace Execution
 
         std::shared_ptr<CMD::Commande> cmd = commande(inst);
 
-        if (!cmd)
-            return;
-
-        if (cmd->estReversible())
-            hist_->ajouterCmd(cmd);
+        if (!cmd) return;
 
         cmd->executer(inst, sys_);
+
+        // L'historique n'est modifié qu'après une exécution réussie.
+        if (cmd->estReversible()) hist_->ajouterCmd(cmd);
     }
 
     std::shared_ptr<CMD::Commande> Executeur::commande(const Console::Instruction &inst)
     {
-        std::shared_ptr<CMD::Commande> cmd;
-
         switch (inst.type)
         {
         case Console::TypeInstruction::Aide:
-            cmd = std::make_shared<CMD::CmdAide>();
-            break;
-
+            return std::make_shared<CMD::CmdAide>();
         case Console::TypeInstruction::Quitter:
-            cmd = std::make_shared<CMD::CmdQuit>();
-            break;
-
+            return std::make_shared<CMD::CmdQuit>();
         case Console::TypeInstruction::Selection:
-            cmd = std::make_shared<CMD::CmdSelection>();
-            break;
-
+            return std::make_shared<CMD::CmdSelection>(inst.the);
         case Console::TypeInstruction::Infuser:
-            cmd = std::make_shared<CMD::CmdInfuser>();
-            break;
-
+            return std::make_shared<CMD::CmdInfuser>();
         case Console::TypeInstruction::Reserves:
-            cmd = std::make_shared<CMD::CmdReserve>();
-            break;
-
+            return std::make_shared<CMD::CmdReserve>();
         case Console::TypeInstruction::RemplirEau:
-            cmd = std::make_shared<CMD::CmdRemplirEau>();
-            break;
-
+            return std::make_shared<CMD::CmdRemplirEau>();
         case Console::TypeInstruction::RemplirThe:
-            cmd = std::make_shared<CMD::CmdRemplirThe>();
-            break;
-
+            return std::make_shared<CMD::CmdRemplirThe>();
         case Console::TypeInstruction::Notifications:
-            cmd = std::make_shared<CMD::CmdNotif>();
-            break;
-
+            return std::make_shared<CMD::CmdNotif>();
         case Console::TypeInstruction::Apercu:
-            cmd = std::make_shared<CMD::CmdApercu>();
-            break;
-
-        case Console::TypeInstruction::Config:
-            cmd = std::make_shared<CMD::CmdConfig>();
-            break;
-
-        case Console::TypeInstruction::Portion:
-            cmd = std::make_shared<CMD::CmdPortion>();
-            break;
-
-        case Console::TypeInstruction::Routine:
-            cmd = std::make_shared<CMD::CmdRoutine>();
-            break;
-
-        // Pas de Commande associée : traités directement par Historique
-        // (undo/redo) ou par l'appelant (instruction vide ou invalide).
-        case Console::TypeInstruction::Undo:
-        case Console::TypeInstruction::Redo:
-        case Console::TypeInstruction::Invalide:
-        case Console::TypeInstruction::Vide:
-        default:
-            break;
+        {
+            auto routine = routines_->obtenir(inst.routine);
+            if (!routine)
+            {
+                std::cout << "Erreur : routine inconnue." << std::endl;
+                return nullptr;
+            }
+            return std::make_shared<CMD::CmdApercu>(routine);
         }
-
-        return cmd;
+        case Console::TypeInstruction::Config:
+            return std::make_shared<CMD::CmdConfig>();
+        case Console::TypeInstruction::Portion:
+            return std::make_shared<CMD::CmdPortion>(inst.portions);
+        case Console::TypeInstruction::Routine:
+        {
+            auto execution = routines_->creerExecution(inst.routine);
+            if (!execution)
+            {
+                std::cout << "Erreur : routine inconnue." << std::endl;
+                return nullptr;
+            }
+            return std::make_shared<CMD::CmdRoutine>(inst.routine, execution);
+        }
+        default:
+            return nullptr;
+        }
     }
 
-}
+} // namespace Execution

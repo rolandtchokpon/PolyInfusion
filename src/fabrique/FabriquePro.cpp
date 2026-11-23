@@ -1,20 +1,31 @@
 
-#include "../../include/fabrique/FabirquePro.h"
+#include "../../include/fabrique/FabriquePro.h"
+#include "../../include/systemeChauffage/SystemeChauffagePro.h"
+#include "../../include/distributeurEau/DistributeurEauPro.h"
+#include "../../include/distributeurThe/DistributeurThePro.h"
 
 namespace Fabrique
 {
+
     FabriquePro::FabriquePro() = default;
 
     FabriquePro::~FabriquePro() = default;
 
-    std::unique_ptr<Machine::Systeme> FabriquePro::creerSysteme()
+    std::string FabriquePro::nomModele() const { return "Pro"; }
+
+    std::unique_ptr<Machine::SystemeChauffage> FabriquePro::creerChauffage() const
     {
-        std::unique_ptr<Machine::Reserve> reserve = std::make_unique<Machine::Reserve>();
-        std::unique_ptr<Machine::DistributeurEau> dEau = std::make_unique<Machine::DistributeurEauPro>(reserve.get());
-        std::unique_ptr<Machine::DistributeurThe> dThe = std::make_unique<Machine::DistributeurThePro>(reserve.get());
-        std::unique_ptr<Machine::SystemeChauffage> sysChauff = std::make_unique<Machine::SystemeChauffagePro>();
-        
-        return std::make_unique<Machine::SystemePro>(reserve, dEau, dThe, sysChauff);
+        return std::make_unique<Machine::SystemeChauffagePro>();
+    }
+
+    std::unique_ptr<Machine::DistributeurEau> FabriquePro::creerDistributeurEau(Machine::Reserve *reserve) const
+    {
+        return std::make_unique<Machine::DistributeurEauPro>(reserve);
+    }
+
+    std::unique_ptr<Machine::DistributeurThe> FabriquePro::creerDistributeurThe(Machine::Reserve *reserve) const
+    {
+        return std::make_unique<Machine::DistributeurThePro>(reserve);
     }
 
 } // namespace Fabrique

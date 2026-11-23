@@ -4,29 +4,25 @@
 namespace CMD
 {
 
-    CmdInfuser::CmdInfuser(const Console::Instruction &inst) : Commande(true, inst) {}
+    CmdInfuser::CmdInfuser() : Commande(false) {}
 
     CmdInfuser::~CmdInfuser() = default;
 
-    void CmdInfuser::executer(Machine::Systeme *sys)
+    void CmdInfuser::executer(const Console::Instruction &inst, Machine::Systeme *sys)
     {
-        if (sys->theSelectionne() == "Aucun")
+        const std::string &the = sys->theSelectionne();
+
+        if (the.empty())
         {
-            std::cout << "Erreur : Aucun thé selectionné." << std::endl;
+            std::cout << "Erreur : aucun thé sélectionné." << std::endl;
             return;
         }
 
-        sys->infuser();
+        sys->infuser(the, sys->portions());
     }
 
     void CmdInfuser::undo(Machine::Systeme *sys)
     {
         std::cout << "Ceci n'est pas une commande réversible." << std::endl;
     }
-
-    void CmdInfuser::apercu(unsigned int numero = 1)
-    {
-        std::cout << "La commande suivante sera la seule exécutée" << std::endl;
-    }
-
 }

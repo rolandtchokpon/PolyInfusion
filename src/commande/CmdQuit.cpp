@@ -4,11 +4,11 @@
 namespace CMD
 {
 
-    CmdQuit::CmdQuit(const Console::Instruction &inst) : Commande(true, inst) {}
+    CmdQuit::CmdQuit() : Commande(false) {}
 
     CmdQuit::~CmdQuit() = default;
 
-    void CmdQuit::executer(Machine::Systeme *sys)
+    void CmdQuit::executer(const Console::Instruction &inst, Machine::Systeme *sys)
     {
         sys->quitter(true);
     }
@@ -16,11 +16,6 @@ namespace CMD
     void CmdQuit::undo(Machine::Systeme *sys)
     {
         std::cout << "Ceci n'est pas une commande réversible." << std::endl;
-    }
-
-    void CmdQuit::apercu(unsigned int numero = 1)
-    {
-        std::cout << "La commande suivante sera la seule exécutée" << std::endl;
     }
 
 } // namespace CMD

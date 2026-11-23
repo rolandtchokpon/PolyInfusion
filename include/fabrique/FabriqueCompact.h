@@ -1,4 +1,6 @@
 
+#pragma once
+
 #include "FabriqueSysteme.h"
 
 namespace Fabrique
@@ -8,9 +10,12 @@ namespace Fabrique
     {
     public:
         FabriqueCompact();
-        virtual ~FabriqueCompact();
+        ~FabriqueCompact();
 
-        virtual std::unique_ptr<Machine::Systeme> creerSysteme() override;
+        virtual std::string nomModele() const override;
+        virtual std::unique_ptr<Machine::SystemeChauffage> creerChauffage() const override;
+        virtual std::unique_ptr<Machine::DistributeurEau> creerDistributeurEau(Machine::Reserve *reserve) const override;
+        virtual std::unique_ptr<Machine::DistributeurThe> creerDistributeurThe(Machine::Reserve *reserve) const override;
     };
 
 } // namespace Fabrique

@@ -1,18 +1,17 @@
 
 #include "../../include/reserve/EauInsuffisante.h"
+#include "../../include/util/Format.h"
 
 namespace Machine {
 
-    EauInsuffisante::EauInsuffisante(double quantiteRequise, double quantiteDisponible) : 
-        quantiteRequise_(quantiteRequise), 
-        quantiteDisponible_(quantiteDisponible) 
+    EauInsuffisante::EauInsuffisante(double quantiteRequise, double quantiteDisponible) :
+        quantiteRequise_(quantiteRequise),
+        quantiteDisponible_(quantiteDisponible)
     {
-       std::ostringstream oss;
-        oss << "Erreur : réserve d'eau insuffisante.\n"
-            << "Quantité requise : " << quantiteRequise_ << " mL.\n"
-            << "Quantité disponible : " << quantiteDisponible_ << " mL.\n"
-            << "Aucune consommation effectuée.";
-        message_ = oss.str();
+        message_ = "Erreur : réserve d'eau insuffisante.\n"
+                   "Quantité requise : " + Util::nombre(quantiteRequise_) + " mL. "
+                   "Quantité disponible : " + Util::nombre(quantiteDisponible_) + " mL.\n"
+                   "Aucune consommation effectuée.";
     }
 
     const char* EauInsuffisante::what() const noexcept {

@@ -1,21 +1,21 @@
 
+#pragma once
+#include <memory>
 #include "Commande.h"
-#include "../routine/RegistreRoutine.h"
 
 namespace CMD
 {
     class CmdApercu : public Commande
     {
     public:
-        CmdApercu(const Console::Instruction &inst);
+        explicit CmdApercu(const std::shared_ptr<Commande> &routine);
         ~CmdApercu();
 
-        virtual void executer(Machine::Systeme *sys) override;
+        virtual void executer(const Console::Instruction &inst, Machine::Systeme *sys) override;
         virtual void undo(Machine::Systeme *sys) override;
-        virtual void apercu(unsigned int numero = 1) override;
 
     private:
-        std::unique_ptr<Routine::RegistreRoutine> registre_;
+        std::shared_ptr<Commande> routine_;
     };
 
-} // namespace Commande
+} // namespace CMD

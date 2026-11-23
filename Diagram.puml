@@ -1,488 +1,287 @@
 @startuml diagramme_classes
-title Diagramme de classes - PolyInfusion
+' Machine à thé - diagramme de classes
+' Namespaces : CMD (commandes), Console, Execution, Fabrique, Machine, Notification
 skinparam classAttributeIconSize 0
-skinparam linetype ortho
-skinparam packageStyle rectangle
-hide empty members
+skinparam shadowing false
+skinparam nodesep 40
+skinparam ranksep 60
 
-' =====================================================
-'  CONSOLE
-' =====================================================
-namespace Console {
-    enum Mot {
-        Selection
-        Remplir
-        Notifications
-        Infuser
-        Reserves
-        Portions
-        Configuration
-        Routine
-        Apercu
-        Undo
-        Redo
-        Aide
-        Quitter
-        Inconnu
-    }
-
-    enum TypeInstruction {
-        Vide
-        Selection
-        Infuser
-        Reserves
-        RemplirEau
-        RemplirThe
-        Notifications
-        Aide
-        Apercu
-        Config
-        Undo
-        Redo
-        Routine
-        Portion
-        Quitter
-        Invalide
-    }
-
-    class Instruction <<struct>> {
-        + type : TypeInstruction = Vide
-        + the : string
-        + routine : string
-        + portions : unsigned int
-        + quantite : double = 0.0
-        + notificationsActives : bool = false
-        + erreur : string
-    }
-
-    class InterfaceConsole {
-        + InterfaceConsole()
-        + ~InterfaceConsole()
-        + analyser(ligne : const string&) : const Instruction
-        - estUnThe(valeur : const string&) : bool
-        - invalide(message : const string&) : Instruction
-        - lireQuantite(texte : const string&, quantite : double&) : bool
-        - lireMot(nom : const string&) : Mot
-    }
+' ---------- Console ----------
+enum TypeInstruction {
+  Vide
+  Selection
+  Infuser
+  Reserves
+  RemplirEau
+  RemplirThe
+  Notifications
+  Aide
+  Quitter
+  Invalide
+}
+class Instruction <<struct>> {
+  +type : TypeInstruction
+  +the : string
+  +quantite : double
+  +notificationsActives : bool
+  +erreur : string
 }
 
-' =====================================================
-'  COMMANDE (pattern Command)
-' =====================================================
-namespace CMD {
-    abstract class Commande {
-        # estReversible_ : bool
-        # afficherModif_ : bool
-        # portionsAvant_ : unsigned int
-        # theAvant_ : string
-        # instruction_ : Console::Instruction
-        # Commande(estReversible : bool)
-        # lireRoutine(r : const string&) : shared_ptr<Routine::IRoutine>
-        + {abstract} ~Commande()
-        + {abstract} executer(inst : const Instruction&, sys : Systeme*) : void
-        + {abstract} undo(sys : Systeme*) : void
-        + sauvgarde() : const Instruction&
-        + estReversible() : bool
-    }
+' ---------- Commandes ----------
+abstract class Commande {
+  #estReversible_ : bool
+  +{abstract} executer(inst : Instruction, sys : Systeme) : void
+  #estReversible() : bool
+}
+class ApercuCmd
+class ConfigCmd
+class HelpCmd
+class InfuserCmd
+class NotifCmd
+class PortionCmd
+class QuitCmd
+class RedoCmd
+class RemplirEauCmd
+class RemplirTheCmd
+class ReserveCmd
+class RoutineCmd
+class SelectionCmd
+class UndoCmd
+class Executeur
 
-    class CmdAide
-    class CmdApercu
-    class CmdConfig
-    class CmdInfuser
-    class CmdNotif
-    class CmdPortion
-    class CmdQuit
-    class CmdRemplirEau
-    class CmdRemplirThe
-    class CmdReserve
-    class CmdRoutine
-    class CmdSelection
+' ---------- Fabriques ----------
+abstract class FabriqueSysteme {
+  +{abstract} creerSysteme() : Systeme
+}
+class FabriquePro {
+  +creerSysteme() : Systeme
+}
+class FabriqueCompact {
+  +creerSysteme() : Systeme
 }
 
-' =====================================================
-'  EXECUTION
-' =====================================================
-namespace Execution {
-    class Executeur {
-        - sys_ : Machine::Systeme*
-        - hist_ : unique_ptr<HistoriqueCMD>
-        + Executeur(sys : Machine::Systeme*)
-        + executer(inst : const Console::Instruction&) : void
-        - commande(inst : const Console::Instruction&) : shared_ptr<CMD::Commande>
-    }
+' ---------- Systeme ----------
+abstract class Systeme {
+  -reserve_ : unique_ptr<Reserve>
+  -distributeurEau_ : unique_ptr<DistributeurEau>
+  -distributeurThe_ : unique_ptr<DistributeurThe>
+  -systemeChauffage_ : unique_ptr<SystemeChauffage>
+  -infuseur_ : unique_ptr<Infuseur>
+  -rinceur_ : unique_ptr<Rinceur>
+  -ecran_ : unique_ptr<Ecran>
+  -app_ : unique_ptr<AppDistant>
+  -portions_ : unsigned int
+  -theSelectionne_ : string
+  -quitter_ : bool
+  +infuser(nomThe : string) : void
+  +remplirThe(nom : string, quantite : double) : void
+  +remplirEau(quantite : double) : void
+  +afficherReserves() : void
+  +activerNotifications(activer : bool) : void
+  +quitter(oui : bool) : bool
+  +ajouterObservateur(o : Observateur) : void
+  +theSelectionne() : string
+  +modifierPortions(portions : unsigned int) : void
+  +modifierTheSelectionne(the : string) : void
+}
+class SystemePro
+class SystemeCompact
 
-    class HistoriqueCMD {
-        - pileUndo_ : vector<shared_ptr<CMD::Commande>>
-        - pileRedo_ : vector<shared_ptr<CMD::Commande>>
-        + undo(sys : Machine::Systeme*) : void
-        + redo(sys : Machine::Systeme*) : void
-        + ajouterCmd(cmd : shared_ptr<CMD::Commande>&) : void
-    }
+' ---------- Preparation ----------
+class Infuseur {
+  -distributeurEau_ : DistributeurEau
+  -distributeurThe_ : DistributeurThe
+  -systemeChauffage_ : SystemeChauffage
+  +infuser(the : string) : void
+}
+class Rinceur {
+  -distributeurEau_ : DistributeurEau
+  -distributeurThe_ : DistributeurThe
+  -systemeChauffage_ : SystemeChauffage
+  +rincer(the : string) : void
 }
 
-' =====================================================
-'  FABRIQUE (Abstract Factory)
-' =====================================================
-namespace Fabrique {
-    abstract class FabriqueSysteme {
-        # FabriqueSysteme()
-        + {abstract} ~FabriqueSysteme()
-        + {abstract} creerSysteme() : unique_ptr<Machine::Systeme>
-    }
+' ---------- Chauffage ----------
+abstract class SystemeChauffage {
+  #vitesse_ : double
+  +chaufferEauRincage(temperature : double) : void
+  +chaufferEau(temperature : double) : void
+}
+class SystemeChauffagePro
+class SystemeChauffageCompact
 
-    class FabriqueCompact {
-        + creerSysteme() : unique_ptr<Machine::Systeme>
-    }
+' ---------- Distributeurs ----------
+abstract class DistributeurEau {
+  #reserve_ : Reserve*
+  #ratio_ : double
+  +distribuerEau(quantite : double) : void
+  +obtenirRatio() : double
+}
+class DistributeurEauPro
+class DistributeurEauCompact
 
-    class FabriquePro {
-        + creerSysteme() : unique_ptr<Machine::Systeme>
-    }
+abstract class DistributeurThe {
+  #reserve_ : Reserve*
+  #ratio_ : double
+  +distribuerThe(the : string, quantite : double) : void
+  +obtenirThe(the : string) : The
+  +obtenirRatio() : double
+}
+class DistributeurThePro
+class DistributeurTheCompact
+
+' ---------- Notification ----------
+enum Etat {
+  M_EAU
+  M_THE
+  CORRECT
+}
+interface Observateur {
+  +{abstract} notifier(qte : double) : void
+  +{abstract} notifier(the : string, qte : double) : void
+}
+abstract class Notificateur {
+  #observateurs_ : vector<Observateur>
+  #etatEau_ : Etat
+  #etatThe_ : Etat
+  #notificationsActives_ : bool
+  +activerNotifications(activer : bool) : void
+  +ajouterObservateur(o : Observateur) : void
+  +retirerObservateur(o : Observateur) : void
+  +obtenirEtatEau() : Etat
+  +obtenirEtatThe() : Etat
+  +mettreEtatEau(e : Etat) : void
+  +mettreEtatThe(e : Etat) : void
+  #notifier(qte : double) : void
+  #notifier(the : string, qte : double) : void
+}
+class Ecran {
+  -reserve_ : Reserve
+  +notifier(qte : double) : void
+  +notifier(the : string, qte : double) : void
+}
+class AppDistant {
+  -reserve_ : Reserve
+  +notifier(qte : double) : void
+  +notifier(the : string, qte : double) : void
 }
 
-' =====================================================
-'  NOTIFICATION (pattern Observer)
-' =====================================================
-namespace Notification {
-    abstract class Observateur {
-        {static} SEUIL_QTE_THE : double = 10.0 (g)
-        {static} SEUIL_QTE_EAU : double = 500.0 (mL)
-        # notifActive_ : bool
-        # Observateur()
-        + {abstract} ~Observateur()
-        + {abstract} notifier(qte : double) : void
-        + {abstract} notifier(the : const string&, qte : double) : void
-        + activerNotifications(activer : bool) : void
-    }
+' ---------- Reserve ----------
+class Reserve {
+  -qteEau_ : double
+  -thes_ : unordered_map<string, The>
+  +distribuerEau(qte : double, ratio : double) : void
+  +distribuerThe(the : string, qte : double, ratio : double) : void
+  +remplirThe(the : string, qte : double) : void
+  +remplirEau(qte : double) : void
+  +ajouterThe(the : The) : void
+  +theSuffisant(nomThe : string, quantite : double, ratio : double) : void
+  +eauSuffisante(quantite : double, ratio : double) : void
+  +obtenirThe(nomThe : string) : The
+  +afficherReserves() : void
+}
+class The <<struct>> {
+  +nom : string
+  +quantiteService : double = 5.0
+  +volumeRincage : double = 0.0
+  +volumeService : double = 250.0
+  +temperatureInfusion : double
+  +tempsInfusion : double
+  +quantite : double = 20.0
+}
+class TheVert <<struct>>
+class TheNoir <<struct>>
+class TheOolong <<struct>>
 
-    abstract class Notificateur {
-        # observateurs_ : vector<Observateur*>
-        # Notificateur()
-        # notifier(qte : double) : void
-        # notifier(the : const string&, qte : double) : void
-        + {abstract} ~Notificateur()
-        + ajouterObservateur(o : Observateur*) : void
-        + retirerObservateur(o : Observateur*) : void
-    }
-
-    class Ecran {
-        - reserve_ : Machine::Reserve*
-        + Ecran(reserve : Machine::Reserve*)
-        + notifier(qte : double) : void
-        + notifier(the : const string&, qte : double) : void
-    }
-
-    class AppDistant {
-        - reserve_ : Machine::Reserve*
-        + AppDistant(reserve : Machine::Reserve*)
-        + notifier(qte : double) : void
-        + notifier(the : const string&, qte : double) : void
-    }
+class "std::exception" as exception
+class EauInsuffisante {
+  -quantiteRequise_ : double
+  -quantiteDisponible_ : double
+  -message_ : string
+  +what() : char
+}
+class TheInsuffisant {
+  -the_ : string
+  -quantiteRequise_ : double
+  -quantiteDisponible_ : double
+  -message_ : string
+  +what() : char
 }
 
-' =====================================================
-'  ROUTINE (pattern Strategy)
-' =====================================================
-namespace Routine {
-    abstract class IRoutine {
-        # portions_ : unsigned int
-        # the_ : string
-        # IRoutine(portions : unsigned int, the : string)
-        + {abstract} ~IRoutine()
-        + {abstract} appliquer(sys : Machine::Systeme*, afficherModif : bool) : void {query}
-        + {abstract} apercu() : void {query}
-    }
+' ================= Relations =================
+' Commandes (heritage deduit des includes)
+ApercuCmd ..|> Commande
+ConfigCmd ..|> Commande
+HelpCmd ..|> Commande
+InfuserCmd ..|> Commande
+NotifCmd ..|> Commande
+PortionCmd ..|> Commande
+QuitCmd ..|> Commande
+RedoCmd ..|> Commande
+RemplirEauCmd ..|> Commande
+RemplirTheCmd ..|> Commande
+ReserveCmd ..|> Commande
+RoutineCmd ..|> Commande
+SelectionCmd ..|> Commande
+UndoCmd ..|> Commande
+Executeur ..> Commande
+Commande ..> Instruction
+Commande ..> Systeme
+Instruction --> TypeInstruction
 
-    class Solo {
-        + Solo()
-        + appliquer(sys : Machine::Systeme*, afficherModif : bool) : void {query}
-        + apercu() : void {query}
-    }
+' Fabriques
+FabriquePro --|> FabriqueSysteme
+FabriqueCompact --|> FabriqueSysteme
+FabriqueSysteme ..> Systeme : <<create>>
 
-    class Duo {
-        + Duo()
-        + appliquer(sys : Machine::Systeme*, afficherModif : bool) : void {query}
-        + apercu() : void {query}
-    }
+' Systeme
+SystemePro --|> Systeme
+SystemeCompact --|> Systeme
+Systeme *-- Reserve
+Systeme *-- DistributeurEau
+Systeme *-- DistributeurThe
+Systeme *-- SystemeChauffage
+Systeme *-- Infuseur
+Systeme *-- Rinceur
+Systeme *-- Ecran
+Systeme *-- AppDistant
 
-    class Matin {
-        + Matin()
-        + appliquer(sys : Machine::Systeme*, afficherModif : bool) : void {query}
-        + apercu() : void {query}
-    }
-}
+' Preparation
+Infuseur --> DistributeurEau
+Infuseur --> DistributeurThe
+Infuseur --> SystemeChauffage
+Rinceur --> DistributeurEau
+Rinceur --> DistributeurThe
+Rinceur --> SystemeChauffage
 
-' =====================================================
-'  MACHINE
-' =====================================================
-namespace Machine {
-    enum TypeRoutine {
-        Solo
-        Duo
-        Matin
-    }
+' Variantes Pro / Compact
+SystemeChauffagePro --|> SystemeChauffage
+SystemeChauffageCompact --|> SystemeChauffage
+DistributeurEauPro --|> DistributeurEau
+DistributeurEauCompact --|> DistributeurEau
+DistributeurThePro --|> DistributeurThe
+DistributeurTheCompact --|> DistributeurThe
+DistributeurEau --> Reserve
+DistributeurThe --> Reserve
+DistributeurThe ..> The
 
-    enum Etat {
-        M_EAU
-        M_THE
-        CORRECT
-    }
+' Reserve / Notification
+Reserve --|> Notificateur
+Reserve "1" *-- "0..*" The
+Reserve ..> TheInsuffisant : <<raise>>
+Reserve ..> EauInsuffisante : <<raise>>
+Notificateur o-- Observateur
+Notificateur --> Etat
+Ecran ..|> Observateur
+AppDistant ..|> Observateur
+Ecran --> Reserve
+AppDistant --> Reserve
 
-    abstract class Systeme {
-        - reserve_ : unique_ptr<Reserve>
-        - distributeurEau_ : unique_ptr<DistributeurEau>
-        - distributeurThe_ : unique_ptr<DistributeurThe>
-        - systemeChauffage_ : unique_ptr<SystemeChauffage>
-        - infuseur_ : unique_ptr<Infuseur>
-        - rinceur_ : unique_ptr<Rinceur>
-        - ecran_ : unique_ptr<Notification::Observateur>
-        - app_ : unique_ptr<Notification::Observateur>
-        - portions_ : unsigned int
-        - theSelectionne_ : string
-        - quitter_ : bool
-        # Systeme(reserve, dEau, dThe, sysChauff)
-        + {abstract} ~Systeme()
-        + infuser() : void
-        + remplirThe(nom : const string&, quantite : double) : void
-        + remplirEau(quantite : double) : void
-        + afficherReserves() : void {query}
-        + activerNotifications(activer : bool) : void
-        + quitter(oui : bool) : bool
-        + doitQuitter() : bool
-        + ajouterObservateur(o : Notification::Observateur*) : void
-        + theSelectionne() : const string& {query}
-        + portions() : unsigned int {query}
-        + modifierPortions(portions : unsigned int, afficherModif : bool) : void
-        + modifierTheSelectionne(the : const string&, afficherModif : bool) : void
-        + appliquerRoutine(r : shared_ptr<Routine::IRoutine>&, afficherModif : bool) : void
-    }
-
-    class SystemeCompact
-    class SystemePro
-
-    ' ---- Réserve ----
-    class The <<struct>> {
-        + nom : string
-        + quantiteService : double = 5.0 (g)
-        + volumeRincage : double = 0.0 (mL)
-        + volumeService : double = 250.0 (mL)
-        + temperatureInfusion : double (°C)
-        + tempsInfusion : double (s)
-        + quantite : double = 20.0 (g)
-    }
-
-    class TheVert <<struct>>
-    class TheNoir <<struct>>
-    class TheOolong <<struct>>
-
-    class Reserve {
-        - qteEau_ : double
-        - thes_ : unordered_map<string, The>
-        - etatEau_ : Etat
-        - etatsThe_ : unordered_map<string, Etat>
-        + Reserve()
-        + distribuerEau(qte : double, ratio : double) : void
-        + distribuerThe(the : const string&, qte : double, ratio : double) : void
-        + remplirThe(the : const string&, qte : double) : void
-        + remplirEau(qte : double) : void
-        + ajouterThe(the : const The&) : void
-        + theSuffisant(nomThe : const string&, quantite : double, ratio : double) : void {query}
-        + obtenirThe(nomThe : const string&) : const The& {query}
-        + eauSuffisante(quantite : double, ratio : double) : void {query}
-        + afficherReserves() : void {query}
-        + obtenirEtatEau() : Etat {query}
-        + obtenirEtatThe(the : const string&) : Etat {query}
-        + mettreEtatEau(e : Etat) : void
-        + mettreEtatThe(the : const string&, e : Etat) : void
-    }
-
-    class EauInsuffisante {
-        - quantiteRequise_ : double
-        - quantiteDisponible_ : double
-        - message_ : string
-        + EauInsuffisante(quantiteRequise : double, quantiteDisponible : double)
-        + what() : const char* {query}
-    }
-
-    class TheInsuffisant {
-        - the_ : string
-        - quantiteRequise_ : double
-        - quantiteDisponible_ : double
-        - message_ : string
-        + TheInsuffisant(the : const string&, quantiteRequise : double, quantiteDisponible : double)
-        + what() : const char* {query}
-    }
-
-    ' ---- Distributeur eau ----
-    abstract class DistributeurEau {
-        # reserve_ : Reserve*
-        # ratio_ : double
-        # DistributeurEau(reserve : Reserve*, ratioSurplus : double)
-        + {abstract} ~DistributeurEau()
-        + distribuerEau(quantite : double) : void
-        + obtenirRatio() : double {query}
-    }
-    class DistributeurEauCompact {
-        + DistributeurEauCompact(reserve : Reserve*)
-    }
-    class DistributeurEauPro {
-        + DistributeurEauPro(reserve : Reserve*)
-    }
-
-    ' ---- Distributeur thé ----
-    abstract class DistributeurThe {
-        # reserve_ : Reserve*
-        # ratio_ : double
-        # DistributeurThe(reserve : Reserve*, ratioSurplus : double)
-        + {abstract} ~DistributeurThe()
-        + distribuerThe(the : const string&, quantite : double) : void
-        + obtenirThe(the : const string&) : const The&
-        + obtenirRatio() : double {query}
-    }
-    class DistributeurTheCompact {
-        + DistributeurTheCompact(reserve : Reserve*)
-    }
-    class DistributeurThePro {
-        + DistributeurThePro(reserve : Reserve*)
-    }
-
-    ' ---- Système de chauffage ----
-    abstract class SystemeChauffage {
-        # vitesse_ : double
-        # SystemeChauffage(vitesse : double)
-        + {abstract} ~SystemeChauffage()
-        + chaufferEauRincage(temperature : double) : void
-        + chaufferEau(temperature : double) : void
-    }
-    class SystemeChauffageCompact
-    class SystemeChauffagePro
-
-    ' ---- Préparation ----
-    class Infuseur {
-        - distributeurEau_ : DistributeurEau*
-        - distributeurThe_ : DistributeurThe*
-        - systemeChauffage_ : SystemeChauffage*
-        + Infuseur(dEau : DistributeurEau*, dThe : DistributeurThe*, chauff : SystemeChauffage*)
-        + infuser(the : const string&) : void
-    }
-
-    class Rinceur {
-        - distributeurEau_ : DistributeurEau*
-        - distributeurThe_ : DistributeurThe*
-        - systemeChauffage_ : SystemeChauffage*
-        + Rinceur(dEau : DistributeurEau*, dThe : DistributeurThe*, chauff : SystemeChauffage*)
-        + rincer(the : const string&) : void
-    }
-}
-
-' =====================================================
-'  RELATIONS
-' =====================================================
-
-' ---- Commandes ----
-CMD.Commande <|-- CMD.CmdAide
-CMD.Commande <|-- CMD.CmdApercu
-CMD.Commande <|-- CMD.CmdConfig
-CMD.Commande <|-- CMD.CmdInfuser
-CMD.Commande <|-- CMD.CmdNotif
-CMD.Commande <|-- CMD.CmdPortion
-CMD.Commande <|-- CMD.CmdQuit
-CMD.Commande <|-- CMD.CmdRemplirEau
-CMD.Commande <|-- CMD.CmdRemplirThe
-CMD.Commande <|-- CMD.CmdReserve
-CMD.Commande <|-- CMD.CmdRoutine
-CMD.Commande <|-- CMD.CmdSelection
-
-CMD.Commande *-- Console.Instruction : instruction_
-CMD.Commande ..> Machine.Systeme : agit sur
-CMD.Commande ..> Routine.IRoutine : lireRoutine()
-CMD.Commande ..> Routine.Solo : <<create>>
-CMD.Commande ..> Routine.Duo : <<create>>
-CMD.Commande ..> Routine.Matin : <<create>>
-
-' ---- Console ----
-Console.Instruction --> Console.TypeInstruction : type
-Console.InterfaceConsole ..> Console.Instruction : produit
-Console.InterfaceConsole ..> Console.Mot : utilise
-
-' ---- Exécution ----
-Execution.Executeur o--> Machine.Systeme : sys_
-Execution.Executeur *--> Execution.HistoriqueCMD : hist_
-Execution.Executeur ..> CMD.Commande : crée / exécute
-Execution.Executeur ..> Console.Instruction
-Execution.HistoriqueCMD o--> "0..*" CMD.Commande : pileUndo_
-Execution.HistoriqueCMD o--> "0..*" CMD.Commande : pileRedo_
-
-' ---- Fabrique ----
-Fabrique.FabriqueSysteme <|-- Fabrique.FabriqueCompact
-Fabrique.FabriqueSysteme <|-- Fabrique.FabriquePro
-Fabrique.FabriqueSysteme ..> Machine.Systeme : <<create>>
-Fabrique.FabriqueCompact ..> Machine.SystemeCompact : <<create>>
-Fabrique.FabriquePro ..> Machine.SystemePro : <<create>>
-
-' ---- Système ----
-Machine.Systeme <|-- Machine.SystemeCompact
-Machine.Systeme <|-- Machine.SystemePro
-Machine.Systeme *-- Machine.Reserve
-Machine.Systeme *-- Machine.DistributeurEau
-Machine.Systeme *-- Machine.DistributeurThe
-Machine.Systeme *-- Machine.SystemeChauffage
-Machine.Systeme *-- Machine.Infuseur
-Machine.Systeme *-- Machine.Rinceur
-Machine.Systeme *-- "2" Notification.Observateur : ecran_, app_
-Machine.Systeme ..> Notification.Ecran : <<create>>
-Machine.Systeme ..> Notification.AppDistant : <<create>>
-Machine.Systeme ..> Routine.IRoutine : appliquerRoutine()
-
-Machine.SystemeCompact ..> Machine.DistributeurEauCompact
-Machine.SystemeCompact ..> Machine.DistributeurTheCompact
-Machine.SystemeCompact ..> Machine.SystemeChauffageCompact
-Machine.SystemePro ..> Machine.DistributeurEauPro
-Machine.SystemePro ..> Machine.DistributeurThePro
-Machine.SystemePro ..> Machine.SystemeChauffagePro
-
-' ---- Distributeurs / chauffage ----
-Machine.DistributeurEau <|-- Machine.DistributeurEauCompact
-Machine.DistributeurEau <|-- Machine.DistributeurEauPro
-Machine.DistributeurThe <|-- Machine.DistributeurTheCompact
-Machine.DistributeurThe <|-- Machine.DistributeurThePro
-Machine.SystemeChauffage <|-- Machine.SystemeChauffageCompact
-Machine.SystemeChauffage <|-- Machine.SystemeChauffagePro
-
-Machine.DistributeurEau o--> Machine.Reserve : reserve_
-Machine.DistributeurThe o--> Machine.Reserve : reserve_
-Machine.DistributeurThe ..> Machine.The
-
-' ---- Préparation ----
-Machine.Infuseur o--> Machine.DistributeurEau
-Machine.Infuseur o--> Machine.DistributeurThe
-Machine.Infuseur o--> Machine.SystemeChauffage
-Machine.Rinceur o--> Machine.DistributeurEau
-Machine.Rinceur o--> Machine.DistributeurThe
-Machine.Rinceur o--> Machine.SystemeChauffage
-
-' ---- Réserve / thé ----
-Machine.The <|-- Machine.TheVert
-Machine.The <|-- Machine.TheNoir
-Machine.The <|-- Machine.TheOolong
-Machine.Reserve *-- "0..*" Machine.The : thes_
-Machine.Reserve --> Machine.Etat : etatEau_, etatsThe_
-Machine.Reserve ..> Machine.EauInsuffisante : <<throws>>
-Machine.Reserve ..> Machine.TheInsuffisant : <<throws>>
-Machine.EauInsuffisante -up-|> std.exception
-Machine.TheInsuffisant -up-|> std.exception
-
-' ---- Observer ----
-Notification.Notificateur <|-- Machine.Reserve
-Notification.Notificateur o--> "0..*" Notification.Observateur : observateurs_
-Notification.Observateur <|-- Notification.Ecran
-Notification.Observateur <|-- Notification.AppDistant
-Notification.Ecran o--> Machine.Reserve : reserve_
-Notification.AppDistant o--> Machine.Reserve : reserve_
-
-' ---- Routine (Strategy) ----
-Routine.IRoutine <|-- Routine.Solo
-Routine.IRoutine <|-- Routine.Duo
-Routine.IRoutine <|-- Routine.Matin
-Routine.IRoutine ..> Machine.Systeme : appliquer()
-
+' Thes et exceptions
+TheVert --|> The
+TheNoir --|> The
+TheOolong --|> The
+EauInsuffisante --|> exception
+TheInsuffisant --|> exception
+TheInsuffisant ..> The
 @enduml

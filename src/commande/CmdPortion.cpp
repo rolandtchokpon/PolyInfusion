@@ -4,26 +4,27 @@
 namespace CMD
 {
 
-    CmdPortion::CmdPortion(const Console::Instruction &inst) : Commande(true, inst) {}
+    CmdPortion::CmdPortion(unsigned int portions) : Commande(true), nouvellesPortions_(portions) {}
 
     CmdPortion::~CmdPortion() = default;
 
-    void CmdPortion::executer(Machine::Systeme *sys)
+    void CmdPortion::executer(const Console::Instruction &, Machine::Systeme *sys)
     {
-        portionsAvant_ = sys->portions();
-        sys->modifierPortions(instruction_.portions, afficherModif_);
+        anciennesPortions_ = sys->portions();
 
-        afficherModif_ = false;
+        sys->modifierPortions(nouvellesPortions_);
+        std::cout << "Nombre de portions : " << nouvellesPortions_ << "." << std::endl;
     }
 
-    void CmdPortion::undo(Machine::Systeme *sys)
+    void CmdPortion::undo(Machine::Systeme *sys) { sys->modifierPortions(anciennesPortions_); }
+
+    void CmdPortion::redo(Machine::Systeme *sys) { sys->modifierPortions(nouvellesPortions_); }
+
+    void CmdPortion::apercu(std::vector<std::string> &lignes) const
     {
-        sys->modifierPortions(portionsAvant_, afficherModif_);
+        lignes.push_back("Régler le nombre de portions à " + std::to_string(nouvellesPortions_) + ".");
     }
 
-    void CmdPortion::apercu(unsigned int numero = 1)
-    {
-        std::cout << "La commande suivante sera la seule exécutée" << std::endl;
-    }
+    std::shared_ptr<Commande> CmdPortion::cloner() const { return std::make_shared<CmdPortion>(nouvellesPortions_); }
 
-}
+} // namespace CMD

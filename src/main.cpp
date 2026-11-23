@@ -1,9 +1,10 @@
-#include "Console/Console.h"
-#include "../include/fabrique/FabirquePro.h"
+#include "../include/console/Console.h"
 #include "../include/fabrique/FabriqueCompact.h"
-#include "../include/executeur/Executeur.h"
+#include "../include/fabrique/FabriquePro.h"
 
+#include <exception>
 #include <iostream>
+#include <memory>
 #include <string>
 
 #ifdef _WIN32
@@ -25,48 +26,29 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    const std::string modele = argv[1];
-
     std::unique_ptr<Fabrique::FabriqueSysteme> fabrique;
-
-    if (modele == "pro")
-    {
-        fabrique = std::make_unique<Fabrique::FabriquePro>();
-    }
-    else
-    {
+    if (std::string(argv[1]) == "compact")
         fabrique = std::make_unique<Fabrique::FabriqueCompact>();
-    }
+    else
+        fabrique = std::make_unique<Fabrique::FabriquePro>();
 
-    std::unique_ptr<Machine::Systeme> systeme = std::move(fabrique->creerSysteme());
-
-    std::unique_ptr<Execution::Executeur> executeur = std::move(std::make_unique<Execution::Executeur>(systeme.get()));
-
-    std::unique_ptr<Console::InterfaceConsole> interface = std::make_unique<Console::InterfaceConsole>();
+    std::unique_ptr<Machine::Systeme> sys = fabrique->creerSysteme();
+    std::unique_ptr<Execution::Executeur> executeur = fabrique->creerExecuteur(sys.get());
+    std::unique_ptr<Console::InterfaceConsole> console = fabrique->creerInterfaceConsole();
 
     for (std::string ligne; std::cout << "> " << std::flush, std::getline(std::cin, ligne);)
     {
         try
         {
-            const auto instruction = interface->analyser(ligne);
+            executeur->executer(console->analyser(ligne));
+        }
+        catch (const std::exception &e)
+        {
+            std::cout << e.what() << std::endl;
+        }
 
-            executeur->executer(instruction);
-
-            if (systeme->doitQuitter())
-                return 0;
-        }
-        catch (Machine::EauInsuffisante e)
-        {
-            std::cerr << e.what() << std::endl;
-        }
-        catch (Machine::TheInsuffisant e)
-        {
-            std::cerr << e.what() << std::endl;
-        }
-        catch (std::exception e)
-        {
-            std::cerr << e.what() << std::endl;
-        }
+        if (sys->doitQuitter())
+            return 0;
     }
 
     std::cout << "\nArrêt de PolyInfusion.\n";

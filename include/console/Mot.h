@@ -19,5 +19,5 @@ namespace Console
         Quitter,
         Inconnu
     };
-
+    
 } // namespace Console

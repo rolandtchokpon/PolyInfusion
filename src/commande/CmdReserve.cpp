@@ -4,11 +4,11 @@
 namespace CMD
 {
 
-    CmdReserve::CmdReserve(const Console::Instruction& inst) : Commande(true, inst) {}
+    CmdReserve::CmdReserve() : Commande(false) {}
 
     CmdReserve::~CmdReserve() = default;
 
-    void CmdReserve::executer(Machine::Systeme *sys)
+    void CmdReserve::executer(const Console::Instruction &inst, Machine::Systeme *sys)
     {
         sys->afficherReserves();
     }
@@ -17,10 +17,4 @@ namespace CMD
     {
         std::cout << "Ceci n'est pas une commande réversible." << std::endl;
     }
-
-    void CmdReserve::apercu(unsigned int numero = 1)
-    {
-        std::cout << "La commande suivante sera la seule exécutée" << std::endl;
-    }
-
 }
