@@ -6,11 +6,12 @@ namespace CMD
     class CmdConfig : public Commande
     {
     public:
-        CmdConfig();
+        CmdConfig(const Console::Instruction &inst);
         ~CmdConfig();
 
-        virtual void executer(const Console::Instruction &inst, Machine::Systeme *sys) override;
+        virtual void executer(Machine::Systeme *sys) override;
         virtual void undo(Machine::Systeme *sys) override;
+        virtual void apercu(unsigned int numero = 1) override;
     };
 
 } // namespace Commande

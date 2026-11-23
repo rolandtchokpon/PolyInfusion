@@ -4,7 +4,11 @@
 namespace CMD
 {
 
-    Commande::Commande(bool estReversible) : estReversible_(estReversible), afficherModif_(true) {}
+    Commande::Commande(bool estReversible, const Console::Instruction &instruction) : estReversible_(estReversible),
+                                                                                      afficherModif_(true),
+                                                                                      instruction_(instruction)
+    {
+    }
 
     Commande::~Commande() = default;
 

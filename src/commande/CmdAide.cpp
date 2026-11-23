@@ -4,11 +4,11 @@
 namespace CMD
 {
 
-    CmdAide::CmdAide() : Commande(false) {}
+    CmdAide::CmdAide(const Console::Instruction &inst) : Commande(true, inst) {}
 
     CmdAide::~CmdAide() = default;
 
-    void CmdAide::executer(const Console::Instruction &inst, Machine::Systeme *sys)
+    void CmdAide::executer(Machine::Systeme *sys)
     {
         std::cout
             << "selection <vert|noir|oolong> : sélectionner le thé à préparer.\n"
@@ -30,6 +30,11 @@ namespace CMD
     void CmdAide::undo(Machine::Systeme *sys)
     {
         std::cout << "Ceci n'est pas une commande réversible." << std::endl;
+    }
+
+    void CmdAide::apercu(unsigned int numero = 1)
+    {
+        std::cout << "La commande suivante sera la seule exécutée" << std::endl;
     }
 
 }

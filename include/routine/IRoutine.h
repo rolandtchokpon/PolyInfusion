@@ -1,23 +1,28 @@
 
 #pragma once
 #include <string>
+#include <vector>
+#include "../commande/Commande.h"
 
-namespace Machine { class Systeme; } 
+namespace Machine
+{
+    class Systeme;
+}
 
 namespace Routine
 {
 
-    class IRoutine
+    class IRoutine : public CMD::Commande
     {
     public:
         virtual ~IRoutine() = 0;
-        virtual void appliquer(Machine::Systeme *sys, bool afficherModif) const = 0;
-        virtual void apercu() const = 0;
+        void virtual executer(Machine::Systeme *sys) = 0;
+        void virtual undo(Machine::Systeme *sys) = 0;
+        virtual void apercu(unsigned int numero = 1) = 0;
 
     protected:
-        IRoutine(unsigned int portions, std::string the);
-        unsigned int portions_;
-        std::string the_;
+        IRoutine();
+        std::vector<std::unique_ptr<CMD::Commande>> commandes_;
     };
 
 }

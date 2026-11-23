@@ -4,22 +4,20 @@
 namespace CMD
 {
 
-    CmdRoutine::CmdRoutine() : Commande(true) {}
+    CmdRoutine::CmdRoutine(const Console::Instruction& inst) : Commande(true, inst) {}
 
     CmdRoutine::~CmdRoutine() = default;
 
-    void CmdRoutine::executer(const Console::Instruction &inst, Machine::Systeme *sys)
+    void CmdRoutine::executer(Machine::Systeme *sys)
     {
-        instruction_ = inst;
-
         portionsAvant_ = sys->portions();
         theAvant_ = sys->theSelectionne();
 
-        auto routine = lireRoutine(inst.routine);
+        auto routine = lireRoutine(instruction_.routine);
         sys->appliquerRoutine(routine, afficherModif_);
 
         if (afficherModif_)
-            std::cout << "Routine appliquée : " << inst.routine << std::endl;
+            std::cout << "Routine appliquée : " << instruction_.routine << std::endl;
 
         afficherModif_ = false;
     }

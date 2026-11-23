@@ -4,16 +4,14 @@
 namespace CMD
 {
 
-    CmdSelection::CmdSelection() : Commande(true) {}
+    CmdSelection::CmdSelection(const Console::Instruction &inst) : Commande(true, inst) {}
 
     CmdSelection::~CmdSelection() = default;
 
-    void CmdSelection::executer(const Console::Instruction &inst, Machine::Systeme *sys)
+    void CmdSelection::executer(Machine::Systeme *sys)
     {
-        instruction_ = inst;
-
         theAvant_ = sys->theSelectionne();
-        sys->modifierTheSelectionne(inst.the, afficherModif_);
+        sys->modifierTheSelectionne(instruction_.the, afficherModif_);
 
         afficherModif_ = false;
     }
@@ -22,4 +20,10 @@ namespace CMD
     {
         sys->modifierTheSelectionne(theAvant_, afficherModif_);
     }
+
+    void CmdSelection::apercu(unsigned int numero = 1)
+    {
+        std::cout << "La commande suivante sera la seule exécutée" << std::endl;
+    }
+
 }

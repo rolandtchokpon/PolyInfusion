@@ -12,8 +12,9 @@ namespace Routine
         virtual ~Duo();
         Duo();
 
-        virtual void appliquer(Machine::Systeme *sys, bool afficherModif) const override;
-        virtual void apercu() const override;
+        void virtual executer(Machine::Systeme *sys) override;
+        void virtual undo(Machine::Systeme *sys) override;
+        virtual void apercu(unsigned int numero = 1) override;
     };
 
 }

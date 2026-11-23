@@ -4,16 +4,14 @@
 namespace CMD
 {
 
-    CmdPortion::CmdPortion() : Commande(true) {}
+    CmdPortion::CmdPortion(const Console::Instruction &inst) : Commande(true, inst) {}
 
     CmdPortion::~CmdPortion() = default;
 
-    void CmdPortion::executer(const Console::Instruction &inst, Machine::Systeme *sys)
+    void CmdPortion::executer(Machine::Systeme *sys)
     {
-        instruction_ = inst;
-
         portionsAvant_ = sys->portions();
-        sys->modifierPortions(inst.portions, afficherModif_);
+        sys->modifierPortions(instruction_.portions, afficherModif_);
 
         afficherModif_ = false;
     }
@@ -22,4 +20,10 @@ namespace CMD
     {
         sys->modifierPortions(portionsAvant_, afficherModif_);
     }
+
+    void CmdPortion::apercu(unsigned int numero = 1)
+    {
+        std::cout << "La commande suivante sera la seule exécutée" << std::endl;
+    }
+
 }

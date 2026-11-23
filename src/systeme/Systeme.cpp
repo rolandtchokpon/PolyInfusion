@@ -33,13 +33,15 @@ namespace Machine
         reserve_->eauSuffisante(portions_ * (the.volumeService + the.volumeRincage), distributeurEau_->obtenirRatio());
         reserve_->theSuffisant(the.nom, portions_ * the.quantiteService, distributeurThe_->obtenirRatio());
 
-        std::cout << "Préparation d'un thé " << the.nom << "." << std::endl;
+        for(unsigned int i = 0; i < portions_; ++i) {
+            std::cout << "Préparation d'un thé " << the.nom << "." << std::endl;
 
-        rinceur_->rincer(theSelectionne_);
-        infuseur_->infuser(theSelectionne_);
+            rinceur_->rincer(theSelectionne_);
+            infuseur_->infuser(theSelectionne_);
 
-        std::cout << "Service : " << the.volumeService << " mL." << std::endl;
-        std::cout << "Votre thé est prêt." << std::endl;
+            std::cout << "Service : " << the.volumeService << " mL." << std::endl;
+            std::cout << "Votre thé est prêt." << std::endl;
+        }
     }
 
     void Systeme::remplirEau(double quantite) { reserve_->remplirEau(quantite); }

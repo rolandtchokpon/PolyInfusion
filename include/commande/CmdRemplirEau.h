@@ -6,11 +6,12 @@ namespace CMD
     class CmdRemplirEau : public Commande
     {
     public:
-        CmdRemplirEau();
+        CmdRemplirEau(const Console::Instruction &inst);
         ~CmdRemplirEau();
 
-        virtual void executer(const Console::Instruction &inst, Machine::Systeme *sys) override;
+        virtual void executer(Machine::Systeme *sys) override;
         virtual void undo(Machine::Systeme *sys) override;
+        virtual void apercu(unsigned int numero = 1) override;
     };
 
 } // namespace Commande
