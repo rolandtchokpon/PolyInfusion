@@ -14,6 +14,9 @@ namespace Machine
         virtual ~DistributeurEau() = 0;
 
         void distribuerEau(double quantite);
+
+        // Refuse (exception) si la réserve ne suffit pas, pertes du modèle incluses.
+        void verifierSuffisance(double quantite) const;
         double obtenirRatio() const;
 
     protected:

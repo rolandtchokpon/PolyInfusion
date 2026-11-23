@@ -6,13 +6,20 @@ namespace Machine
 {
 
     const double QTE_EAU_INITIALE = 2000.0; // mL
+    const double QTE_THE_INITIALE = 20.0;   // g
 
     Reserve::Reserve() : Notification::Notificateur(),
                          qteEau_(QTE_EAU_INITIALE)
     {
-        ajouterThe(TheVert());
-        ajouterThe(TheNoir());
-        ajouterThe(TheOolong());
+    }
+
+    void Reserve::ajouterThe(const std::string &nom)
+    {
+        if (thes_.find(nom) == thes_.end())
+        {
+            ordreThes_.push_back(nom);
+            thes_[nom] = QTE_THE_INITIALE;
+        }
     }
 
     void Reserve::eauSuffisante(double quantite, double ratio) const
@@ -35,11 +42,9 @@ namespace Machine
             throw TheInsuffisant(the, quantiteRequise, 0.0);
         }
 
-        const The &theObj = it->second;
-
-        if (theObj.quantite < quantiteRequise)
+        if (it->second < quantiteRequise)
         {
-            throw TheInsuffisant(the, quantiteRequise, theObj.quantite);
+            throw TheInsuffisant(the, quantiteRequise, it->second);
         }
     }
 
@@ -49,37 +54,18 @@ namespace Machine
 
         for (const std::string &nom : ordreThes_)
         {
-            std::cout << "Thé " << nom << " : " << Util::nombre(thes_.at(nom).quantite) << " g" << std::endl;
+            std::cout << "Thé " << nom << " : " << Util::nombre(thes_.at(nom)) << " g" << std::endl;
         }
-    }
-
-    void Reserve::ajouterThe(const The &the)
-    {
-        if (thes_.find(the.nom) == thes_.end())
-            ordreThes_.push_back(the.nom);
-
-        thes_[the.nom] = the;
-    }
-
-    const The &Reserve::obtenirThe(const std::string &nomThe) const
-    {
-        auto it = thes_.find(nomThe);
-
-        if (it == thes_.end())
-        {
-            throw TheInsuffisant(nomThe, 0.0, 0.0);
-        }
-
-        return it->second;
     }
 
     void Reserve::remplirThe(const std::string &the, double quantite)
     {
-        thes_[the].quantite += quantite;
+        ajouterThe(the);
+        thes_[the] += quantite;
 
         std::cout << "Ajout de thé " << the << " : " << Util::nombre(quantite) << " g." << std::endl;
 
-        verifierThe(the, thes_[the].quantite);
+        verifierThe(the, thes_[the]);
     }
 
     void Reserve::remplirEau(double quantite)
@@ -95,11 +81,11 @@ namespace Machine
     {
         double quantiteRequise = quantite * (1.0 + ratio);
 
-        thes_[the].quantite -= quantiteRequise;
+        thes_[the] -= quantiteRequise;
 
         std::cout << "Consommation de thé " << the << " : " << Util::nombre(quantiteRequise) << " g." << std::endl;
 
-        verifierThe(the, thes_[the].quantite);
+        verifierThe(the, thes_[the]);
     }
 
     void Reserve::distribuerEau(double quantite, double ratio)

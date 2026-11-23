@@ -34,14 +34,15 @@ add_executable(PolyInfusion
     src/notification/Ecran.cpp
     src/notification/Notificateur.cpp
     src/notification/Observateur.cpp
-    src/preparation/Infuseur.cpp
-    src/preparation/Rinceur.cpp
+    src/profil/ProfilInfusion.cpp
+    src/profil/ProfilVert.cpp
+    src/profil/ProfilNoir.cpp
+    src/profil/ProfilOolong.cpp
+    src/profil/RegistreProfils.cpp
     src/reserve/EauInsuffisante.cpp
     src/reserve/Reserve.cpp
     src/reserve/TheInsuffisant.cpp
     src/systeme/Systeme.cpp
-    src/systeme/SystemePro.cpp
-    src/systeme/SystemeCompact.cpp
     src/systemeChauffage/SystemeChauffage.cpp
     src/systemeChauffage/SystemeChauffagePro.cpp
     src/systemeChauffage/SystemeChauffageCompact.cpp

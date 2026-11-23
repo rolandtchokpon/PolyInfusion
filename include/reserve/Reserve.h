@@ -16,19 +16,24 @@ namespace Machine
     {
     public:
         Reserve();
+
+        // Déclare une réserve de thé (quantité initiale par défaut : 20 g).
+        void ajouterThe(const std::string &nom);
+
         void distribuerEau(double qte, double ratio);
         void distribuerThe(const std::string &the, double qte, double ratio);
         void remplirThe(const std::string &the, double qte);
         void remplirEau(double qte);
-        void ajouterThe(const The &the);
+
+        // Lèvent une exception, sans rien consommer, si la quantité (pertes incluses) manque.
         void theSuffisant(const std::string &nomThe, double quantite, double ratio) const;
-        const The &obtenirThe(const std::string &nomThe) const;
         void eauSuffisante(double quantite, double ratio) const;
+
         void afficherReserves() const;
 
     private:
         double qteEau_;
-        std::unordered_map<std::string, The> thes_;
+        std::unordered_map<std::string, double> thes_;
         std::vector<std::string> ordreThes_;
     };
 

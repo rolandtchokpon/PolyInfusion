@@ -1,6 +1,6 @@
 @startuml diagramme_classes_corrige
-' PolyInfusion - diagramme de classes corrige (TP2a + TP2b)
-' Patrons : Command + Composite (+ Prototype pour cloner), Strategy, Abstract Factory, Observer
+' PolyInfusion - diagramme de classes (TP2a + TP2b), aligne sur le code de la branche mapart
+' Patrons : Command + Composite (+ Prototype via cloner), Strategy, Abstract Factory, Observer
 skinparam classAttributeIconSize 0
 skinparam shadowing false
 skinparam nodesep 40
@@ -8,63 +8,66 @@ skinparam ranksep 60
 
 ' ---------- Console ----------
 enum TypeInstruction {
+  Vide
   Selection
   Infuser
   Reserves
   RemplirEau
   RemplirThe
   Notifications
-  Portion
-  Config
+  Aide
   Apercu
-  Routine
+  Config
   Undo
   Redo
-  Aide
+  Routine
+  Portion
   Quitter
   Invalide
 }
 class Instruction <<struct>> {
   +type : TypeInstruction
   +the : string
-  +quantite : double
-  +portions : unsigned int
   +routine : string
+  +portions : unsigned int
+  +quantite : double
   +notificationsActives : bool
   +erreur : string
 }
 class InterfaceConsole {
-  +lireInstruction() : Instruction
+  +analyser(ligne : string) : Instruction
 }
 
 ' ---------- Execution ----------
 class Executeur {
   -sys_ : Systeme*
   -hist_ : HistoriqueCMD
-  -routines_ : RegistreRoutines*
+  -routines_ : RegistreRoutines
   +executer(inst : Instruction) : void
-  -creerCommande(inst : Instruction) : Commande
+  -commande(inst : Instruction) : Commande
 }
 class HistoriqueCMD {
-  -pileAnnulation_ : stack<Commande>
-  -pileRetablissement_ : stack<Commande>
-  +executer(cmd : Commande, sys : Systeme*) : void
-  +undo(sys : Systeme*) : bool
-  +redo(sys : Systeme*) : bool
-  +peutAnnuler() : bool
-  +peutRetablir() : bool
+  -pileAnnulation_ : vector<Commande>
+  -pileRetablissement_ : vector<Commande>
+  +ajouterCmd(cmd : Commande) : void
+  +undo(sys : Systeme*) : void
+  +redo(sys : Systeme*) : void
 }
 class RegistreRoutines {
+  -routines_ : map<string, Commande>
   +enregistrer(nom : string, routine : Commande) : void
+  +obtenir(nom : string) : Commande
   +creerExecution(nom : string) : Commande
 }
 
-' ---------- Commandes (Command + Composite) ----------
+' ---------- Commandes (Command + Composite + Prototype) ----------
 interface Commande {
-  +{abstract} executer(sys : Systeme*) : void
+  +{abstract} executer(inst : Instruction, sys : Systeme*) : void
   +{abstract} undo(sys : Systeme*) : void
-  +{abstract} apercu(sortie : ostream) : void
-  +{abstract} cloner() : Commande
+  +redo(sys : Systeme*) : void
+  +apercu(lignes : vector<string>) : void
+  +cloner() : Commande
+  +estReversible() : bool
 }
 class CmdSelection {
   -ancienThe_ : string
@@ -74,113 +77,154 @@ class CmdPortion {
   -anciennesPortions_ : unsigned int
   -nouvellesPortions_ : unsigned int
 }
-class CmdRoutine {
+class Routine {
   -nom_ : string
   -enfants_ : vector<Commande>
   +ajouter(cmd : Commande) : void
 }
-note right of CmdRoutine
+class CmdRoutine {
+  -nom_ : string
+  -routine_ : Commande
+}
+class CmdApercu {
+  -routine_ : Commande
+}
+class CmdAide
+class CmdConfig
+class CmdInfuser
+class CmdNotif
+class CmdQuit
+class CmdRemplirEau
+class CmdRemplirThe
+class CmdReserve
+note right of Routine
   executer : enfants dans l'ordre
   undo : enfants dans l'ordre inverse
   apercu : parcourt les enfants sans rien modifier
   cloner : copie profonde (une copie par execution)
-  Solo, Duo, Matin = instances creees par RegistreRoutines
-  (Matin contient Duo)
+  solo, duo, matin = instances creees par RegistreRoutines
+  (matin contient duo)
+end note
+note bottom of CmdAide
+  Commandes non reversibles (estReversible = false) :
+  CmdAide, CmdConfig, CmdInfuser, CmdNotif, CmdQuit,
+  CmdRemplirEau, CmdRemplirThe, CmdReserve
 end note
 
 ' ---------- Systeme ----------
-abstract class FabriqueSysteme {
-  +creerSysteme() : Systeme
-  +{abstract} creerChauffage() : SystemeChauffage
-  +{abstract} creerDistributeurEau() : DistributeurEau
-  +{abstract} creerDistributeurThe() : DistributeurThe
-}
-class FabriqueCompact
-class FabriquePro
-
 class Systeme {
   -reserve_ : Reserve
   -distributeurEau_ : DistributeurEau
   -distributeurThe_ : DistributeurThe
   -systemeChauffage_ : SystemeChauffage
+  -profils_ : RegistreProfils
   -ecran_ : Ecran
   -app_ : AppDistant
   -portions_ : unsigned int
   -theSelectionne_ : string
-  +infuser() : void
+  +infuser(nomThe : string, portions : unsigned int) : void
   +remplirEau(q : double) : void
   +remplirThe(nom : string, q : double) : void
   +afficherReserves() : void
-  +afficherConfiguration() : void
-  +activerNotificationsDistantes(actif : bool) : void
+  +activerNotifications(actif : bool) : void
   +theSelectionne() : string
   +portions() : unsigned int
   +modifierPortions(n : unsigned int) : void
   +modifierTheSelectionne(nom : string) : void
+  +quitter(oui : bool) : bool
 }
-note bottom of Systeme
-  Les setters sont silencieux : l'affichage est fait par les commandes
-  (undo n'affiche que "Operation annulee.").
-  infuser : verifie les reserves pour toutes les portions (pertes incluses)
-  avant toute consommation, puis prepare portions() fois le profil.
-end note
+class Composants <<struct>> {
+  +chauffage : SystemeChauffage&
+  +eau : DistributeurEau&
+  +the : DistributeurThe&
+}
 
 ' ---------- Strategy ----------
 class RegistreProfils {
   +ajouter(profil : ProfilInfusion) : void
   +trouver(nom : string) : ProfilInfusion
+  +noms() : vector<string>
 }
 abstract class ProfilInfusion {
-  +{abstract} nom() : string
-  +{abstract} besoins(ratioThe : double, ratioEau : double) : Besoins
-  +{abstract} preparer(composants) : void
+  #nom_ : string
+  #quantiteService_ : double
+  #volumeService_ : double
+  #volumeRincage_ : double
+  #temperature_ : double
+  #tempsInfusion_ : double
+  +nom() : string
+  +besoins() : Besoins
+  +preparer(composants : Composants) : void
+  #rincer(composants : Composants) : void
+  #infuser(composants : Composants) : void
+}
+class Besoins <<struct>> {
+  +eau : double
+  +the : double
 }
 class ProfilVert
 class ProfilNoir
 class ProfilOolong
 
 ' ---------- Composants (Abstract Factory) ----------
+abstract class FabriqueSysteme {
+  +{abstract} nomModele() : string
+  +{abstract} creerChauffage() : SystemeChauffage
+  +{abstract} creerDistributeurEau(reserve : Reserve) : DistributeurEau
+  +{abstract} creerDistributeurThe(reserve : Reserve) : DistributeurThe
+  +creerSysteme() : Systeme
+}
+class FabriqueCompact
+class FabriquePro
+
 abstract class SystemeChauffage {
+  #vitesse_ : double
   +chaufferEau(temperature : double) : void
+  +chaufferEauPreparation(temperature : double) : void
+  +chaufferEauRincage(temperature : double) : void
 }
 class SystemeChauffageCompact
 class SystemeChauffagePro
 abstract class DistributeurThe {
+  #reserve_ : Reserve
+  #ratio_ : double
   +distribuerThe(the : string, q : double) : void
+  +verifierSuffisance(the : string, q : double) : void
   +obtenirRatio() : double
 }
 class DistributeurTheCompact
 class DistributeurThePro
 abstract class DistributeurEau {
+  #reserve_ : Reserve
+  #ratio_ : double
   +distribuerEau(q : double) : void
+  +verifierSuffisance(q : double) : void
   +obtenirRatio() : double
 }
 class DistributeurEauCompact
 class DistributeurEauPro
 
 ' ---------- Observer ----------
-enum Etat {
-  M_EAU
-  M_THE
-  CORRECT
-}
 class Notificateur {
   -observateurs_ : vector<Observateur>
-  -etatEau_ : Etat
-  -etatThe_ : Etat
+  -eauFaible_ : bool
+  -theFaible_ : map<string, bool>
   +ajouterObservateur(o : Observateur) : void
   +retirerObservateur(o : Observateur) : void
-  #notifier(...) : void
+  #verifierEau(qte : double) : void
+  #verifierThe(the : string, qte : double) : void
 }
 interface Observateur {
-  +{abstract} notifier(qte : double) : void
-  +{abstract} notifier(the : string, qte : double) : void
+  +{abstract} alerterEau(evenement : Evenement, qte : double) : void
+  +{abstract} alerterThe(evenement : Evenement, the : string, qte : double) : void
 }
 class Ecran
 class AppDistant
 class Reserve {
   -qteEau_ : double
   -thes_ : map<string, double>
+  -ordreThes_ : vector<string>
+  +ajouterThe(nom : string) : void
   +distribuerEau(q : double, ratio : double) : void
   +distribuerThe(the : string, q : double, ratio : double) : void
   +remplirEau(q : double) : void
@@ -194,19 +238,29 @@ class Reserve {
 ' Console / Execution
 InterfaceConsole ..> Instruction : <<produit>>
 Instruction --> TypeInstruction
-InterfaceConsole --> Executeur
+InterfaceConsole --> Executeur : instruction
 Executeur *-- HistoriqueCMD
-Executeur --> RegistreRoutines
-Executeur --> Systeme
+Executeur *-- RegistreRoutines
+Executeur --> Systeme : delegue
 Executeur ..> Commande : <<cree / execute>>
-HistoriqueCMD o-- "*" Commande
+HistoriqueCMD o-- "*" Commande : piles
 
 ' Command + Composite
 CmdSelection ..|> Commande
 CmdPortion ..|> Commande
+Routine ..|> Commande
 CmdRoutine ..|> Commande
-CmdRoutine o-- "1..*" Commande : enfants
-RegistreRoutines o-- "*" CmdRoutine
+CmdApercu ..|> Commande
+CmdAide ..|> Commande
+CmdConfig ..|> Commande
+CmdInfuser ..|> Commande
+CmdNotif ..|> Commande
+CmdQuit ..|> Commande
+CmdRemplirEau ..|> Commande
+CmdRemplirThe ..|> Commande
+CmdReserve ..|> Commande
+Routine o-- "1..*" Commande : enfants
+RegistreRoutines o-- "*" Commande : routines predefinies
 CmdSelection ..> Systeme : <<modifie>>
 CmdPortion ..> Systeme : <<modifie>>
 
@@ -229,9 +283,10 @@ Systeme *-- SystemeChauffage
 Systeme *-- DistributeurThe
 Systeme *-- DistributeurEau
 Systeme *-- Reserve
+Systeme *-- RegistreProfils
 Systeme *-- Ecran
 Systeme *-- AppDistant
-Systeme --> RegistreProfils : utilise
+Systeme ..> Composants : <<construit>>
 DistributeurThe --> Reserve
 DistributeurEau --> Reserve
 
@@ -240,14 +295,12 @@ RegistreProfils o-- "*" ProfilInfusion
 ProfilVert --|> ProfilInfusion
 ProfilNoir --|> ProfilInfusion
 ProfilOolong --|> ProfilInfusion
-ProfilInfusion ..> SystemeChauffage
-ProfilInfusion ..> DistributeurThe
-ProfilInfusion ..> DistributeurEau
+ProfilInfusion ..> Composants : utilise
+ProfilInfusion ..> Besoins
 
 ' Observer
 Reserve --|> Notificateur
 Notificateur o-- "*" Observateur
-Notificateur --> Etat
 Ecran ..|> Observateur
 AppDistant ..|> Observateur
 @enduml

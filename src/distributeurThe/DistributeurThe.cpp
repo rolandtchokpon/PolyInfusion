@@ -16,9 +16,9 @@ namespace Machine
         reserve_->distribuerThe(the, quantite, ratio_);
     }
 
-    const The& DistributeurThe::obtenirThe(const std::string &the)
+    void DistributeurThe::verifierSuffisance(const std::string &the, double quantite) const
     {
-        return reserve_->obtenirThe(the);
+        reserve_->theSuffisant(the, quantite, ratio_);
     }
 
     double DistributeurThe::obtenirRatio() const { return ratio_; }
