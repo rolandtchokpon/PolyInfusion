@@ -10,8 +10,10 @@ namespace CMD
 
     void CmdConfig::executer(const Console::Instruction &inst, Machine::Systeme *sys)
     {
-        // TODO
-        std::cout << "Implémentation de <<configuration>> à faire" << std::endl;
+        const std::string &the = sys->theSelectionne();
+
+        std::cout << "Thé sélectionné : " << (the.empty() ? "aucun" : the) << "." << std::endl;
+        std::cout << "Nombre de portions : " << sys->portions() << "." << std::endl;
     }
 
     void CmdConfig::undo(Machine::Systeme *sys)

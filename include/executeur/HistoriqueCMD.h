@@ -17,11 +17,12 @@ namespace Execution
         void undo(Machine::Systeme *sys);
         void redo(Machine::Systeme *sys);
 
-        void ajouterCmd(std::shared_ptr<CMD::Commande> &cmd);
+        // À appeler après l'exécution réussie d'une commande réversible.
+        void ajouterCmd(const std::shared_ptr<CMD::Commande> &cmd);
 
     private:
-        std::shared_ptr<CMD::Commande> dernierUndo_;
-        std::vector<std::shared_ptr<CMD::Commande>> cmdReversibles_;
+        std::vector<std::shared_ptr<CMD::Commande>> pileAnnulation_;
+        std::vector<std::shared_ptr<CMD::Commande>> pileRetablissement_;
     };
 
 } // namespace Execution

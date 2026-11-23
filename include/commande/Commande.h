@@ -14,14 +14,16 @@ namespace CMD
         virtual void executer(const Console::Instruction &inst, Machine::Systeme *sys) = 0;
         virtual void undo(Machine::Systeme *sys) = 0;
 
-        const Console::Instruction &sauvgarde();
+        // Rétablit silencieusement l'effet de executer() après un undo().
+        // Les commandes réversibles la redéfinissent ; les autres n'ont rien à rétablir.
+        virtual void redo(Machine::Systeme *sys);
+
         bool estReversible() const;
 
     protected:
         Commande(bool estReversible);
 
-        Console::Instruction instruction_;
         bool estReversible_;
     };
 
-} // namespace Commande
+} // namespace CMD

@@ -69,13 +69,11 @@ namespace Machine
     void Systeme::modifierPortions(unsigned int portions)
     {
         portions_ = portions;
-        std::cout << "Nombre de portions : " << portions_ << std::endl;
     }
 
     void Systeme::modifierTheSelectionne(const std::string &the)
     {
         theSelectionne_ = the;
-        std::cout << "Thé sélectionné : " << theSelectionne_ << std::endl;
     }
 
     void Systeme::appliquerRoutine(std::shared_ptr<Routine::IRoutine> &r)

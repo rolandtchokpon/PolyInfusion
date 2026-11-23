@@ -45,9 +45,10 @@ namespace Execution
 
         if (!cmd) return;
 
-        if (cmd->estReversible()) hist_->ajouterCmd(cmd);
-
         cmd->executer(inst, sys_);
+
+        // L'historique n'est modifié qu'après une exécution réussie.
+        if (cmd->estReversible()) hist_->ajouterCmd(cmd);
     }
 
     std::shared_ptr<CMD::Commande> Executeur::commande(const Console::Instruction &inst)

@@ -8,8 +8,8 @@ namespace CMD
 
     Commande::~Commande() = default;
 
-    bool Commande::estReversible() const { return estReversible_; }
+    void Commande::redo(Machine::Systeme *) {}
 
-    const Console::Instruction &Commande::sauvgarde() { return instruction_; }
+    bool Commande::estReversible() const { return estReversible_; }
 
 }
