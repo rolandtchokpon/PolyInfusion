@@ -42,6 +42,7 @@ int main(int argc, char *argv[])
         try
         {
             executeur->executer(console->analyser(ligne));
+            std::cout << std::endl;
         }
         catch (const std::exception &e)
         {
