@@ -1,4 +1,6 @@
+
 #pragma once
+#include <string>
 #include "Commande.h"
 
 namespace CMD
@@ -6,11 +8,14 @@ namespace CMD
     class CmdRemplirThe : public Commande
     {
     public:
-        CmdRemplirThe();
+        CmdRemplirThe(const std::string &the, double quantite);
         ~CmdRemplirThe();
 
-        virtual void executer(const Console::Instruction &inst, Machine::Systeme *sys) override;
-        virtual void undo(Machine::Systeme *sys) override;
+        virtual void executer(Machine::Systeme *sys) override;
+
+    private:
+        std::string the_;
+        double quantite_;
     };
 
-} // namespace Commande
+} // namespace CMD

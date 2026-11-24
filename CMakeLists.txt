@@ -5,6 +5,10 @@ add_executable(PolyInfusion
     src/main.cpp
     src/console/Console.cpp
     src/commande/Commande.cpp
+    src/commande/CmdReglage.cpp
+    src/commande/IterateurReglage.cpp
+    src/commande/IterateurFeuille.cpp
+    src/commande/IterateurRoutine.cpp
     src/commande/CmdAide.cpp
     src/commande/CmdApercu.cpp
     src/commande/CmdConfig.cpp

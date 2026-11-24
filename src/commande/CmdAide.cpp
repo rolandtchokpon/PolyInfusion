@@ -1,14 +1,16 @@
 
+#include <iostream>
 #include "../../include/commande/CmdAide.h"
+#include "../../include/systeme/Systeme.h"
 
 namespace CMD
 {
 
-    CmdAide::CmdAide() : Commande(false) {}
+    CmdAide::CmdAide() {}
 
     CmdAide::~CmdAide() = default;
 
-    void CmdAide::executer(const Console::Instruction &, Machine::Systeme *sys)
+    void CmdAide::executer(Machine::Systeme *sys)
     {
         std::string thes;
         for (const std::string &the : sys->thesDisponibles())
@@ -31,9 +33,4 @@ namespace CMD
             << "q : quitter l’application.\n";
     }
 
-    void CmdAide::undo(Machine::Systeme *)
-    {
-        std::cout << "Ceci n'est pas une commande réversible." << std::endl;
-    }
-
-}
+} // namespace CMD

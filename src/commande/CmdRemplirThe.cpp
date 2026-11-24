@@ -1,20 +1,18 @@
 
+#include <iostream>
 #include "../../include/commande/CmdRemplirThe.h"
+#include "../../include/systeme/Systeme.h"
 
 namespace CMD
 {
 
-    CmdRemplirThe::CmdRemplirThe() : Commande(false) {}
+    CmdRemplirThe::CmdRemplirThe(const std::string &the, double quantite) : the_(the), quantite_(quantite) {}
 
     CmdRemplirThe::~CmdRemplirThe() = default;
 
-    void CmdRemplirThe::executer(const Console::Instruction &inst, Machine::Systeme *sys)
+    void CmdRemplirThe::executer(Machine::Systeme *sys)
     {
-        sys->remplirThe(inst.the, inst.quantite);
+        sys->remplirThe(the_, quantite_);
     }
 
-    void CmdRemplirThe::undo(Machine::Systeme *)
-    {
-        std::cout << "Ceci n'est pas une commande réversible." << std::endl;
-    }
-}
+} // namespace CMD

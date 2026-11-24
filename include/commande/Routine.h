@@ -2,30 +2,31 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "Commande.h"
+#include "CmdReglage.h"
 
 namespace CMD
 {
 
-    // Composite : une routine est une Commande qui contient d'autres Commande
+    // Composite : une routine est un CmdReglage qui contient d'autres CmdReglage
     // (changements élémentaires ou sous-routines). L'historique la traite comme une seule opération.
-    class Routine : public Commande
+    class Routine : public CmdReglage
     {
     public:
         explicit Routine(const std::string &nom);
         ~Routine();
 
-        void ajouter(const std::shared_ptr<Commande> &enfant);
+        void ajouter(const std::shared_ptr<CmdReglage> &enfant);
 
-        virtual void executer(const Console::Instruction &inst, Machine::Systeme *sys) override;
+        virtual void executer(Machine::Systeme *sys) override;
         virtual void undo(Machine::Systeme *sys) override;
         virtual void redo(Machine::Systeme *sys) override;
-        virtual void apercu(std::vector<std::string> &lignes) const override;
-        virtual std::shared_ptr<Commande> cloner() const override;
+        virtual std::string description() const override;
+        virtual std::unique_ptr<IterateurReglage> creerIterateur() const override;
+        virtual std::shared_ptr<CmdReglage> cloner() const override;
 
     private:
         std::string nom_;
-        std::vector<std::shared_ptr<Commande>> enfants_;
+        std::vector<std::shared_ptr<CmdReglage>> enfants_;
     };
 
 } // namespace CMD

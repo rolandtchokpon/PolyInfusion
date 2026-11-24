@@ -44,31 +44,40 @@ class Executeur {
   -hist_ : HistoriqueCMD
   -routines_ : RegistreRoutines
   +executer(inst : Instruction) : void
-  -commande(inst : Instruction) : Commande
+  -creerReglage(inst : Instruction) : CmdReglage
+  -creerCommande(inst : Instruction) : Commande
 }
 class HistoriqueCMD {
-  -pileAnnulation_ : vector<Commande>
-  -pileRetablissement_ : vector<Commande>
-  +ajouterCmd(cmd : Commande) : void
+  -pileAnnulation_ : vector<CmdReglage>
+  -pileRetablissement_ : vector<CmdReglage>
+  +ajouterCmd(cmd : CmdReglage) : void
   +undo(sys : Systeme*) : void
   +redo(sys : Systeme*) : void
 }
 class RegistreRoutines {
-  -routines_ : map<string, Commande>
-  +enregistrer(nom : string, routine : Commande) : void
-  +obtenir(nom : string) : Commande
-  +creerExecution(nom : string) : Commande
+  -routines_ : map<string, CmdReglage>
+  +enregistrer(nom : string, routine : CmdReglage) : void
+  +obtenir(nom : string) : CmdReglage
+  +creerExecution(nom : string) : CmdReglage
 }
 
 ' ---------- Commandes (Command + Composite + Prototype) ----------
 interface Commande {
-  +{abstract} executer(inst : Instruction, sys : Systeme*) : void
-  +{abstract} undo(sys : Systeme*) : void
-  +redo(sys : Systeme*) : void
-  +apercu(lignes : vector<string>) : void
-  +cloner() : Commande
-  +estReversible() : bool
+  +{abstract} executer(sys : Systeme*) : void
 }
+abstract class CmdReglage {
+  +{abstract} undo(sys : Systeme*) : void
+  +{abstract} redo(sys : Systeme*) : void
+  +{abstract} description() : string
+  +{abstract} creerIterateur() : IterateurReglage
+  +{abstract} cloner() : CmdReglage
+}
+interface IterateurReglage {
+  +{abstract} aSuivant() : bool
+  +{abstract} suivant() : CmdReglage
+}
+class IterateurFeuille
+class IterateurRoutine
 class CmdSelection {
   -ancienThe_ : string
   -nouveauThe_ : string
@@ -79,15 +88,15 @@ class CmdPortion {
 }
 class Routine {
   -nom_ : string
-  -enfants_ : vector<Commande>
-  +ajouter(cmd : Commande) : void
+  -enfants_ : vector<CmdReglage>
+  +ajouter(cmd : CmdReglage) : void
 }
 class CmdRoutine {
   -nom_ : string
-  -routine_ : Commande
+  -routine_ : CmdReglage
 }
 class CmdApercu {
-  -routine_ : Commande
+  -routine_ : CmdReglage
 }
 class CmdAide
 class CmdConfig
@@ -100,7 +109,7 @@ class CmdReserve
 note right of Routine
   executer : enfants dans l'ordre
   undo : enfants dans l'ordre inverse
-  apercu : parcourt les enfants sans rien modifier
+  creerIterateur : IterateurRoutine (parcours aplati, sous-routines comprises)
   cloner : copie profonde (une copie par execution)
   solo, duo, matin = instances creees par RegistreRoutines
   (matin contient duo)
@@ -243,13 +252,19 @@ Executeur *-- HistoriqueCMD
 Executeur *-- RegistreRoutines
 Executeur --> Systeme : delegue
 Executeur ..> Commande : <<cree / execute>>
-HistoriqueCMD o-- "*" Commande : piles
+Executeur ..> CmdReglage : <<cree / execute>>
+HistoriqueCMD o-- "*" CmdReglage : piles
 
 ' Command + Composite
-CmdSelection ..|> Commande
-CmdPortion ..|> Commande
-Routine ..|> Commande
-CmdRoutine ..|> Commande
+CmdReglage --|> Commande
+CmdSelection --|> CmdReglage
+CmdPortion --|> CmdReglage
+Routine --|> CmdReglage
+CmdRoutine --|> CmdReglage
+IterateurFeuille ..|> IterateurReglage
+IterateurRoutine ..|> IterateurReglage
+CmdReglage ..> IterateurReglage : <<cree>>
+CmdApercu ..> IterateurReglage : parcourt
 CmdApercu ..|> Commande
 CmdAide ..|> Commande
 CmdConfig ..|> Commande
@@ -259,8 +274,8 @@ CmdQuit ..|> Commande
 CmdRemplirEau ..|> Commande
 CmdRemplirThe ..|> Commande
 CmdReserve ..|> Commande
-Routine o-- "1..*" Commande : enfants
-RegistreRoutines o-- "*" Commande : routines predefinies
+Routine o-- "1..*" CmdReglage : enfants
+RegistreRoutines o-- "*" CmdReglage : routines predefinies
 CmdSelection ..> Systeme : <<modifie>>
 CmdPortion ..> Systeme : <<modifie>>
 

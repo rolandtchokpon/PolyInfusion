@@ -1,3 +1,4 @@
+
 #pragma once
 #include "Commande.h"
 
@@ -6,11 +7,13 @@ namespace CMD
     class CmdRemplirEau : public Commande
     {
     public:
-        CmdRemplirEau();
+        explicit CmdRemplirEau(double quantite);
         ~CmdRemplirEau();
 
-        virtual void executer(const Console::Instruction &inst, Machine::Systeme *sys) override;
-        virtual void undo(Machine::Systeme *sys) override;
+        virtual void executer(Machine::Systeme *sys) override;
+
+    private:
+        double quantite_;
     };
 
-} // namespace Commande
+} // namespace CMD

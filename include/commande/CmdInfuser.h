@@ -1,3 +1,4 @@
+
 #pragma once
 #include "Commande.h"
 
@@ -9,8 +10,7 @@ namespace CMD
         CmdInfuser();
         ~CmdInfuser();
 
-        virtual void executer(const Console::Instruction &inst, Machine::Systeme *sys) override;
-        virtual void undo(Machine::Systeme *sys) override;
+        virtual void executer(Machine::Systeme *sys) override;
     };
 
-} // namespace Commande
+} // namespace CMD

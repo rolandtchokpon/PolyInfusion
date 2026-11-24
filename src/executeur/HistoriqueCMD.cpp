@@ -1,4 +1,5 @@
 
+#include <iostream>
 #include "../../include/executeur/HistoriqueCMD.h"
 
 namespace Execution
@@ -8,7 +9,7 @@ namespace Execution
 
     HistoriqueCMD::~HistoriqueCMD() = default;
 
-    void HistoriqueCMD::ajouterCmd(const std::shared_ptr<CMD::Commande> &cmd)
+    void HistoriqueCMD::ajouterCmd(const std::shared_ptr<CMD::CmdReglage> &cmd)
     {
         pileAnnulation_.push_back(cmd);
 
@@ -24,7 +25,7 @@ namespace Execution
             return;
         }
 
-        std::shared_ptr<CMD::Commande> cmd = pileAnnulation_.back();
+        std::shared_ptr<CMD::CmdReglage> cmd = pileAnnulation_.back();
         pileAnnulation_.pop_back();
 
         cmd->undo(sys);
@@ -41,7 +42,7 @@ namespace Execution
             return;
         }
 
-        std::shared_ptr<CMD::Commande> cmd = pileRetablissement_.back();
+        std::shared_ptr<CMD::CmdReglage> cmd = pileRetablissement_.back();
         pileRetablissement_.pop_back();
 
         cmd->redo(sys);

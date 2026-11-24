@@ -1,13 +1,13 @@
 
 #pragma once
-#include <iostream>
 #include <memory>
 #include <vector>
-#include "../commande/Commande.h"
+#include "../commande/CmdReglage.h"
 
 namespace Execution
 {
 
+    // Historique des changements de réglages (undo / redo). Il ne connaît que CmdReglage.
     class HistoriqueCMD
     {
     public:
@@ -17,12 +17,12 @@ namespace Execution
         void undo(Machine::Systeme *sys);
         void redo(Machine::Systeme *sys);
 
-        // À appeler après l'exécution réussie d'une commande réversible.
-        void ajouterCmd(const std::shared_ptr<CMD::Commande> &cmd);
+        // À appeler après l'exécution réussie d'un changement de réglage.
+        void ajouterCmd(const std::shared_ptr<CMD::CmdReglage> &cmd);
 
     private:
-        std::vector<std::shared_ptr<CMD::Commande>> pileAnnulation_;
-        std::vector<std::shared_ptr<CMD::Commande>> pileRetablissement_;
+        std::vector<std::shared_ptr<CMD::CmdReglage>> pileAnnulation_;
+        std::vector<std::shared_ptr<CMD::CmdReglage>> pileRetablissement_;
     };
 
 } // namespace Execution

@@ -1,4 +1,5 @@
 #include "../include/console/Console.h"
+#include "../include/executeur/Executeur.h"
 #include "../include/fabrique/FabriqueCompact.h"
 #include "../include/fabrique/FabriquePro.h"
 
@@ -33,8 +34,8 @@ int main(int argc, char *argv[])
         fabrique = std::make_unique<Fabrique::FabriquePro>();
 
     std::unique_ptr<Machine::Systeme> sys = fabrique->creerSysteme();
-    std::unique_ptr<Execution::Executeur> executeur = fabrique->creerExecuteur(sys.get());
-    std::unique_ptr<Console::InterfaceConsole> console = fabrique->creerInterfaceConsole(*sys);
+    std::unique_ptr<Execution::Executeur> executeur = std::make_unique<Execution::Executeur>(sys.get());
+    std::unique_ptr<Console::InterfaceConsole> console = std::make_unique<Console::InterfaceConsole>(sys->thesDisponibles());
 
     for (std::string ligne; std::cout << "> " << std::flush, std::getline(std::cin, ligne);)
     {

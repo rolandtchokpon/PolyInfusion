@@ -5,8 +5,6 @@
 #include <string>
 
 #include "../systeme/Systeme.h"
-#include "../executeur/Executeur.h"
-#include "../console/Console.h"
 
 namespace Fabrique
 {
@@ -25,9 +23,6 @@ namespace Fabrique
 
         // Assemble une machine avec les composants du modèle.
         std::unique_ptr<Machine::Systeme> creerSysteme() const;
-
-        std::unique_ptr<Execution::Executeur> creerExecuteur(Machine::Systeme *sys);
-        std::unique_ptr<Console::InterfaceConsole> creerInterfaceConsole(const Machine::Systeme &sys);
 
     protected:
         FabriqueSysteme();

@@ -1,20 +1,18 @@
 
+#include <iostream>
 #include "../../include/commande/CmdNotif.h"
+#include "../../include/systeme/Systeme.h"
 
 namespace CMD
 {
 
-    CmdNotif::CmdNotif() : Commande(false) {}
+    CmdNotif::CmdNotif(bool actives) : actives_(actives) {}
 
     CmdNotif::~CmdNotif() = default;
 
-    void CmdNotif::executer(const Console::Instruction &inst, Machine::Systeme *sys)
+    void CmdNotif::executer(Machine::Systeme *sys)
     {
-        sys->activerNotifications(inst.notificationsActives);
+        sys->activerNotifications(actives_);
     }
 
-    void CmdNotif::undo(Machine::Systeme *)
-    {
-        std::cout << "Ceci n'est pas une commande réversible." << std::endl;
-    }
-}
+} // namespace CMD

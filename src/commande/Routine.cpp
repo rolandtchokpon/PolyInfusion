@@ -1,19 +1,20 @@
 
 #include "../../include/commande/Routine.h"
+#include "../../include/commande/IterateurRoutine.h"
 
 namespace CMD
 {
 
-    Routine::Routine(const std::string &nom) : Commande(true), nom_(nom) {}
+    Routine::Routine(const std::string &nom) : nom_(nom) {}
 
     Routine::~Routine() = default;
 
-    void Routine::ajouter(const std::shared_ptr<Commande> &enfant) { enfants_.push_back(enfant); }
+    void Routine::ajouter(const std::shared_ptr<CmdReglage> &enfant) { enfants_.push_back(enfant); }
 
-    void Routine::executer(const Console::Instruction &inst, Machine::Systeme *sys)
+    void Routine::executer(Machine::Systeme *sys)
     {
         for (const auto &enfant : enfants_)
-            enfant->executer(inst, sys);
+            enfant->executer(sys);
     }
 
     void Routine::undo(Machine::Systeme *sys)
@@ -29,13 +30,11 @@ namespace CMD
             enfant->redo(sys);
     }
 
-    void Routine::apercu(std::vector<std::string> &lignes) const
-    {
-        for (const auto &enfant : enfants_)
-            enfant->apercu(lignes);
-    }
+    std::string Routine::description() const { return "Routine " + nom_ + "."; }
 
-    std::shared_ptr<Commande> Routine::cloner() const
+    std::unique_ptr<IterateurReglage> Routine::creerIterateur() const { return std::make_unique<IterateurRoutine>(enfants_); }
+
+    std::shared_ptr<CmdReglage> Routine::cloner() const
     {
         auto copie = std::make_shared<Routine>(nom_);
 

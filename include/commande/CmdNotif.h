@@ -1,3 +1,4 @@
+
 #pragma once
 #include "Commande.h"
 
@@ -6,11 +7,13 @@ namespace CMD
     class CmdNotif : public Commande
     {
     public:
-        CmdNotif();
+        explicit CmdNotif(bool actives);
         ~CmdNotif();
 
-        virtual void executer(const Console::Instruction &inst, Machine::Systeme *sys) override;
-        virtual void undo(Machine::Systeme *sys) override;
+        virtual void executer(Machine::Systeme *sys) override;
+
+    private:
+        bool actives_;
     };
 
-} // namespace Commande
+} // namespace CMD

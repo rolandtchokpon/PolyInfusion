@@ -1,20 +1,18 @@
 
+#include <iostream>
 #include "../../include/commande/CmdRemplirEau.h"
+#include "../../include/systeme/Systeme.h"
 
 namespace CMD
 {
 
-    CmdRemplirEau::CmdRemplirEau() : Commande(false) {}
+    CmdRemplirEau::CmdRemplirEau(double quantite) : quantite_(quantite) {}
 
     CmdRemplirEau::~CmdRemplirEau() = default;
 
-    void CmdRemplirEau::executer(const Console::Instruction &inst, Machine::Systeme *sys)
+    void CmdRemplirEau::executer(Machine::Systeme *sys)
     {
-        sys->remplirEau(inst.quantite);
+        sys->remplirEau(quantite_);
     }
 
-    void CmdRemplirEau::undo(Machine::Systeme *)
-    {
-        std::cout << "Ceci n'est pas une commande réversible." << std::endl;
-    }
-}
+} // namespace CMD

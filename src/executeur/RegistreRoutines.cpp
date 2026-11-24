@@ -28,18 +28,18 @@ namespace Execution
 
     RegistreRoutines::~RegistreRoutines() = default;
 
-    void RegistreRoutines::enregistrer(const std::string &nom, const std::shared_ptr<CMD::Commande> &routine)
+    void RegistreRoutines::enregistrer(const std::string &nom, const std::shared_ptr<CMD::CmdReglage> &routine)
     {
         routines_[nom] = routine;
     }
 
-    std::shared_ptr<CMD::Commande> RegistreRoutines::obtenir(const std::string &nom) const
+    std::shared_ptr<CMD::CmdReglage> RegistreRoutines::obtenir(const std::string &nom) const
     {
         auto it = routines_.find(nom);
         return it == routines_.end() ? nullptr : it->second;
     }
 
-    std::shared_ptr<CMD::Commande> RegistreRoutines::creerExecution(const std::string &nom) const
+    std::shared_ptr<CMD::CmdReglage> RegistreRoutines::creerExecution(const std::string &nom) const
     {
         auto routine = obtenir(nom);
         return routine ? routine->cloner() : nullptr;

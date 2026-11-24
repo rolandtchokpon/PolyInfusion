@@ -53,9 +53,10 @@ Les instructions sont en minuscules ; les noms de routine ne tiennent pas compte
 | **Strategy** | un profil d'infusion par thé, qui détermine paramètres et étapes | `ProfilInfusion`, `ProfilVert`, `ProfilNoir`, `ProfilOolong`, `RegistreProfils` |
 | **Abstract Factory** | l'ensemble cohérent de composants d'un modèle | `FabriqueSysteme`, `FabriqueCompact`, `FabriquePro` |
 | **Observer** | alertes de réserve (écran toujours, application distante activable) | `Notificateur`, `Reserve`, `Observateur`, `Ecran`, `AppDistant` |
-| **Command** | changements de réglages annulables et rétablissables | `Commande`, `CmdSelection`, `CmdPortion`, `HistoriqueCMD`, `Executeur` |
+| **Command** | changements de réglages annulables et rétablissables | `Commande`, `CmdReglage`, `CmdSelection`, `CmdPortion`, `HistoriqueCMD`, `Executeur` |
 | **Composite** | une routine est une commande qui contient des commandes | `Routine`, `CmdRoutine`, `RegistreRoutines` |
-| **Prototype** | une copie neuve de la routine à chaque exécution (annulations indépendantes) | `Commande::cloner()` |
+| **Iterator** | parcours des changements élémentaires d'une routine (aperçu), sans exposer sa structure ; c'est l'itérateur qui parcourt, pas la routine | `IterateurReglage`, `IterateurFeuille`, `IterateurRoutine` |
+| **Prototype** | une copie neuve de la routine à chaque exécution (annulations indépendantes) | `CmdReglage::cloner()` |
 
 Le diagramme de classes est dans `Diagram_corrige.puml` (source PlantUML) et
 `docs/diagramme_classes_corrige.{svg,png,pdf}` (image imprimable).
@@ -67,7 +68,7 @@ Le diagramme de classes est dans `Diagram_corrige.puml` (source PlantUML) et
 - **Nouveau modèle** : écrire une fabrique qui hérite de `FabriqueSysteme` et ses trois composants ;
   les profils et `Systeme` ne changent pas.
 - **Nouveau destinataire d'alertes** : hériter de `Observateur` et l'abonner avec `Systeme::ajouterObservateur`.
-- **Nouveau changement de réglage annulable** : hériter de `Commande` ; `HistoriqueCMD` ne change pas.
+- **Nouveau changement de réglage annulable** : hériter de `CmdReglage` ; le compilateur impose `executer`, `undo`, `redo`, `apercu` et `cloner`, et `HistoriqueCMD` ne change pas.
 - **Nouvelle routine** : l'enregistrer dans `RegistreRoutines`.
 
 ## Organisation
@@ -76,7 +77,7 @@ Le diagramme de classes est dans `Diagram_corrige.puml` (source PlantUML) et
 include/ et src/
 ├── console/       InterfaceConsole, Instruction, TypeInstruction
 ├── executeur/     Executeur, HistoriqueCMD, RegistreRoutines
-├── commande/      Commande, CmdSelection, CmdPortion, Routine, CmdRoutine, CmdApercu, autres Cmd…
+├── commande/      Commande, CmdReglage, CmdSelection, CmdPortion, Routine, CmdRoutine, CmdApercu, itérateurs, autres Cmd…
 ├── systeme/       Systeme, Composants
 ├── profil/        ProfilInfusion, ProfilVert, ProfilNoir, ProfilOolong, RegistreProfils
 ├── fabrique/      FabriqueSysteme, FabriqueCompact, FabriquePro

@@ -1,14 +1,16 @@
 
+#include <iostream>
 #include "../../include/commande/CmdConfig.h"
+#include "../../include/systeme/Systeme.h"
 
 namespace CMD
 {
 
-    CmdConfig::CmdConfig() : Commande(false) {}
+    CmdConfig::CmdConfig() {}
 
     CmdConfig::~CmdConfig() = default;
 
-    void CmdConfig::executer(const Console::Instruction &, Machine::Systeme *sys)
+    void CmdConfig::executer(Machine::Systeme *sys)
     {
         const std::string &the = sys->theSelectionne();
 
@@ -16,8 +18,4 @@ namespace CMD
         std::cout << "Nombre de portions : " << sys->portions() << "." << std::endl;
     }
 
-    void CmdConfig::undo(Machine::Systeme *)
-    {
-        std::cout << "Ceci n'est pas une commande réversible." << std::endl;
-    }
-}
+} // namespace CMD
