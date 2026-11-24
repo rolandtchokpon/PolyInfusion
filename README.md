@@ -1,55 +1,24 @@
-# PolyInfusion — Code de départ du TP2
+# PolyInfusion — TP2 (LOG2400)
 
-Projet console C++17 du cours LOG2400.
-
-## Contenu fourni
-
-- Configuration CMake et instructions de compilation.
-- Choix du modèle au lancement : `compact` ou `pro`.
-- Lecture et validation syntaxique des instructions de l’énoncé.
-- Aide (`h`), sortie (`q`) et gestion de la fin de l’entrée.
-- Emplacements `TODO` pour raccorder votre conception.
-
-Les instructions métier affichent pour le moment « À implémenter ». Le choix du
-modèle est validé, mais aucun composant de machine n’est encore créé.
-Le programme ne reproduit donc pas encore les scénarios de l’énoncé.
-
-## Travail à réaliser
-
-Concevez et implémentez les classes et leurs collaborations selon l’énoncé :
-profils d’infusion, composants des modèles, réserves et notifications.
-Les règles métier (réserves initiales, seuils, pertes, sélection initiale,
-validation des ressources, etc.) restent à implémenter.
-
-Le `switch` du `main` sert uniquement à distribuer les instructions console.
-Déléguez les comportements aux objets de votre conception plutôt que de les
-implémenter dans cette boucle. Vous pouvez adapter ce point d’entrée.
-La structure `Instruction` contient des données de saisie; ce n’est pas le patron
-Commande. Aucun choix de classes métier ou de hiérarchie ne vous est imposé.
-
-## Prérequis
-
-- CMake 3.15 ou plus récent.
-- Un compilateur C++17 : MSVC, GCC ou Clang.
-- Un terminal prenant en charge UTF-8. Les fichiers sources sont encodés en UTF-8.
+Simulation console, en C++17, d'une machine à thé PolyInfusion (modèles **compact** et **pro**),
+conçue à base de patrons (TP2a et TP2b).
 
 ## Compiler et exécuter
 
+Prérequis : CMake 3.15 ou plus récent, un compilateur C++17 (MSVC, GCC ou Clang) et un terminal UTF-8.
 Depuis le dossier contenant `CMakeLists.txt` :
 
 ### Windows — générateur Visual Studio
 
 ```powershell
-l
+cmake -S . -B build
 cmake --build build --config Debug
 .\build\Debug\PolyInfusion.exe compact
 ```
 
-Pour le modèle Pro, remplacer `compact` par `pro`.
-Avec un générateur à configuration unique (Ninja ou MinGW), l’exécutable se trouve
-généralement dans `build` plutôt que dans `build/Debug`.
+Avec Ninja ou MinGW, l'exécutable se trouve généralement dans `build` plutôt que dans `build/Debug`.
 
-### Linux et macOS — générateur à configuration unique
+### Linux et macOS
 
 ```sh
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
@@ -57,29 +26,64 @@ cmake --build build
 ./build/PolyInfusion compact
 ```
 
-## Utilisation
+Pour le modèle pro, remplacer `compact` par `pro`.
 
-Entrez `h` pour l’aide et `q` pour quitter. Une ligne vide est ignorée.
-Les instructions sont en minuscules. `infuser` ne prend aucun argument.
-Les quantités de remplissage doivent être strictement positives et finies;
-utilisez un point pour les décimales, par exemple `remplir vert 1.5`.
-`notifications désactiver` et `notifications desactiver` sont acceptées.
-Les erreurs de syntaxe ne déclenchent aucune instruction métier.
+## Instructions
+
+| Instruction | Effet |
+|---|---|
+| `selection <thé>` | sélectionne le thé (annulable) |
+| `portions <n>` | règle le nombre de portions, entier strictement positif (annulable) |
+| `infuser` | prépare les portions du thé sélectionné ; refusé sans rien consommer si les réserves ne suffisent pas pour l'ensemble |
+| `reserves` | affiche les réserves d'eau et de thé |
+| `remplir eau <mL>` / `remplir <thé> <g>` | ajoute de l'eau ou du thé (point décimal : `remplir vert 1.5`) |
+| `notifications <activer\|désactiver>` | gère les notifications à distance ; les alertes à l'écran restent actives |
+| `configuration` | affiche le thé sélectionné et le nombre de portions |
+| `routine <nom>` | applique une routine prédéfinie (`solo`, `duo`, `matin`) ; un seul `undo` l'annule |
+| `apercu <nom>` | liste les changements élémentaires de la routine, sans rien modifier |
+| `undo` / `redo` | annule / rétablit la dernière opération réversible |
+| `h` / `q` | aide / quitter |
+
+Les instructions sont en minuscules ; les noms de routine ne tiennent pas compte de la casse.
+
+## Conception
+
+| Patron | Rôle | Classes principales |
+|---|---|---|
+| **Strategy** | un profil d'infusion par thé, qui détermine paramètres et étapes | `ProfilInfusion`, `ProfilVert`, `ProfilNoir`, `ProfilOolong`, `RegistreProfils` |
+| **Abstract Factory** | l'ensemble cohérent de composants d'un modèle | `FabriqueSysteme`, `FabriqueCompact`, `FabriquePro` |
+| **Observer** | alertes de réserve (écran toujours, application distante activable) | `Notificateur`, `Reserve`, `Observateur`, `Ecran`, `AppDistant` |
+| **Command** | changements de réglages annulables et rétablissables | `Commande`, `CmdSelection`, `CmdPortion`, `HistoriqueCMD`, `Executeur` |
+| **Composite** | une routine est une commande qui contient des commandes | `Routine`, `CmdRoutine`, `RegistreRoutines` |
+| **Prototype** | une copie neuve de la routine à chaque exécution (annulations indépendantes) | `Commande::cloner()` |
+
+Le diagramme de classes est dans `Diagram_corrige.puml` (source PlantUML) et
+`docs/diagramme_classes_corrige.{svg,png,pdf}` (image imprimable).
+
+### Ajouter un profil, un modèle ou un destinataire
+
+- **Nouveau thé** : écrire une classe qui hérite de `ProfilInfusion` et l'enregistrer dans `RegistreProfils`.
+  Sa réserve est créée automatiquement, et la console connaît son nom.
+- **Nouveau modèle** : écrire une fabrique qui hérite de `FabriqueSysteme` et ses trois composants ;
+  les profils et `Systeme` ne changent pas.
+- **Nouveau destinataire d'alertes** : hériter de `Observateur` et l'abonner avec `Systeme::ajouterObservateur`.
+- **Nouveau changement de réglage annulable** : hériter de `Commande` ; `HistoriqueCMD` ne change pas.
+- **Nouvelle routine** : l'enregistrer dans `RegistreRoutines`.
 
 ## Organisation
 
 ```text
-PolyInfusion/
-├── CMakeLists.txt
-├── README.md
-├── include/
-│   └── console/Console.h
-└── src/
-    ├── main.cpp
-    └── console/Console.cpp
+include/ et src/
+├── console/       InterfaceConsole, Instruction, TypeInstruction
+├── executeur/     Executeur, HistoriqueCMD, RegistreRoutines
+├── commande/      Commande, CmdSelection, CmdPortion, Routine, CmdRoutine, CmdApercu, autres Cmd…
+├── systeme/       Systeme, Composants
+├── profil/        ProfilInfusion, ProfilVert, ProfilNoir, ProfilOolong, RegistreProfils
+├── fabrique/      FabriqueSysteme, FabriqueCompact, FabriquePro
+├── systemeChauffage/, distributeurEau/, distributeurThe/   composants par modèle
+├── reserve/       Reserve, EauInsuffisante, TheInsuffisant
+├── notification/  Notificateur, Observateur, Ecran, AppDistant
+└── util/          Format.h (affichage des nombres, virgule décimale)
 ```
 
-Ajoutez vos fichiers `.h` dans `include` et vos `.cpp` dans `src`, en choisissant
-une organisation adaptée à votre conception. Ajoutez chaque nouveau `.cpp`
-à la liste `add_executable` du fichier `CMakeLists.txt`, puis relancez
-`cmake -S . -B build` et la compilation.
+Chaque nouveau `.cpp` doit être ajouté à la liste `add_executable` de `CMakeLists.txt`.

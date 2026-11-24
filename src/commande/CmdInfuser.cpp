@@ -8,7 +8,7 @@ namespace CMD
 
     CmdInfuser::~CmdInfuser() = default;
 
-    void CmdInfuser::executer(const Console::Instruction &inst, Machine::Systeme *sys)
+    void CmdInfuser::executer(const Console::Instruction &, Machine::Systeme *sys)
     {
         const std::string &the = sys->theSelectionne();
 
@@ -21,7 +21,7 @@ namespace CMD
         sys->infuser(the, sys->portions());
     }
 
-    void CmdInfuser::undo(Machine::Systeme *sys)
+    void CmdInfuser::undo(Machine::Systeme *)
     {
         std::cout << "Ceci n'est pas une commande réversible." << std::endl;
     }

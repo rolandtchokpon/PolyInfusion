@@ -8,12 +8,12 @@ namespace CMD
 
     CmdQuit::~CmdQuit() = default;
 
-    void CmdQuit::executer(const Console::Instruction &inst, Machine::Systeme *sys)
+    void CmdQuit::executer(const Console::Instruction &, Machine::Systeme *sys)
     {
         sys->quitter(true);
     }
 
-    void CmdQuit::undo(Machine::Systeme *sys)
+    void CmdQuit::undo(Machine::Systeme *)
     {
         std::cout << "Ceci n'est pas une commande réversible." << std::endl;
     }

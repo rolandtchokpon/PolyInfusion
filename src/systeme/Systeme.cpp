@@ -90,6 +90,8 @@ namespace Machine
 
     const std::string &Systeme::theSelectionne() const { return theSelectionne_; }
 
+    const std::vector<std::string> &Systeme::thesDisponibles() const { return profils_->noms(); }
+
     unsigned int Systeme::portions() const { return portions_; }
 
     void Systeme::modifierPortions(unsigned int portions) { portions_ = portions; }

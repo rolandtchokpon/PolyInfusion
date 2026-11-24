@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
 
     std::unique_ptr<Machine::Systeme> sys = fabrique->creerSysteme();
     std::unique_ptr<Execution::Executeur> executeur = fabrique->creerExecuteur(sys.get());
-    std::unique_ptr<Console::InterfaceConsole> console = fabrique->creerInterfaceConsole();
+    std::unique_ptr<Console::InterfaceConsole> console = fabrique->creerInterfaceConsole(*sys);
 
     for (std::string ligne; std::cout << "> " << std::flush, std::getline(std::cin, ligne);)
     {

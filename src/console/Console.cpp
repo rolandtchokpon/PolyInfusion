@@ -1,5 +1,7 @@
 #include "../../include/console/Console.h"
 
+#include <algorithm>
+#include <cctype>
 #include <cmath>
 #include <iostream>
 #include <locale>
@@ -9,13 +11,29 @@
 namespace Console
 {
 
-    InterfaceConsole::InterfaceConsole() = default;
+    InterfaceConsole::InterfaceConsole(const std::vector<std::string> &thes) : thes_(thes) {}
 
     InterfaceConsole::~InterfaceConsole() = default;
 
-    bool InterfaceConsole::estUnThe(const std::string &valeur)
+    bool InterfaceConsole::estUnThe(const std::string &valeur) const
     {
-        return valeur == "vert" || valeur == "noir" || valeur == "oolong";
+        return std::find(thes_.begin(), thes_.end(), valeur) != thes_.end();
+    }
+
+    std::string InterfaceConsole::listeThes() const
+    {
+        std::string liste;
+        for (const std::string &the : thes_)
+            liste += (liste.empty() ? "" : "|") + the;
+        return liste;
+    }
+
+    // Les noms de routine sont insensibles à la casse (« Matin » = « matin »).
+    static std::string enMinuscules(std::string texte)
+    {
+        std::transform(texte.begin(), texte.end(), texte.begin(),
+                       [](unsigned char c) { return static_cast<char>(std::tolower(c)); });
+        return texte;
     }
 
     Instruction InterfaceConsole::invalide(const std::string &message)
@@ -80,7 +98,7 @@ namespace Console
         case Mot::Selection:
             if (mots.size() != 2 || !estUnThe(mots[1]))
             {
-                return invalide("Utilisation : selection <vert|noir|oolong>.");
+                return invalide("Utilisation : selection <" + listeThes() + ">.");
             }
             resultat.type = TypeInstruction::Selection;
             resultat.the = mots[1];
@@ -89,7 +107,7 @@ namespace Console
         case Mot::Remplir:
             if (mots.size() != 3 || (mots[1] != "eau" && !estUnThe(mots[1])))
             {
-                return invalide("Utilisation : remplir <eau|vert|noir|oolong> <quantite>.");
+                return invalide("Utilisation : remplir <eau|" + listeThes() + "> <quantite>.");
             }
             if (!lireQuantite(mots[2], resultat.quantite))
             {
@@ -153,7 +171,7 @@ namespace Console
                 return invalide("Utilisation : routine <nom>.");
             }
             resultat.type = TypeInstruction::Routine;
-            resultat.routine = mots[1];
+            resultat.routine = enMinuscules(mots[1]);
             break;
 
         case Mot::Apercu:
@@ -162,7 +180,7 @@ namespace Console
                 return invalide("Utilisation : apercu <nom>.");
             }
             resultat.type = TypeInstruction::Apercu;
-            resultat.routine = mots[1];
+            resultat.routine = enMinuscules(mots[1]);
             break;
 
         case Mot::Configuration:

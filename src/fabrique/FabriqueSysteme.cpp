@@ -23,9 +23,9 @@ namespace Fabrique
         return std::make_unique<Execution::Executeur>(sys);
     }
 
-    std::unique_ptr<Console::InterfaceConsole> FabriqueSysteme::creerInterfaceConsole()
+    std::unique_ptr<Console::InterfaceConsole> FabriqueSysteme::creerInterfaceConsole(const Machine::Systeme &sys)
     {
-        return std::make_unique<Console::InterfaceConsole>();
+        return std::make_unique<Console::InterfaceConsole>(sys.thesDisponibles());
     }
 
 } // namespace Fabrique

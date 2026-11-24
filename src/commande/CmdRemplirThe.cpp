@@ -13,7 +13,7 @@ namespace CMD
         sys->remplirThe(inst.the, inst.quantite);
     }
 
-    void CmdRemplirThe::undo(Machine::Systeme *sys)
+    void CmdRemplirThe::undo(Machine::Systeme *)
     {
         std::cout << "Ceci n'est pas une commande réversible." << std::endl;
     }

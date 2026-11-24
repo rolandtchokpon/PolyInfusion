@@ -8,12 +8,12 @@ namespace CMD
 
     CmdReserve::~CmdReserve() = default;
 
-    void CmdReserve::executer(const Console::Instruction &inst, Machine::Systeme *sys)
+    void CmdReserve::executer(const Console::Instruction &, Machine::Systeme *sys)
     {
         sys->afficherReserves();
     }
 
-    void CmdReserve::undo(Machine::Systeme *sys)
+    void CmdReserve::undo(Machine::Systeme *)
     {
         std::cout << "Ceci n'est pas une commande réversible." << std::endl;
     }

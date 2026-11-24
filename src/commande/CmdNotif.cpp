@@ -13,7 +13,7 @@ namespace CMD
         sys->activerNotifications(inst.notificationsActives);
     }
 
-    void CmdNotif::undo(Machine::Systeme *sys)
+    void CmdNotif::undo(Machine::Systeme *)
     {
         std::cout << "Ceci n'est pas une commande réversible." << std::endl;
     }

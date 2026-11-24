@@ -27,7 +27,7 @@ namespace Fabrique
         std::unique_ptr<Machine::Systeme> creerSysteme() const;
 
         std::unique_ptr<Execution::Executeur> creerExecuteur(Machine::Systeme *sys);
-        std::unique_ptr<Console::InterfaceConsole> creerInterfaceConsole();
+        std::unique_ptr<Console::InterfaceConsole> creerInterfaceConsole(const Machine::Systeme &sys);
 
     protected:
         FabriqueSysteme();

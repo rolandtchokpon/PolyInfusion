@@ -2,6 +2,7 @@
 #pragma once
 #include <memory>
 #include <string>
+#include <vector>
 #include "Composants.h"
 #include "../profil/RegistreProfils.h"
 #include "../reserve/Reserve.h"
@@ -32,6 +33,7 @@ namespace Machine
         bool doitQuitter();
         void ajouterObservateur(Notification::Observateur *o);
         const std::string &theSelectionne() const;
+        const std::vector<std::string> &thesDisponibles() const;
         unsigned int portions() const;
         void modifierPortions(unsigned int portions);
         void modifierTheSelectionne(const std::string &the);
