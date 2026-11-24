@@ -37,6 +37,8 @@ int main(int argc, char *argv[])
     std::unique_ptr<Execution::Executeur> executeur = std::make_unique<Execution::Executeur>(sys.get());
     std::unique_ptr<Console::InterfaceConsole> console = std::make_unique<Console::InterfaceConsole>(sys->thesDisponibles());
 
+    std::cout << std::endl;
+
     for (std::string ligne; std::cout << "> " << std::flush, std::getline(std::cin, ligne);)
     {
         try
