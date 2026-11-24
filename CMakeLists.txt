@@ -14,6 +14,7 @@ add_executable(PolyInfusion
     src/commande/CmdConfig.cpp
     src/commande/CmdInfuser.cpp
     src/commande/CmdNotif.cpp
+    src/commande/CmdPolyInfusion.cpp
     src/commande/CmdPortion.cpp
     src/commande/CmdQuit.cpp
     src/commande/CmdRemplirEau.cpp

@@ -15,9 +15,10 @@ namespace Console
         Apercu,
         Undo,
         Redo,
+        PolyInfusion,
         Aide,
         Quitter,
         Inconnu
     };
-    
+
 } // namespace Console

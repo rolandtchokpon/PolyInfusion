@@ -10,8 +10,10 @@ namespace Console
     {
     public:
         // `thes` : noms des thés que la machine sait préparer (fournis par la machine, pas par la console).
-        explicit InterfaceConsole(const std::vector<std::string> &thes);
+        explicit InterfaceConsole();
         ~InterfaceConsole();
+
+        void definirThes(const std::vector<std::string> &thes);
 
         Instruction analyser(const std::string &ligne);
 
@@ -23,6 +25,7 @@ namespace Console
         Mot lireMot(const std::string &nom);
 
         std::vector<std::string> thes_;
+        bool demarree_;
     };
 
 } // namespace console

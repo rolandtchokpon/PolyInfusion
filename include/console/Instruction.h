@@ -8,6 +8,7 @@ namespace Console
     struct Instruction
     {
         TypeInstruction type = TypeInstruction::Vide;
+        std::string modele;
         std::string the;
         std::string routine;
         unsigned int portions = 1;

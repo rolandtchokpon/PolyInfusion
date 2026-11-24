@@ -11,9 +11,15 @@
 namespace Console
 {
 
-    InterfaceConsole::InterfaceConsole(const std::vector<std::string> &thes) : thes_(thes) {}
+    InterfaceConsole::InterfaceConsole() : demarree_(false) {}
 
     InterfaceConsole::~InterfaceConsole() = default;
+
+    void InterfaceConsole::definirThes(const std::vector<std::string> &thes)
+    {
+        thes_ = thes;
+        demarree_ = true;
+    }
 
     bool InterfaceConsole::estUnThe(const std::string &valeur) const
     {
@@ -32,7 +38,8 @@ namespace Console
     static std::string enMinuscules(std::string texte)
     {
         std::transform(texte.begin(), texte.end(), texte.begin(),
-                       [](unsigned char c) { return static_cast<char>(std::tolower(c)); });
+                       [](unsigned char c)
+                       { return static_cast<char>(std::tolower(c)); });
         return texte;
     }
 
@@ -71,6 +78,7 @@ namespace Console
             {"apercu", Mot::Apercu},
             {"undo", Mot::Undo},
             {"redo", Mot::Redo},
+            {"PolyInfusion", Mot::PolyInfusion},
             {"h", Mot::Aide},
             {"q", Mot::Quitter}};
 
@@ -93,8 +101,28 @@ namespace Console
             return resultat;
         }
 
-        switch (lireMot(mots.front()))
+        const Mot mot = lireMot(mots.front());
+
+        if (mot == Mot::PolyInfusion && demarree_)
         {
+            return invalide("la machine est déjà démarrée.");
+        }
+        if (mot != Mot::PolyInfusion && mot != Mot::Inconnu && !demarree_)
+        {
+            return invalide("la machine n’est pas démarrée. Entrez PolyInfusion <compact|pro>.");
+        }
+
+        switch (mot)
+        {
+        case Mot::PolyInfusion:
+            if (mots.size() != 2)
+            {
+                return invalide("Utilisation : PolyInfusion <compact|pro>.");
+            }
+            resultat.type = TypeInstruction::PolyInfusion;
+            resultat.modele = enMinuscules(mots[1]);
+            break;
+
         case Mot::Selection:
             if (mots.size() != 2 || !estUnThe(mots[1]))
             {

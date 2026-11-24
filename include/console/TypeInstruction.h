@@ -18,6 +18,7 @@ namespace Console
         Undo,
         Redo,
         Routine,
+        PolyInfusion,
         Portion,
         Quitter,
         Invalide

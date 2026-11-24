@@ -1,7 +1,6 @@
+#include "../include/commande/CmdPolyInfusion.h"
 #include "../include/console/Console.h"
 #include "../include/executeur/Executeur.h"
-#include "../include/fabrique/FabriqueCompact.h"
-#include "../include/fabrique/FabriquePro.h"
 
 #include <exception>
 #include <iostream>
@@ -14,30 +13,51 @@
 #include <windows.h>
 #endif
 
-int main(int argc, char *argv[])
+int main()
 {
 #ifdef _WIN32
     SetConsoleCP(CP_UTF8);
     SetConsoleOutputCP(CP_UTF8);
 #endif
 
-    if (argc != 2 || (std::string(argv[1]) != "compact" && std::string(argv[1]) != "pro"))
+    std::unique_ptr<Console::InterfaceConsole> console = std::make_unique<Console::InterfaceConsole>();
+
+    // Phase de démarrage : la console analyse les lignes jusqu'à « PolyInfusion <modèle> »,
+    // qui désigne la fabrique à utiliser pour fabriquer la machine.
+    std::unique_ptr<Machine::Systeme> sys;
+
+    for (std::string ligne; !sys && (std::cout << "> " << std::flush, std::getline(std::cin, ligne));)
     {
-        std::cerr << "Utilisation : PolyInfusion <compact|pro>\n";
-        return 1;
+        try
+        {
+            const Console::Instruction inst = console->analyser(ligne);
+
+            if (inst.type == Console::TypeInstruction::Invalide)
+            {
+                std::cout << "Erreur : " << inst.erreur << std::endl
+                          << std::endl;
+            }
+            else if (inst.type == Console::TypeInstruction::PolyInfusion)
+            {
+                sys = CMD::CmdPolyInfusion(inst.modele).creerSysteme();
+                std::cout << std::endl;
+            }
+        }
+        catch (const std::exception &e)
+        {
+            std::cout << e.what() << std::endl
+                      << std::endl;
+        }
     }
 
-    std::unique_ptr<Fabrique::FabriqueSysteme> fabrique;
-    if (std::string(argv[1]) == "compact")
-        fabrique = std::make_unique<Fabrique::FabriqueCompact>();
-    else
-        fabrique = std::make_unique<Fabrique::FabriquePro>();
+    if (!sys)
+    {
+        std::cout << "\nArrêt de PolyInfusion.\n";
+        return 0;
+    }
 
-    std::unique_ptr<Machine::Systeme> sys = fabrique->creerSysteme();
+    console->definirThes(sys->thesDisponibles());
     std::unique_ptr<Execution::Executeur> executeur = std::make_unique<Execution::Executeur>(sys.get());
-    std::unique_ptr<Console::InterfaceConsole> console = std::make_unique<Console::InterfaceConsole>(sys->thesDisponibles());
-
-    std::cout << std::endl;
 
     for (std::string ligne; std::cout << "> " << std::flush, std::getline(std::cin, ligne);)
     {
@@ -48,7 +68,8 @@ int main(int argc, char *argv[])
         }
         catch (const std::exception &e)
         {
-            std::cout << e.what() << std::endl;
+            std::cout << e.what() << std::endl
+                      << std::endl;
         }
 
         if (sys->doitQuitter())
