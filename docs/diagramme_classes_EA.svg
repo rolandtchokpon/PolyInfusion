@@ -1,0 +1,515 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2450" height="1330" viewBox="0 0 2450 1330" font-family="Tahoma, Verdana, 'DejaVu Sans', sans-serif" font-size="9.5">
+<defs>
+<linearGradient id="gc" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fffaf5"/><stop offset="1" stop-color="#eed8c6"/></linearGradient>
+<linearGradient id="ge" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f1fbe9"/><stop offset="1" stop-color="#c4e6ae"/></linearGradient>
+<filter id="sh" x="-5%" y="-5%" width="115%" height="120%"><feDropShadow dx="1.5" dy="1.5" stdDeviation="1.2" flood-color="#000" flood-opacity="0.25"/></filter>
+</defs>
+<rect width="2450" height="1330" fill="#fff"/>
+<rect x="1.5" y="1.5" width="2447" height="1327" fill="none" stroke="#5c5c7a" stroke-width="1.2"/>
+<path d="M1.5,1.5 H235 V12 L225,22 H1.5 Z" fill="#fff" stroke="#5c5c7a" stroke-width="1"/>
+<text x="8" y="15" font-size="10" fill="#222">class PolyInfusion - Diagramme de classes</text>
+<polyline points="152.1,76.5 139.3,150.0" fill="none" stroke="#6a6a8c" stroke-width="1" stroke-dasharray="5,3"/><polyline points="136.6,139.4 139.3,150.0 145.4,140.9" fill="none" stroke="#6a6a8c" stroke-width="1"/>
+<text x="149.7" y="110.2" font-size="8.5" font-style="italic" fill="#444">«produit»</text>
+<polyline points="217.1,232.4 330.0,259.4" fill="none" stroke="#6a6a8c" stroke-width="1"/><polyline points="319.2,261.4 330.0,259.4 321.3,252.7" fill="none" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="270.6,66.2 520.0,83.3" fill="none" stroke="#6a6a8c" stroke-width="1"/><polyline points="509.7,87.1 520.0,83.3 510.3,78.1" fill="none" stroke="#6a6a8c" stroke-width="1"/>
+<text x="399.3" y="71.7" font-size="8.5" font-style="italic" fill="#444">instruction</text>
+<polyline points="802.1,90.0 900.0,88.3" fill="none" stroke="#6a6a8c" stroke-width="1"/><polygon points="788.1,90.2 795.2,94.6 802.1,90.0 795.0,85.6" fill="#6a6a8c" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="714.0,26.0 714.0,18.0 1405.5,18.0 1405.5,40.0" fill="none" stroke="#6a6a8c" stroke-width="1"/><polygon points="714.0,40.0 718.5,33.0 714.0,26.0 709.5,33.0" fill="#6a6a8c" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="744.0,145.0 744.0,205.0 934.0,205.0 934.0,640.0 1120.0,640.0 1120.0,720.0" fill="none" stroke="#6a6a8c" stroke-width="1"/><polyline points="1115.5,710.0 1120.0,720.0 1124.5,710.0" fill="none" stroke="#6a6a8c" stroke-width="1"/>
+<text x="938.0" y="419.5" font-size="8.5" font-style="italic" fill="#444">delegue</text>
+<polyline points="654.5,145.0 656.4,340.0" fill="none" stroke="#6a6a8c" stroke-width="1" stroke-dasharray="5,3"/><polyline points="651.8,330.0 656.4,340.0 660.8,330.0" fill="none" stroke="#6a6a8c" stroke-width="1"/>
+<text x="659.5" y="239.5" font-size="8.5" font-style="italic" fill="#444">«cree / execute»</text>
+<polyline points="727.3,145.0 999.6,340.0" fill="none" stroke="#6a6a8c" stroke-width="1" stroke-dasharray="5,3"/><polyline points="988.8,337.8 999.6,340.0 994.1,330.5" fill="none" stroke="#6a6a8c" stroke-width="1"/>
+<text x="867.5" y="239.5" font-size="8.5" font-style="italic" fill="#444">«cree / execute»</text>
+<polyline points="1030.8,146.4 1054.6,340.0" fill="none" stroke="#6a6a8c" stroke-width="1"/><polygon points="1029.1,132.5 1025.4,140.0 1030.8,146.4 1034.4,138.9" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<text x="1046.7" y="240.2" font-size="8.5" font-style="italic" fill="#444">piles</text>
+<text x="1059.6" y="335.0" font-size="8.5" fill="#333">*</text>
+<polyline points="950.0,377.9 766.2,369.0" fill="none" stroke="#6a6a8c" stroke-width="1"/><polygon points="753.2,368.4 766.5,362.6 765.9,375.5" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="1068.3,520.0 1063.4,439.5" fill="none" stroke="#6a6a8c" stroke-width="1"/><polygon points="1062.6,426.5 1069.9,439.1 1056.9,439.9" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="1275.9,520.0 1139.3,433.5" fill="none" stroke="#6a6a8c" stroke-width="1"/><polygon points="1128.3,426.5 1142.7,428.0 1135.8,438.9" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="1640.0,528.8 1182.6,414.0" fill="none" stroke="#6a6a8c" stroke-width="1"/><polygon points="1169.9,410.9 1184.1,407.7 1181.0,420.3" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="1435.3,520.0 1182.2,427.8" fill="none" stroke="#6a6a8c" stroke-width="1"/><polygon points="1169.9,423.3 1184.4,421.7 1179.9,433.9" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="1963.3,520.0 1971.8,413.0" fill="none" stroke="#6a6a8c" stroke-width="1" stroke-dasharray="5,3"/><polygon points="1972.8,400.0 1978.3,413.5 1965.3,412.4" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="2182.8,520.0 2027.3,407.6" fill="none" stroke="#6a6a8c" stroke-width="1" stroke-dasharray="5,3"/><polygon points="2016.7,400.0 2031.1,402.3 2023.5,412.9" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="1169.9,381.7 1900.0,371.1" fill="none" stroke="#6a6a8c" stroke-width="1" stroke-dasharray="5,3"/><polyline points="1890.1,375.7 1900.0,371.1 1889.9,366.7" fill="none" stroke="#6a6a8c" stroke-width="1"/>
+<text x="1539.0" y="373.4" font-size="8.5" font-style="italic" fill="#444">«cree»</text>
+<polyline points="2250.0,360.7 2050.4,367.5" fill="none" stroke="#6a6a8c" stroke-width="1" stroke-dasharray="5,3"/><polyline points="2060.2,362.6 2050.4,367.5 2060.5,371.6" fill="none" stroke="#6a6a8c" stroke-width="1"/>
+<text x="2154.2" y="361.1" font-size="8.5" font-style="italic" fill="#444">parcourt</text>
+<polyline points="2322.5,340.0 2322.5,290.0 656.6,290.0 656.6,327.0" fill="none" stroke="#6a6a8c" stroke-width="1" stroke-dasharray="5,3"/><polygon points="656.6,340.0 650.1,327.0 663.1,327.0" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="138.4,520.0 565.4,391.3" fill="none" stroke="#6a6a8c" stroke-width="1" stroke-dasharray="5,3"/><polygon points="577.8,387.5 567.3,397.5 563.5,385.0" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="239.4,520.0 581.0,392.1" fill="none" stroke="#6a6a8c" stroke-width="1" stroke-dasharray="5,3"/><polygon points="593.2,387.5 583.3,398.1 578.7,386.0" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="340.3,520.0 596.9,393.3" fill="none" stroke="#6a6a8c" stroke-width="1" stroke-dasharray="5,3"/><polygon points="608.5,387.5 599.8,399.1 594.0,387.4" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="441.3,520.0 613.4,395.1" fill="none" stroke="#6a6a8c" stroke-width="1" stroke-dasharray="5,3"/><polygon points="623.9,387.5 617.2,400.4 609.5,389.9" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="542.2,520.0 631.5,398.0" fill="none" stroke="#6a6a8c" stroke-width="1" stroke-dasharray="5,3"/><polygon points="639.2,387.5 636.8,401.8 626.3,394.2" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="644.1,520.0 653.7,400.5" fill="none" stroke="#6a6a8c" stroke-width="1" stroke-dasharray="5,3"/><polygon points="654.7,387.5 660.1,401.0 647.2,399.9" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="746.9,520.0 676.8,398.8" fill="none" stroke="#6a6a8c" stroke-width="1" stroke-dasharray="5,3"/><polygon points="670.3,387.5 682.5,395.5 671.2,402.0" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="848.7,520.0 695.9,395.7" fill="none" stroke="#6a6a8c" stroke-width="1" stroke-dasharray="5,3"/><polygon points="685.8,387.5 700.0,390.7 691.8,400.7" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="1629.8,509.7 1173.4,394.9" fill="none" stroke="#6a6a8c" stroke-width="1"/><polygon points="1643.4,513.1 1637.7,507.1 1629.8,509.7 1635.5,515.8" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<text x="1405.6" y="449.3" font-size="8.5" font-style="italic" fill="#444">enfants</text>
+<text x="1178.4" y="406.9" font-size="8.5" fill="#333">1..*</text>
+<polyline points="1349.4,129.2 1109.2,340.0" fill="none" stroke="#6a6a8c" stroke-width="1"/><polygon points="1359.9,120.0 1351.7,121.2 1349.4,129.2 1357.6,128.0" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<text x="1233.3" y="231.6" font-size="8.5" font-style="italic" fill="#444">routines predefinies</text>
+<text x="1114.2" y="335.0" font-size="8.5" fill="#333">*</text>
+<polyline points="1081.8,569.0 1155.5,720.0" fill="none" stroke="#6a6a8c" stroke-width="1" stroke-dasharray="5,3"/><polyline points="1147.1,713.0 1155.5,720.0 1155.2,709.0" fill="none" stroke="#6a6a8c" stroke-width="1"/>
+<text x="1122.7" y="641.5" font-size="8.5" font-style="italic" fill="#444">«modifie»</text>
+<polyline points="1307.2,569.0 1261.4,720.0" fill="none" stroke="#6a6a8c" stroke-width="1" stroke-dasharray="5,3"/><polyline points="1260.0,709.1 1261.4,720.0 1268.6,711.7" fill="none" stroke="#6a6a8c" stroke-width="1"/>
+<text x="1288.3" y="641.5" font-size="8.5" font-style="italic" fill="#444">«modifie»</text>
+<polyline points="681.6,788.0 719.1,830.3" fill="none" stroke="#6a6a8c" stroke-width="1"/><polygon points="727.7,840.0 714.3,834.6 724.0,826.0" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="841.0,788.0 808.2,829.8" fill="none" stroke="#6a6a8c" stroke-width="1"/><polygon points="800.1,840.0 803.1,825.8 813.3,833.8" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="706.1,926.5 706.1,1000.0 510.0,1000.0 510.0,1090.0" fill="none" stroke="#6a6a8c" stroke-width="1" stroke-dasharray="5,3"/><polyline points="505.5,1080.0 510.0,1090.0 514.5,1080.0" fill="none" stroke="#6a6a8c" stroke-width="1"/>
+<text x="612.1" y="997.0" font-size="8.5" font-style="italic" fill="#444">«cree»</text>
+<polyline points="826.1,926.5 826.1,1000.0 1290.0,1000.0 1290.0,1090.0" fill="none" stroke="#6a6a8c" stroke-width="1" stroke-dasharray="5,3"/><polyline points="1285.5,1080.0 1290.0,1090.0 1294.5,1080.0" fill="none" stroke="#6a6a8c" stroke-width="1"/>
+<text x="1062.1" y="997.0" font-size="8.5" font-style="italic" fill="#444">«cree»</text>
+<polyline points="766.1,926.5 766.1,1020.0 910.0,1020.0 910.0,1090.0" fill="none" stroke="#6a6a8c" stroke-width="1" stroke-dasharray="5,3"/><polyline points="905.5,1080.0 910.0,1090.0 914.5,1080.0" fill="none" stroke="#6a6a8c" stroke-width="1"/>
+<text x="842.1" y="1017.0" font-size="8.5" font-style="italic" fill="#444">«cree»</text>
+<polyline points="932.3,893.2 1060.0,893.2" fill="none" stroke="#6a6a8c" stroke-width="1" stroke-dasharray="5,3"/><polyline points="1050.0,897.8 1060.0,893.2 1050.0,888.8" fill="none" stroke="#6a6a8c" stroke-width="1"/>
+<text x="1000.1" y="890.2" font-size="8.5" font-style="italic" fill="#444">«assemble»</text>
+<polyline points="471.9,1260.0 513.0,1181.5" fill="none" stroke="#6a6a8c" stroke-width="1"/><polygon points="519.0,1170.0 518.8,1184.5 507.3,1178.5" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="619.2,1260.0 571.1,1181.1" fill="none" stroke="#6a6a8c" stroke-width="1"/><polygon points="564.4,1170.0 576.7,1177.7 565.6,1184.5" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="865.0,1260.0 899.7,1194.0" fill="none" stroke="#6a6a8c" stroke-width="1"/><polygon points="905.7,1182.5 905.4,1197.0 893.9,1191.0" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="1006.1,1260.0 965.2,1193.6" fill="none" stroke="#6a6a8c" stroke-width="1"/><polygon points="958.4,1182.5 970.8,1190.2 959.7,1197.0" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="1255.0,1260.0 1289.7,1194.0" fill="none" stroke="#6a6a8c" stroke-width="1"/><polygon points="1295.7,1182.5 1295.4,1197.0 1283.9,1191.0" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="1396.1,1260.0 1355.2,1193.6" fill="none" stroke="#6a6a8c" stroke-width="1"/><polygon points="1348.4,1182.5 1360.8,1190.2 1349.7,1197.0" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="1100.8,1001.5 1100.8,1040.0 540.0,1040.0 540.0,1090.0" fill="none" stroke="#6a6a8c" stroke-width="1"/><polygon points="1100.8,987.5 1096.3,994.5 1100.8,1001.5 1105.3,994.5" fill="#6a6a8c" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="1140.8,1001.5 1140.8,1055.0 960.0,1055.0 960.0,1090.0" fill="none" stroke="#6a6a8c" stroke-width="1"/><polygon points="1140.8,987.5 1136.3,994.5 1140.8,1001.5 1145.3,994.5" fill="#6a6a8c" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="1190.8,1001.5 1190.8,1070.0 1350.0,1070.0 1350.0,1090.0" fill="none" stroke="#6a6a8c" stroke-width="1"/><polygon points="1190.8,987.5 1186.3,994.5 1190.8,1001.5 1195.3,994.5" fill="#6a6a8c" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="1395.5,834.5 1500.0,823.0" fill="none" stroke="#6a6a8c" stroke-width="1"/><polygon points="1381.6,836.0 1389.1,839.7 1395.5,834.5 1388.1,830.8" fill="#6a6a8c" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="1046.0,712.8 276.0,712.8" fill="none" stroke="#6a6a8c" stroke-width="1"/><polygon points="1060.0,712.8 1053.0,708.2 1046.0,712.8 1053.0,717.2" fill="#6a6a8c" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="1394.2,938.7 1723.4,1100.0" fill="none" stroke="#6a6a8c" stroke-width="1"/><polygon points="1381.6,932.5 1385.9,939.7 1394.2,938.7 1389.9,931.6" fill="#6a6a8c" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="1394.9,911.0 1969.4,1100.0" fill="none" stroke="#6a6a8c" stroke-width="1"/><polygon points="1381.6,906.6 1386.8,913.1 1394.9,911.0 1389.7,904.6" fill="#6a6a8c" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="1060.0,975.0 430.0,975.0 430.0,932.5" fill="none" stroke="#6a6a8c" stroke-width="1" stroke-dasharray="5,3"/><polyline points="434.5,942.5 430.0,932.5 425.5,942.5" fill="none" stroke="#6a6a8c" stroke-width="1"/>
+<text x="749.0" y="972.0" font-size="8.5" font-style="italic" fill="#444">«construit»</text>
+<polyline points="990.0,1090.0 990.0,1015.0 1570.0,1015.0 1570.0,887.5" fill="none" stroke="#6a6a8c" stroke-width="1"/><polyline points="1574.5,897.5 1570.0,887.5 1565.5,897.5" fill="none" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="1432.6,1136.2 1540.0,1136.2 1540.0,887.5" fill="none" stroke="#6a6a8c" stroke-width="1"/><polyline points="1544.5,897.5 1540.0,887.5 1535.5,897.5" fill="none" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="158.6,765.5 159.6,840.0" fill="none" stroke="#6a6a8c" stroke-width="1"/><polygon points="158.4,751.5 154.0,758.6 158.6,765.5 163.0,758.4" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<text x="164.6" y="835.0" font-size="8.5" fill="#333">*</text>
+<polyline points="78.5,1100.0 116.1,1019.3" fill="none" stroke="#6a6a8c" stroke-width="1"/><polygon points="121.6,1007.5 122.0,1022.0 110.3,1016.5" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="182.3,1100.0 172.5,1020.4" fill="none" stroke="#6a6a8c" stroke-width="1"/><polygon points="170.9,1007.5 179.0,1019.6 166.1,1021.2" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="286.0,1100.0 227.8,1018.1" fill="none" stroke="#6a6a8c" stroke-width="1"/><polygon points="220.2,1007.5 233.1,1014.3 222.5,1021.9" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="281.4,911.1 330.0,906.1" fill="none" stroke="#6a6a8c" stroke-width="1" stroke-dasharray="5,3"/><polyline points="320.5,911.6 330.0,906.1 319.6,902.6" fill="none" stroke="#6a6a8c" stroke-width="1"/>
+<text x="309.7" y="905.6" font-size="8.5" font-style="italic" fill="#444">utilise</text>
+<polyline points="281.4,987.1 330.0,1012.7" fill="none" stroke="#6a6a8c" stroke-width="1" stroke-dasharray="5,3"/><polyline points="319.1,1012.0 330.0,1012.7 323.2,1004.1" fill="none" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="1848.3,791.7 1887.0,789.0" fill="none" stroke="#6a6a8c" stroke-width="1"/><polygon points="1900.0,788.1 1887.5,795.4 1886.6,782.5" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="2056.4,850.9 2080.9,930.0" fill="none" stroke="#6a6a8c" stroke-width="1"/><polygon points="2052.3,837.5 2050.0,845.5 2056.4,850.9 2058.6,842.9" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<text x="2085.9" y="925.0" font-size="8.5" fill="#333">*</text>
+<polyline points="1782.7,1100.0 2012.5,995.4" fill="none" stroke="#6a6a8c" stroke-width="1" stroke-dasharray="5,3"/><polygon points="2024.3,990.0 2015.2,1001.3 2009.8,989.5" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<polyline points="2019.1,1100.0 2069.1,1001.6" fill="none" stroke="#6a6a8c" stroke-width="1" stroke-dasharray="5,3"/><polygon points="2075.0,990.0 2074.9,1004.5 2063.3,998.6" fill="#fff" stroke="#6a6a8c" stroke-width="1"/>
+<rect x="330" y="150" width="118.3" height="247.0" fill="url(#ge)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="389.1" y="163.0" text-anchor="middle" font-size="8.5">«enumeration»</text>
+<text x="389.1" y="174.0" text-anchor="middle" font-weight="bold" font-size="10">TypeInstruction</text>
+<line x1="330" y1="179" x2="448.3" y2="179" stroke="#6a6a8c"/>
+<text x="389.1" y="190" text-anchor="middle" font-style="italic" font-size="8.5">literals</text>
+<text x="389.1" y="201" text-anchor="middle">Vide</text>
+<text x="389.1" y="213.5" text-anchor="middle">Selection</text>
+<text x="389.1" y="226.0" text-anchor="middle">Infuser</text>
+<text x="389.1" y="238.5" text-anchor="middle">Reserves</text>
+<text x="389.1" y="251.0" text-anchor="middle">RemplirEau</text>
+<text x="389.1" y="263.5" text-anchor="middle">RemplirThe</text>
+<text x="389.1" y="276.0" text-anchor="middle">Notifications</text>
+<text x="389.1" y="288.5" text-anchor="middle">Aide</text>
+<text x="389.1" y="301.0" text-anchor="middle">Apercu</text>
+<text x="389.1" y="313.5" text-anchor="middle">Config</text>
+<text x="389.1" y="326.0" text-anchor="middle">Undo</text>
+<text x="389.1" y="338.5" text-anchor="middle">Redo</text>
+<text x="389.1" y="351.0" text-anchor="middle">Routine</text>
+<text x="389.1" y="363.5" text-anchor="middle">Portion</text>
+<text x="389.1" y="376.0" text-anchor="middle">Quitter</text>
+<text x="389.1" y="388.5" text-anchor="middle">Invalide</text>
+<rect x="40" y="150" width="177.1" height="122.5" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="128.6" y="163.0" text-anchor="middle" font-size="8.5">«struct»</text>
+<text x="128.6" y="174.0" text-anchor="middle" font-weight="bold" font-size="10">Instruction</text>
+<line x1="40" y1="179" x2="217.1" y2="179" stroke="#6a6a8c"/>
+<text x="47" y="192.0">+</text>
+<text x="59" y="192.0">type: TypeInstruction</text>
+<text x="47" y="204.5">+</text>
+<text x="59" y="204.5">the: string</text>
+<text x="47" y="217.0">+</text>
+<text x="59" y="217.0">routine: string</text>
+<text x="47" y="229.5">+</text>
+<text x="59" y="229.5">portions: unsigned int</text>
+<text x="47" y="242.0">+</text>
+<text x="59" y="242.0">quantite: double</text>
+<text x="47" y="254.5">+</text>
+<text x="59" y="254.5">notificationsActives: bool</text>
+<text x="47" y="267.0">+</text>
+<text x="59" y="267.0">erreur: string</text>
+<rect x="40" y="40" width="230.6" height="36.5" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="155.3" y="53.0" text-anchor="middle" font-weight="bold" font-size="10">InterfaceConsole</text>
+<line x1="40" y1="58" x2="270.6" y2="58" stroke="#6a6a8c"/>
+<text x="47" y="71.0">+</text>
+<text x="59" y="71.0">analyser(ligne: string): Instruction</text>
+<rect x="520" y="40" width="268.1" height="105.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="654.0" y="53.0" text-anchor="middle" font-weight="bold" font-size="10">Executeur</text>
+<line x1="520" y1="58" x2="788.1" y2="58" stroke="#6a6a8c"/>
+<text x="527" y="71.0">-</text>
+<text x="539" y="71.0">sys_: Systeme*</text>
+<text x="527" y="83.5">-</text>
+<text x="539" y="83.5">hist_: HistoriqueCMD</text>
+<text x="527" y="96.0">-</text>
+<text x="539" y="96.0">routines_: RegistreRoutines</text>
+<line x1="520" y1="101.5" x2="788.1" y2="101.5" stroke="#6a6a8c"/>
+<text x="527" y="114.5">+</text>
+<text x="539" y="114.5">executer(inst: Instruction): void</text>
+<text x="527" y="127.0">-</text>
+<text x="539" y="127.0">creerReglage(inst: Instruction): CmdReglage</text>
+<text x="527" y="139.5">-</text>
+<text x="539" y="139.5">creerCommande(inst: Instruction): Commande</text>
+<rect x="900" y="40" width="246.7" height="92.5" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="1023.4" y="53.0" text-anchor="middle" font-weight="bold" font-size="10">HistoriqueCMD</text>
+<line x1="900" y1="58" x2="1146.7" y2="58" stroke="#6a6a8c"/>
+<text x="907" y="71.0">-</text>
+<text x="919" y="71.0">pileAnnulation_: vector&lt;CmdReglage&gt;</text>
+<text x="907" y="83.5">-</text>
+<text x="919" y="83.5">pileRetablissement_: vector&lt;CmdReglage&gt;</text>
+<line x1="900" y1="89.0" x2="1146.7" y2="89.0" stroke="#6a6a8c"/>
+<text x="907" y="102.0">+</text>
+<text x="919" y="102.0">ajouterCmd(cmd: CmdReglage): void</text>
+<text x="907" y="114.5">+</text>
+<text x="919" y="114.5">undo(sys: Systeme*): void</text>
+<text x="907" y="127.0">+</text>
+<text x="919" y="127.0">redo(sys: Systeme*): void</text>
+<rect x="1250" y="40" width="310.9" height="80.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="1405.5" y="53.0" text-anchor="middle" font-weight="bold" font-size="10">RegistreRoutines</text>
+<line x1="1250" y1="58" x2="1560.9" y2="58" stroke="#6a6a8c"/>
+<text x="1257" y="71.0">-</text>
+<text x="1269" y="71.0">routines_: map&lt;string, CmdReglage&gt;</text>
+<line x1="1250" y1="76.5" x2="1560.9" y2="76.5" stroke="#6a6a8c"/>
+<text x="1257" y="89.5">+</text>
+<text x="1269" y="89.5">enregistrer(nom: string, routine: CmdReglage): void</text>
+<text x="1257" y="102.0">+</text>
+<text x="1269" y="102.0">obtenir(nom: string): CmdReglage</text>
+<text x="1257" y="114.5">+</text>
+<text x="1269" y="114.5">creerExecution(nom: string): CmdReglage</text>
+<rect x="560" y="340" width="193.2" height="47.5" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="656.6" y="353.0" text-anchor="middle" font-size="8.5">«interface»</text>
+<text x="656.6" y="364.0" text-anchor="middle" font-weight="bold" font-size="10" font-style="italic">Commande</text>
+<line x1="560" y1="369" x2="753.2" y2="369" stroke="#6a6a8c"/>
+<text x="567" y="382.0">+</text>
+<text x="579" y="382.0" font-style="italic">executer(sys: Systeme*): void</text>
+<rect x="950" y="340" width="219.9" height="86.5" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="1060.0" y="353.0" text-anchor="middle" font-weight="bold" font-size="10" font-style="italic">CmdReglage</text>
+<line x1="950" y1="358" x2="1170.0" y2="358" stroke="#6a6a8c"/>
+<text x="957" y="371.0">+</text>
+<text x="969" y="371.0" font-style="italic">undo(sys: Systeme*): void</text>
+<text x="957" y="383.5">+</text>
+<text x="969" y="383.5" font-style="italic">redo(sys: Systeme*): void</text>
+<text x="957" y="396.0">+</text>
+<text x="969" y="396.0" font-style="italic">description(): string</text>
+<text x="957" y="408.5">+</text>
+<text x="969" y="408.5" font-style="italic">creerIterateur(): IterateurReglage</text>
+<text x="957" y="421.0">+</text>
+<text x="969" y="421.0" font-style="italic">cloner(): CmdReglage</text>
+<rect x="1900" y="340" width="150.4" height="60.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="1975.2" y="353.0" text-anchor="middle" font-size="8.5">«interface»</text>
+<text x="1975.2" y="364.0" text-anchor="middle" font-weight="bold" font-size="10" font-style="italic">IterateurReglage</text>
+<line x1="1900" y1="369" x2="2050.4" y2="369" stroke="#6a6a8c"/>
+<text x="1907" y="382.0">+</text>
+<text x="1919" y="382.0" font-style="italic">aSuivant(): bool</text>
+<text x="1907" y="394.5">+</text>
+<text x="1919" y="394.5" font-style="italic">suivant(): CmdReglage</text>
+<rect x="1900" y="520" width="124.4" height="28.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="1962.2" y="533.0" text-anchor="middle" font-weight="bold" font-size="10">IterateurFeuille</text>
+<line x1="1900" y1="538" x2="2024.4" y2="538" stroke="#6a6a8c"/>
+<rect x="2140" y="520" width="124.4" height="28.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="2202.2" y="533.0" text-anchor="middle" font-weight="bold" font-size="10">IterateurRoutine</text>
+<line x1="2140" y1="538" x2="2264.4" y2="538" stroke="#6a6a8c"/>
+<rect x="1000" y="520" width="139.7" height="49.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="1069.8" y="533.0" text-anchor="middle" font-weight="bold" font-size="10">CmdSelection</text>
+<line x1="1000" y1="538" x2="1139.7" y2="538" stroke="#6a6a8c"/>
+<text x="1007" y="551.0">-</text>
+<text x="1019" y="551.0">ancienThe_: string</text>
+<text x="1007" y="563.5">-</text>
+<text x="1019" y="563.5">nouveauThe_: string</text>
+<rect x="1210" y="520" width="209.2" height="49.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="1314.6" y="533.0" text-anchor="middle" font-weight="bold" font-size="10">CmdPortion</text>
+<line x1="1210" y1="538" x2="1419.2" y2="538" stroke="#6a6a8c"/>
+<text x="1217" y="551.0">-</text>
+<text x="1229" y="551.0">anciennesPortions_: unsigned int</text>
+<text x="1217" y="563.5">-</text>
+<text x="1229" y="563.5">nouvellesPortions_: unsigned int</text>
+<rect x="1640" y="520" width="198.5" height="67.5" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="1739.3" y="533.0" text-anchor="middle" font-weight="bold" font-size="10">Routine</text>
+<line x1="1640" y1="538" x2="1838.5" y2="538" stroke="#6a6a8c"/>
+<text x="1647" y="551.0">-</text>
+<text x="1659" y="551.0">nom_: string</text>
+<text x="1647" y="563.5">-</text>
+<text x="1659" y="563.5">enfants_: vector&lt;CmdReglage&gt;</text>
+<line x1="1640" y1="569.0" x2="1838.5" y2="569.0" stroke="#6a6a8c"/>
+<text x="1647" y="582.0">+</text>
+<text x="1659" y="582.0">ajouter(cmd: CmdReglage): void</text>
+<rect x="1430" y="520" width="145.1" height="49.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="1502.5" y="533.0" text-anchor="middle" font-weight="bold" font-size="10">CmdRoutine</text>
+<line x1="1430" y1="538" x2="1575.0" y2="538" stroke="#6a6a8c"/>
+<text x="1437" y="551.0">-</text>
+<text x="1449" y="551.0">nom_: string</text>
+<text x="1437" y="563.5">-</text>
+<text x="1449" y="563.5">routine_: CmdReglage</text>
+<rect x="2250" y="340" width="145.1" height="36.5" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="2322.5" y="353.0" text-anchor="middle" font-weight="bold" font-size="10">CmdApercu</text>
+<line x1="2250" y1="358" x2="2395.1" y2="358" stroke="#6a6a8c"/>
+<text x="2257" y="371.0">-</text>
+<text x="2269" y="371.0">routine_: CmdReglage</text>
+<rect x="40" y="520" width="104.0" height="28.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="92.0" y="533.0" text-anchor="middle" font-weight="bold" font-size="10">CmdAide</text>
+<line x1="40" y1="538" x2="144.0" y2="538" stroke="#6a6a8c"/>
+<rect x="150" y="520" width="104.0" height="28.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="202.0" y="533.0" text-anchor="middle" font-weight="bold" font-size="10">CmdConfig</text>
+<line x1="150" y1="538" x2="254.0" y2="538" stroke="#6a6a8c"/>
+<rect x="260" y="520" width="104.0" height="28.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="312.0" y="533.0" text-anchor="middle" font-weight="bold" font-size="10">CmdInfuser</text>
+<line x1="260" y1="538" x2="364.0" y2="538" stroke="#6a6a8c"/>
+<rect x="370" y="520" width="104.0" height="28.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="422.0" y="533.0" text-anchor="middle" font-weight="bold" font-size="10">CmdNotif</text>
+<line x1="370" y1="538" x2="474.0" y2="538" stroke="#6a6a8c"/>
+<rect x="480" y="520" width="104.0" height="28.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="532.0" y="533.0" text-anchor="middle" font-weight="bold" font-size="10">CmdQuit</text>
+<line x1="480" y1="538" x2="584.0" y2="538" stroke="#6a6a8c"/>
+<rect x="590" y="520" width="106.0" height="28.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="643.0" y="533.0" text-anchor="middle" font-weight="bold" font-size="10">CmdRemplirEau</text>
+<line x1="590" y1="538" x2="696.0" y2="538" stroke="#6a6a8c"/>
+<rect x="701.9825" y="520" width="106.0" height="28.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="755.0" y="533.0" text-anchor="middle" font-weight="bold" font-size="10">CmdRemplirThe</text>
+<line x1="701.9825" y1="538" x2="808.0" y2="538" stroke="#6a6a8c"/>
+<rect x="813.9649999999999" y="520" width="104.0" height="28.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="866.0" y="533.0" text-anchor="middle" font-weight="bold" font-size="10">CmdReserve</text>
+<line x1="813.9649999999999" y1="538" x2="918.0" y2="538" stroke="#6a6a8c"/>
+<rect x="1060" y="720" width="321.6" height="267.5" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="1220.8" y="733.0" text-anchor="middle" font-weight="bold" font-size="10">Systeme</text>
+<line x1="1060" y1="738" x2="1381.6" y2="738" stroke="#6a6a8c"/>
+<text x="1067" y="751.0">-</text>
+<text x="1079" y="751.0">reserve_: Reserve</text>
+<text x="1067" y="763.5">-</text>
+<text x="1079" y="763.5">distributeurEau_: DistributeurEau</text>
+<text x="1067" y="776.0">-</text>
+<text x="1079" y="776.0">distributeurThe_: DistributeurThe</text>
+<text x="1067" y="788.5">-</text>
+<text x="1079" y="788.5">systemeChauffage_: SystemeChauffage</text>
+<text x="1067" y="801.0">-</text>
+<text x="1079" y="801.0">profils_: RegistreProfils</text>
+<text x="1067" y="813.5">-</text>
+<text x="1079" y="813.5">ecran_: Ecran</text>
+<text x="1067" y="826.0">-</text>
+<text x="1079" y="826.0">app_: AppDistant</text>
+<text x="1067" y="838.5">-</text>
+<text x="1079" y="838.5">portions_: unsigned int</text>
+<text x="1067" y="851.0">-</text>
+<text x="1079" y="851.0">theSelectionne_: string</text>
+<line x1="1060" y1="856.5" x2="1381.6" y2="856.5" stroke="#6a6a8c"/>
+<text x="1067" y="869.5">+</text>
+<text x="1079" y="869.5">infuser(nomThe: string, portions: unsigned int): void</text>
+<text x="1067" y="882.0">+</text>
+<text x="1079" y="882.0">remplirEau(q: double): void</text>
+<text x="1067" y="894.5">+</text>
+<text x="1079" y="894.5">remplirThe(nom: string, q: double): void</text>
+<text x="1067" y="907.0">+</text>
+<text x="1079" y="907.0">afficherReserves(): void</text>
+<text x="1067" y="919.5">+</text>
+<text x="1079" y="919.5">activerNotifications(actif: bool): void</text>
+<text x="1067" y="932.0">+</text>
+<text x="1079" y="932.0">theSelectionne(): string</text>
+<text x="1067" y="944.5">+</text>
+<text x="1079" y="944.5">portions(): unsigned int</text>
+<text x="1067" y="957.0">+</text>
+<text x="1079" y="957.0">modifierPortions(n: unsigned int): void</text>
+<text x="1067" y="969.5">+</text>
+<text x="1079" y="969.5">modifierTheSelectionne(nom: string): void</text>
+<text x="1067" y="982.0">+</text>
+<text x="1079" y="982.0">quitter(oui: bool): bool</text>
+<rect x="330" y="860" width="187.8" height="72.5" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="423.9" y="873.0" text-anchor="middle" font-size="8.5">«struct»</text>
+<text x="423.9" y="884.0" text-anchor="middle" font-weight="bold" font-size="10">Composants</text>
+<line x1="330" y1="889" x2="517.9" y2="889" stroke="#6a6a8c"/>
+<text x="337" y="902.0">+</text>
+<text x="349" y="902.0">chauffage: SystemeChauffage&amp;</text>
+<text x="337" y="914.5">+</text>
+<text x="349" y="914.5">eau: DistributeurEau&amp;</text>
+<text x="337" y="927.0">+</text>
+<text x="349" y="927.0">the: DistributeurThe&amp;</text>
+<rect x="40" y="690" width="236.0" height="61.5" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="158.0" y="703.0" text-anchor="middle" font-weight="bold" font-size="10">RegistreProfils</text>
+<line x1="40" y1="708" x2="276.0" y2="708" stroke="#6a6a8c"/>
+<text x="47" y="721.0">+</text>
+<text x="59" y="721.0">ajouter(profil: ProfilInfusion): void</text>
+<text x="47" y="733.5">+</text>
+<text x="59" y="733.5">trouver(nom: string): ProfilInfusion</text>
+<text x="47" y="746.0">+</text>
+<text x="59" y="746.0">noms(): vector&lt;string&gt;</text>
+<rect x="40" y="840" width="241.3" height="167.5" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="160.7" y="853.0" text-anchor="middle" font-weight="bold" font-size="10" font-style="italic">ProfilInfusion</text>
+<line x1="40" y1="858" x2="281.4" y2="858" stroke="#6a6a8c"/>
+<text x="47" y="871.0">#</text>
+<text x="59" y="871.0">nom_: string</text>
+<text x="47" y="883.5">#</text>
+<text x="59" y="883.5">quantiteService_: double</text>
+<text x="47" y="896.0">#</text>
+<text x="59" y="896.0">volumeService_: double</text>
+<text x="47" y="908.5">#</text>
+<text x="59" y="908.5">volumeRincage_: double</text>
+<text x="47" y="921.0">#</text>
+<text x="59" y="921.0">temperature_: double</text>
+<text x="47" y="933.5">#</text>
+<text x="59" y="933.5">tempsInfusion_: double</text>
+<line x1="40" y1="939.0" x2="281.4" y2="939.0" stroke="#6a6a8c"/>
+<text x="47" y="952.0">+</text>
+<text x="59" y="952.0">nom(): string</text>
+<text x="47" y="964.5">+</text>
+<text x="59" y="964.5">besoins(): Besoins</text>
+<text x="47" y="977.0">+</text>
+<text x="59" y="977.0">preparer(composants: Composants): void</text>
+<text x="47" y="989.5">#</text>
+<text x="59" y="989.5">rincer(composants: Composants): void</text>
+<text x="47" y="1002.0">#</text>
+<text x="59" y="1002.0">infuser(composants: Composants): void</text>
+<rect x="330" y="1010" width="104.0" height="60.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="382.0" y="1023.0" text-anchor="middle" font-size="8.5">«struct»</text>
+<text x="382.0" y="1034.0" text-anchor="middle" font-weight="bold" font-size="10">Besoins</text>
+<line x1="330" y1="1039" x2="434.0" y2="1039" stroke="#6a6a8c"/>
+<text x="337" y="1052.0">+</text>
+<text x="349" y="1052.0">eau: double</text>
+<text x="337" y="1064.5">+</text>
+<text x="349" y="1064.5">the: double</text>
+<rect x="20" y="1100" width="104.0" height="28.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="72.0" y="1113.0" text-anchor="middle" font-weight="bold" font-size="10">ProfilVert</text>
+<line x1="20" y1="1118" x2="124.0" y2="1118" stroke="#6a6a8c"/>
+<rect x="132" y="1100" width="104.0" height="28.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="184.0" y="1113.0" text-anchor="middle" font-weight="bold" font-size="10">ProfilNoir</text>
+<line x1="132" y1="1118" x2="236.0" y2="1118" stroke="#6a6a8c"/>
+<rect x="244" y="1100" width="104.0" height="28.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="296.0" y="1113.0" text-anchor="middle" font-weight="bold" font-size="10">ProfilOolong</text>
+<line x1="244" y1="1118" x2="348.0" y2="1118" stroke="#6a6a8c"/>
+<rect x="600" y="840" width="332.3" height="86.5" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="766.1" y="853.0" text-anchor="middle" font-weight="bold" font-size="10" font-style="italic">FabriqueSysteme</text>
+<line x1="600" y1="858" x2="932.3" y2="858" stroke="#6a6a8c"/>
+<text x="607" y="871.0">+</text>
+<text x="619" y="871.0" font-style="italic">nomModele(): string</text>
+<text x="607" y="883.5">+</text>
+<text x="619" y="883.5" font-style="italic">creerChauffage(): SystemeChauffage</text>
+<text x="607" y="896.0">+</text>
+<text x="619" y="896.0" font-style="italic">creerDistributeurEau(reserve: Reserve): DistributeurEau</text>
+<text x="607" y="908.5">+</text>
+<text x="619" y="908.5" font-style="italic">creerDistributeurThe(reserve: Reserve): DistributeurThe</text>
+<text x="607" y="921.0">+</text>
+<text x="619" y="921.0">creerSysteme(): Systeme</text>
+<rect x="610" y="760" width="118.3" height="28.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="669.1" y="773.0" text-anchor="middle" font-weight="bold" font-size="10">FabriqueCompact</text>
+<line x1="610" y1="778" x2="728.3" y2="778" stroke="#6a6a8c"/>
+<rect x="800" y="760" width="104.0" height="28.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="852.0" y="773.0" text-anchor="middle" font-weight="bold" font-size="10">FabriquePro</text>
+<line x1="800" y1="778" x2="904.0" y2="778" stroke="#6a6a8c"/>
+<rect x="389.9" y="1090" width="300.2" height="80.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="540.0" y="1103.0" text-anchor="middle" font-weight="bold" font-size="10" font-style="italic">SystemeChauffage</text>
+<line x1="389.9" y1="1108" x2="690.1" y2="1108" stroke="#6a6a8c"/>
+<text x="396.9" y="1121.0">#</text>
+<text x="408.9" y="1121.0">vitesse_: double</text>
+<line x1="389.9" y1="1126.5" x2="690.1" y2="1126.5" stroke="#6a6a8c"/>
+<text x="396.9" y="1139.5">+</text>
+<text x="408.9" y="1139.5">chaufferEau(temperature: double): void</text>
+<text x="396.9" y="1152.0">+</text>
+<text x="408.9" y="1152.0">chaufferEauPreparation(temperature: double): void</text>
+<text x="396.9" y="1164.5">+</text>
+<text x="408.9" y="1164.5">chaufferEauRincage(temperature: double): void</text>
+<rect x="380.7975" y="1260" width="167.5" height="28.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="464.6" y="1273.0" text-anchor="middle" font-weight="bold" font-size="10">SystemeChauffageCompact</text>
+<line x1="380.7975" y1="1278" x2="548.3" y2="1278" stroke="#6a6a8c"/>
+<rect x="556.3050000000001" y="1260" width="142.9" height="28.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="627.8" y="1273.0" text-anchor="middle" font-weight="bold" font-size="10">SystemeChauffagePro</text>
+<line x1="556.3050000000001" y1="1278" x2="699.2" y2="1278" stroke="#6a6a8c"/>
+<rect x="782.575" y="1090" width="294.8" height="92.5" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="930.0" y="1103.0" text-anchor="middle" font-weight="bold" font-size="10" font-style="italic">DistributeurThe</text>
+<line x1="782.575" y1="1108" x2="1077.4" y2="1108" stroke="#6a6a8c"/>
+<text x="789.575" y="1121.0">#</text>
+<text x="801.575" y="1121.0">reserve_: Reserve</text>
+<text x="789.575" y="1133.5">#</text>
+<text x="801.575" y="1133.5">ratio_: double</text>
+<line x1="782.575" y1="1139.0" x2="1077.4" y2="1139.0" stroke="#6a6a8c"/>
+<text x="789.575" y="1152.0">+</text>
+<text x="801.575" y="1152.0">distribuerThe(the: string, q: double): void</text>
+<text x="789.575" y="1164.5">+</text>
+<text x="801.575" y="1164.5">verifierSuffisance(the: string, q: double): void</text>
+<text x="789.575" y="1177.0">+</text>
+<text x="801.575" y="1177.0">obtenirRatio(): double</text>
+<rect x="776.95" y="1260" width="161.4" height="28.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="857.6" y="1273.0" text-anchor="middle" font-weight="bold" font-size="10">DistributeurTheCompact</text>
+<line x1="776.95" y1="1278" x2="938.3" y2="1278" stroke="#6a6a8c"/>
+<rect x="946.3050000000001" y="1260" width="136.7" height="28.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="1014.7" y="1273.0" text-anchor="middle" font-weight="bold" font-size="10">DistributeurThePro</text>
+<line x1="946.3050000000001" y1="1278" x2="1083.1" y2="1278" stroke="#6a6a8c"/>
+<rect x="1207.35" y="1090" width="225.3" height="92.5" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="1320.0" y="1103.0" text-anchor="middle" font-weight="bold" font-size="10" font-style="italic">DistributeurEau</text>
+<line x1="1207.35" y1="1108" x2="1432.6" y2="1108" stroke="#6a6a8c"/>
+<text x="1214.35" y="1121.0">#</text>
+<text x="1226.35" y="1121.0">reserve_: Reserve</text>
+<text x="1214.35" y="1133.5">#</text>
+<text x="1226.35" y="1133.5">ratio_: double</text>
+<line x1="1207.35" y1="1139.0" x2="1432.6" y2="1139.0" stroke="#6a6a8c"/>
+<text x="1214.35" y="1152.0">+</text>
+<text x="1226.35" y="1152.0">distribuerEau(q: double): void</text>
+<text x="1214.35" y="1164.5">+</text>
+<text x="1226.35" y="1164.5">verifierSuffisance(q: double): void</text>
+<text x="1214.35" y="1177.0">+</text>
+<text x="1226.35" y="1177.0">obtenirRatio(): double</text>
+<rect x="1166.95" y="1260" width="161.4" height="28.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="1247.6" y="1273.0" text-anchor="middle" font-weight="bold" font-size="10">DistributeurEauCompact</text>
+<line x1="1166.95" y1="1278" x2="1328.3" y2="1278" stroke="#6a6a8c"/>
+<rect x="1336.305" y="1260" width="136.7" height="28.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="1404.7" y="1273.0" text-anchor="middle" font-weight="bold" font-size="10">DistributeurEauPro</text>
+<line x1="1336.305" y1="1278" x2="1473.1" y2="1278" stroke="#6a6a8c"/>
+<rect x="1900" y="720" width="268.1" height="117.5" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="2034.0" y="733.0" text-anchor="middle" font-weight="bold" font-size="10">Notificateur</text>
+<line x1="1900" y1="738" x2="2168.1" y2="738" stroke="#6a6a8c"/>
+<text x="1907" y="751.0">-</text>
+<text x="1919" y="751.0">observateurs_: vector&lt;Observateur&gt;</text>
+<text x="1907" y="763.5">-</text>
+<text x="1919" y="763.5">eauFaible_: bool</text>
+<text x="1907" y="776.0">-</text>
+<text x="1919" y="776.0">theFaible_: map&lt;string, bool&gt;</text>
+<line x1="1900" y1="781.5" x2="2168.1" y2="781.5" stroke="#6a6a8c"/>
+<text x="1907" y="794.5">+</text>
+<text x="1919" y="794.5">ajouterObservateur(o: Observateur): void</text>
+<text x="1907" y="807.0">+</text>
+<text x="1919" y="807.0">retirerObservateur(o: Observateur): void</text>
+<text x="1907" y="819.5">#</text>
+<text x="1919" y="819.5">verifierEau(qte: double): void</text>
+<text x="1907" y="832.0">#</text>
+<text x="1919" y="832.0">verifierThe(the: string, qte: double): void</text>
+<rect x="1900" y="930" width="380.4" height="60.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="2090.2" y="943.0" text-anchor="middle" font-size="8.5">«interface»</text>
+<text x="2090.2" y="954.0" text-anchor="middle" font-weight="bold" font-size="10" font-style="italic">Observateur</text>
+<line x1="1900" y1="959" x2="2280.4" y2="959" stroke="#6a6a8c"/>
+<text x="1907" y="972.0">+</text>
+<text x="1919" y="972.0" font-style="italic">alerterEau(evenement: Evenement, qte: double): void</text>
+<text x="1907" y="984.5">+</text>
+<text x="1919" y="984.5" font-style="italic">alerterThe(evenement: Evenement, the: string, qte: double): void</text>
+<rect x="1700" y="1100" width="104.0" height="28.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="1752.0" y="1113.0" text-anchor="middle" font-weight="bold" font-size="10">Ecran</text>
+<line x1="1700" y1="1118" x2="1804.0" y2="1118" stroke="#6a6a8c"/>
+<rect x="1960" y="1100" width="104.0" height="28.0" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="2012.0" y="1113.0" text-anchor="middle" font-weight="bold" font-size="10">AppDistant</text>
+<line x1="1960" y1="1118" x2="2064.0" y2="1118" stroke="#6a6a8c"/>
+<rect x="1500" y="720" width="348.3" height="167.5" fill="url(#gc)" stroke="#6a6a8c" stroke-width="1" filter="url(#sh)"/>
+<text x="1674.2" y="733.0" text-anchor="middle" font-weight="bold" font-size="10">Reserve</text>
+<line x1="1500" y1="738" x2="1848.3" y2="738" stroke="#6a6a8c"/>
+<text x="1507" y="751.0">-</text>
+<text x="1519" y="751.0">qteEau_: double</text>
+<text x="1507" y="763.5">-</text>
+<text x="1519" y="763.5">thes_: map&lt;string, double&gt;</text>
+<text x="1507" y="776.0">-</text>
+<text x="1519" y="776.0">ordreThes_: vector&lt;string&gt;</text>
+<line x1="1500" y1="781.5" x2="1848.3" y2="781.5" stroke="#6a6a8c"/>
+<text x="1507" y="794.5">+</text>
+<text x="1519" y="794.5">ajouterThe(nom: string): void</text>
+<text x="1507" y="807.0">+</text>
+<text x="1519" y="807.0">distribuerEau(q: double, ratio: double): void</text>
+<text x="1507" y="819.5">+</text>
+<text x="1519" y="819.5">distribuerThe(the: string, q: double, ratio: double): void</text>
+<text x="1507" y="832.0">+</text>
+<text x="1519" y="832.0">remplirEau(q: double): void</text>
+<text x="1507" y="844.5">+</text>
+<text x="1519" y="844.5">remplirThe(the: string, q: double): void</text>
+<text x="1507" y="857.0">+</text>
+<text x="1519" y="857.0">eauSuffisante(q: double, ratio: double): void</text>
+<text x="1507" y="869.5">+</text>
+<text x="1519" y="869.5">theSuffisant(the: string, q: double, ratio: double): void</text>
+<text x="1507" y="882.0">+</text>
+<text x="1519" y="882.0">afficherReserves(): void</text>
+</svg>

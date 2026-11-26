@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<title>LOG2400 TP2 — Discussion</title>
+<style>
+@page { size: A4; margin: 14mm 15mm; }
+body { font-family: "Helvetica Neue", Arial, sans-serif; font-size: 9.6pt; line-height: 1.32; color: #1a1a1a; margin: 0; }
+h1 { font-size: 15pt; margin: 0 0 2px; }
+.sub { color: #555; font-size: 9pt; margin-bottom: 8px; }
+h2 { font-size: 11.5pt; margin: 10px 0 4px; border-bottom: 1.5px solid #2b5c8a; color: #2b5c8a; padding-bottom: 1px; }
+.fig { text-align: center; margin: 4px 0 2px; }
+.fig img { width: 184mm; height: 184mm; margin: -8mm 0 2mm; }
+.cap { text-align: center; font-size: 8.5pt; color: #555; }
+table { border-collapse: collapse; width: 100%; margin: 4px 0; }
+th, td { border: 1px solid #bbb; padding: 3px 5px; vertical-align: top; font-size: 9pt; }
+th { background: #e8eff6; text-align: left; }
+.p { margin: 0 0 6px; break-inside: avoid; }
+.p b.t { color: #2b5c8a; }
+code { font-family: Menlo, monospace; font-size: 8.6pt; background: #f2f2f2; padding: 0 2px; }
+.pb { break-before: page; }
+ul { margin: 2px 0 2px 16px; padding: 0; }
+</style></head><body>
+
+<h1>PolyInfusion — Diagramme de classes et justification des patrons</h1>
+<div class="sub">LOG2400 — TP2 (a et b) — équipe : matricule1, matricule2</div>
+
+<h2>1. Diagramme de classes</h2>
+<div class="fig"><img src="diagramme_classes_corrige.svg" alt="Diagramme de classes"></div>
+<div class="cap">Figure 1 — Diagramme de classes de PolyInfusion (modèles compact et pro). Même diagramme dans <code>Diagram_corrige.puml</code>.</div>
+
+<h2 class="pb">2. Vue d'ensemble de la conception</h2>
+<p>Le code est organisé en trois blocs qui se parlent peu : la <b>console</b> (<code>InterfaceConsole</code> transforme une ligne en <code>Instruction</code>), l'<b>exécution</b> (<code>Executeur</code> traduit l'instruction en commande et tient l'historique) et le <b>système</b> (<code>Systeme</code> et ses composants, qui font réellement le travail). Ajouter une instruction, un thé ou un modèle de machine se fait en ajoutant des classes, sans modifier celles qui existent.</p>
+
+<table>
+<tr><th style="width:17%">Patron</th><th style="width:30%">Problème rencontré</th><th>Classes</th></tr>
+<tr><td>Strategy</td><td>Les trois thés se préparent avec les mêmes étapes mais des paramètres différents</td><td><code>ProfilInfusion</code>, <code>ProfilVert/Noir/Oolong</code>, <code>RegistreProfils</code></td></tr>
+<tr><td>Abstract Factory</td><td>Compact et pro ont chacun une famille de composants qui vont ensemble</td><td><code>FabriqueSysteme</code>, <code>FabriqueCompact</code>, <code>FabriquePro</code></td></tr>
+<tr><td>Observer</td><td>Alerter l'écran et l'application distante quand une réserve baisse ou remonte</td><td><code>Notificateur</code>, <code>Reserve</code>, <code>Observateur</code>, <code>Ecran</code>, <code>AppDistant</code></td></tr>
+<tr><td>Command</td><td>Annuler / rétablir les réglages et découpler la console de ce qui est exécuté</td><td><code>Commande</code>, <code>CmdReglage</code>, <code>CmdSelection</code>, <code>CmdPortion</code>, <code>HistoriqueCMD</code>, <code>Executeur</code></td></tr>
+<tr><td>Composite</td><td>Une routine doit s'exécuter et s'annuler comme un seul réglage, et une routine peut en contenir une autre</td><td><code>Routine</code>, <code>CmdRoutine</code>, <code>RegistreRoutines</code></td></tr>
+<tr><td>Iterator</td><td>Lister les changements élémentaires d'une routine sans que la routine ne le fasse</td><td><code>IterateurReglage</code>, <code>IterateurFeuille</code>, <code>IterateurRoutine</code>, <code>CmdApercu</code></td></tr>
+<tr><td>Prototype</td><td>Chaque exécution d'une routine doit avoir sa propre copie pour s'annuler indépendamment</td><td><code>CmdReglage::cloner()</code></td></tr>
+</table>
+
+<h2>3. Justification des patrons</h2>
+
+<div class="p"><b class="t">Strategy — profils d'infusion.</b> Préparer un thé suit toujours le même enchaînement (préparer, rincer, infuser, servir), seules la température, les volumes et le temps changent. <code>ProfilInfusion</code> fixe cet enchaînement (méthode patron) et chaque thé n'apporte que ses valeurs. <code>Systeme::infuser</code> reçoit un nom de thé, le cherche dans <code>RegistreProfils</code> et appelle <code>preparer</code> : il ne contient aucun <code>if</code> sur le type de thé. Pour ajouter un thé, on écrit une sous-classe et on l'enregistre ; sa réserve est créée automatiquement et la console connaît son nom.</div>
+
+<div class="p"><b class="t">Abstract Factory — modèles compact et pro.</b> Le chauffage, le distributeur d'eau et le distributeur de thé d'un modèle sont cohérents entre eux (vitesse de chauffe, pertes de 10 % de thé et 20 % d'eau pour le compact). <code>FabriqueSysteme</code> déclare la création de la famille complète et <code>creerSysteme()</code> l'assemble ; <code>main</code> ne choisit qu'une fabrique d'après l'argument <code>compact</code> ou <code>pro</code>. Il est impossible de mélanger un chauffage compact et un distributeur pro. Un troisième modèle n'est qu'une nouvelle fabrique avec ses trois composants. Les profils ne changent pas : ils parlent aux composants par l'interface <code>Composants</code>.</div>
+
+<div class="p"><b class="t">Observer — alertes de réserve.</b> <code>Reserve</code> hérite de <code>Notificateur</code>, qui détecte les passages sous le seuil (500 mL, 10 g) et le retour au-dessus, une seule fois par franchissement. Il avertit ses <code>Observateur</code> sans savoir qui ils sont. L'<code>Ecran</code> est toujours abonné ; l'<code>AppDistant</code> est abonné ou désabonné par la commande <code>notifications</code>. Ajouter un destinataire (courriel, journal) revient à hériter de <code>Observateur</code> sans toucher à la réserve.</div>
+
+<div class="p"><b class="t">Command — réglages annulables.</b> Chaque instruction devient un objet <code>Commande</code> avec <code>executer(Systeme*)</code> ; <code>Executeur</code> ne connaît que cette interface. Seuls les changements de réglage (thé sélectionné, portions, routine) peuvent être annulés : ils passent par <code>CmdReglage</code>, qui ajoute <code>undo</code> et <code>redo</code>. Ce choix est vérifié par le compilateur : <code>HistoriqueCMD</code> n'accepte que des <code>CmdReglage</code>, donc on ne peut pas y ranger par erreur un <code>infuser</code> ou un remplissage, qui ne sont pas réversibles. L'historique est formé de deux piles (annulation, rétablissement) ; une nouvelle opération vide la pile de rétablissement.</div>
+
+<div class="p"><b class="t">Composite — routines.</b> <code>Routine</code> est un <code>CmdReglage</code> qui contient d'autres <code>CmdReglage</code>, y compris d'autres routines (<code>matin</code> contient <code>duo</code>). Elle s'exécute dans l'ordre, s'annule dans l'ordre inverse et se rétablit dans l'ordre : le client traite une routine comme un simple réglage et un seul <code>undo</code> suffit. <code>CmdRoutine</code> l'enrobe pour afficher « Routine appliquée : nom. ».</div>
+
+<div class="p"><b class="t">Iterator — aperçu d'une routine.</b> La commande <code>apercu</code> doit lister les changements élémentaires, même ceux des sous-routines. Ce n'est pas à la routine de le faire : <code>creerIterateur()</code> fournit un <code>IterateurReglage</code> et <code>CmdApercu</code> le parcourt avec <code>aSuivant()</code> / <code>suivant()</code>. <code>IterateurFeuille</code> renvoie son unique réglage ; <code>IterateurRoutine</code> parcourt ses enfants et leur demande leur propre itérateur, ce qui aplatit les niveaux sans que <code>CmdApercu</code> ne connaisse la structure.</div>
+
+<div class="p"><b class="t">Prototype — exécutions indépendantes.</b> Une routine mémorise l'ancienne valeur de chaque réglage au moment où elle s'exécute. Si <code>solo</code> était la même instance à chaque fois, deux exécutions se mélangeraient dans l'historique. <code>RegistreRoutines::creerExecution</code> appelle donc <code>cloner()</code> (copie profonde) et exécute la copie.</div>
+
+<h2>4. Choix de conception et limites</h2>
+<ul>
+<li><b>Validation globale avant consommation.</b> Pour N portions, <code>Systeme::infuser</code> vérifie d'abord eau et thé pour l'ensemble, puis consomme : en cas de manque, rien n'est consommé (message « Aucune consommation effectuée. »).</li>
+<li><b>Alertes à l'écran toujours actives.</b> Seule l'application distante est désactivable, comme l'exige l'énoncé.</li>
+<li><b>Extensions possibles.</b> Un nouveau réglage annulable hérite de <code>CmdReglage</code> (le compilateur impose <code>undo</code>, <code>redo</code>, <code>description</code>, <code>creerIterateur</code>, <code>cloner</code>) ; une nouvelle routine s'enregistre dans <code>RegistreRoutines</code>.</li>
+<li><b>Limite.</b> Le code a été testé sous macOS (Clang) ; il n'a pas encore été compilé avec MSVC.</li>
+</ul>
+</body></html>
