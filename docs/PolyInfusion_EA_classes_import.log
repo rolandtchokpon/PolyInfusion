@@ -1,0 +1,83 @@
+
+Importing Model from XMI
+Root Package: PolyInfusion
+Add Classifier: TypeInstruction
+Add Classifier: Instruction
+Add Classifier: InterfaceConsole
+Add Classifier: Executeur
+Add Classifier: HistoriqueCMD
+Add Classifier: RegistreRoutines
+Add Classifier: Commande
+Add Classifier: CmdReglage
+Add Classifier: IterateurReglage
+Add Classifier: IterateurFeuille
+Add Classifier: IterateurRoutine
+Add Classifier: CmdSelection
+Add Classifier: CmdPortion
+Add Classifier: Routine
+Add Classifier: CmdRoutine
+Add Classifier: CmdApercu
+Add Classifier: CmdAide
+Add Classifier: CmdConfig
+Add Classifier: CmdInfuser
+Add Classifier: CmdNotif
+Add Classifier: CmdQuit
+Add Classifier: CmdRemplirEau
+Add Classifier: CmdRemplirThe
+Add Classifier: CmdReserve
+Add Classifier: Systeme
+Add Classifier: Composants
+Add Classifier: SystemeChauffage
+Add Classifier: SystemeChauffageCompact
+Add Classifier: SystemeChauffagePro
+Add Classifier: DistributeurThe
+Add Classifier: DistributeurTheCompact
+Add Classifier: DistributeurThePro
+Add Classifier: DistributeurEau
+Add Classifier: DistributeurEauCompact
+Add Classifier: DistributeurEauPro
+Add Classifier: Reserve
+Add Classifier: RegistreProfils
+Add Classifier: ProfilInfusion
+Add Classifier: Besoins
+Add Classifier: ProfilVert
+Add Classifier: ProfilNoir
+Add Classifier: ProfilOolong
+Add Classifier: FabriqueSysteme
+Add Classifier: FabriqueCompact
+Add Classifier: FabriquePro
+Add Classifier: Notificateur
+Add Classifier: Observateur
+Add Classifier: Ecran
+Add Classifier: AppDistant
+Add Classifier: Evenement
+Add Classifier: bool
+Add Classifier: double
+Add Classifier: map<string, CmdReglage>
+Add Classifier: map<string, bool>
+Add Classifier: map<string, double>
+Add Classifier: string
+Add Classifier: unsigned int
+Add Classifier: vector<CmdReglage>
+Add Classifier: vector<Observateur>
+Add Classifier: vector<string>
+Resolving Classifiers
+Resolving Owners
+Resolving Attribute Types
+Resolving Parameter Types
+Resolving Owned Member Types
+Adding Tagged Values
+Adding Note Links
+Adding Connectors
+Resolving Association-Classes
+Resolving Linked Element Features For Note
+Resolving Child Elements for Activity Partition
+Resolving Messages on Communication Diagram
+Adding Exception Handler Connectors
+Resolving Generalization Sets
+Resolving Specialized Properties for Association
+Resolving Properties for Association Ends
+Resolving DiagramIDs
+Resolving Note links
+Fixup external references
+Import Complete!
